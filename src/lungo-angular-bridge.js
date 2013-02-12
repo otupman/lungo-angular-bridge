@@ -71,7 +71,7 @@ var AppRouter = function(Lungo, $location, $scope) {
 
 };
 
-angular.module('Centralway.angular-lungo-bridge', [])
+angular.module('Centralway.lungo-angular-bridge', [])
 	.directive('cwRouting', function($location) {
 		return {
 			restrict: 'ECA',
