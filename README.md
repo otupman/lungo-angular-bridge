@@ -37,9 +37,9 @@ Lungo imposes a section/article constraint on URLs. It expects all URLs to be in
     
 Some examples:
 
-+ /dashboard => <section id='dashboard'>
-+ /dashboard/some_article => <section id='dashboard'><article id='some_article'>
-+ /dashboard/some_article/confirm => <section id='dashboard'><article id='some_article'>
++ /dashboard => section id='dashboard'
++ /dashboard/some_article => section id='dashboard' - article id='some_article'
++ /dashboard/some_article/confirm => section id='dashboard' - article id='some_article'
 
 ## Examples
 
