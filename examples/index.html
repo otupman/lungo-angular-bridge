@@ -1,0 +1,60 @@
+<html ng-app="BridgeExample">
+    <head>
+        <title>Lungo Angular Bridge Example</title>
+
+        <link rel="stylesheet" type="text/css" href="../components/lungo/lungo.css"/>
+        <link rel="stylesheet" type="text/css" href="../components/lungo/lungo.icon.css"/>
+        <link rel="stylesheet" type="text/css" href="../components/lungo/theme.lungo.css">
+        <script type="text/javascript" src="../components/quojs/quo.debug.js"></script>
+        <script type="text/javascript" src="../components/lungo/lungo.js"></script>
+    </head>
+
+    <body>
+        <section id="main" data-transition="slide">
+            <header ng-controller="AppCtrl">
+                <nav class="left">Hello, {{name}}</nav>
+                <nav class="right"><a href="section1">Section 1</a></nav>
+            </header>
+            <article id="something" class="active">
+                <p>
+                    This is the first article that will appear.
+                </p>
+                <p>
+                    This article has to be here, it's not (yet) clear why.
+                </p>
+                <p>
+                    <a href="dynamic">Click here to go to the dynamically loaded section</a>
+                </p>
+            </article>
+        </section>
+
+        <section id="section1" data-transition="slide">
+            <header>
+                <nav class="left"><a href="/">Home</a></nav>
+            </header>
+            <article class="active">
+                <p>Section 1</p>
+            </article>
+        </section>
+
+        <!-- The CW-Routing does not yet work. See AppCtrl -->
+        <!-- <cw-routing></cw-routing> -->
+        <cw-view></cw-view>
+
+        <script type="text/javascript" src="../components/angular/angular.js"></script>
+        <script type="text/javascript" src="../src/lungo-angular-bridge.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/controllers.js"></script>
+        <script type="text/javascript" src="js/services.js"></script>
+        <script type="text/javascript" src="js/filters.js"></script>
+        <script type="text/javascript" src="js/directives.js"></script>
+
+        <script type="text/javascript">
+            Lungo.init({
+                data    : 'Lungo Angular Bridge',
+                version : '0.0.1'
+            });
+        </script>
+    </body>
+
+</html>
