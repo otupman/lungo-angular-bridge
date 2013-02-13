@@ -13,4 +13,10 @@ angular.module('TodoExample',
 		$rootScope.$on('handleEmit', function(event, args) {
 			$rootScope.$broadcast('handleBroadcast', args);
 		});
-	});  
+	})
+	.directive('formatDate', function() {
+		return function(scope, element, attrs) {
+			var date = scope.$eval(attrs.ngModel);
+			element.text(moment(date).calendar());
+		};
+	})
