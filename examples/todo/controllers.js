@@ -1,6 +1,8 @@
-function TodoCtrl($scope, $location) {
+function AppCtrl($scope, $location) {
   AppRouter.instance = AppRouter(Lungo, $location, $scope);
+}
 
+function TodoCtrl($scope) {
   $scope.todos = [
     {text:'learn angular', done:true},
     {text:'build an angular app', done:false}];

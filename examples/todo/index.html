@@ -11,7 +11,7 @@
 
     <body>
         <section id="main" data-transition="slide">
-            <header data-title="Todo Example"></header>
+            <header data-title="Todo Example" ng-controller="AppCtrl"></header>
             <article class="active" ng-controller="TodoCtrl">
                  <span>{{remaining()}} of {{todos.length}} remaining</span>
                 [ <a href="" ng-click="archive()">archive</a> ]
