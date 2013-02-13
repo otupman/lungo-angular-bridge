@@ -2,7 +2,9 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('BridgeExample', ['Centralway.lungo-angular-bridge', 'BridgeExample.filters', 'BridgeExample.services', 'BridgeExample.directives']).
+angular.module('BridgeExample', 
+	['Centralway.lungo-angular-bridge'
+	, 'BridgeExample.filters', 'BridgeExample.services', 'BridgeExample.directives', 'BridgeExample.controllers']).
   config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.when('/section1', {});
     $routeProvider.when('/dynamic', { templateUrl: 'examples/partials/dynamic.html', controller: DynamicCtrl});
