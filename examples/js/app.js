@@ -6,7 +6,9 @@ angular.module('BridgeExample',
 	['Centralway.lungo-angular-bridge'
 	, 'BridgeExample.filters', 'BridgeExample.services', 'BridgeExample.directives', 'BridgeExample.controllers']).
   config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+    // First section is embedded in index.html, so no parameters
     $routeProvider.when('/section1', {});
+    // Dynamic section is loaded via cw-view
     $routeProvider.when('/dynamic', { templateUrl: 'examples/partials/dynamic.html', controller: DynamicCtrl});
     // $routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: LoginCtrl});
     // $routeProvider.when('/logout', {templateUrl: 'partials/dashboard.html', controller: LogoutCtrl});
