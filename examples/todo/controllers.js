@@ -4,8 +4,8 @@ function AppCtrl($scope, $location) {
 
 function TodoCtrl($scope) {
   $scope.todos = [
-    {text:'learn angular', done:true},
-    {text:'build an angular app', done:false}];
+    {text:'learn angular', done:true, dueOn: moment().startOf('day').toDate()},
+    {text:'build an angular app', done:false, dueOn: moment("2013-04-01").toDate()}];
 
   $scope.$on('handleBroadcast', function(event, args) {
     console.log('TodoCtrl::addTodo - received!');
