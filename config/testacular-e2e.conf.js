@@ -2,15 +2,15 @@
 // Generated on Tue Feb 12 2013 13:49:19 GMT-0500 (EST)
 
 
-// base path, that will be used to resolve files and exclude
-basePath = '../../../../../..';
+// Base path, that will be used to resolve files and exclude
+basePath = '../';
 
 
 // list of files / patterns to load in the browser
 files = [
-  JASMINE,
-  JASMINE_ADAPTER,
-  'test/**/*Spec.js'
+  ANGULAR_SCENARIO,
+  ANGULAR_SCENARIO_ADAPTER,
+  'test/e2e/**/*.js'
 ];
 
 
@@ -61,6 +61,11 @@ browsers = ['Chrome'];
 captureTimeout = 5000;
 
 
-// Continuous Integration mode
-// if true, it capture browsers, run tests and exit
+// Continuous Integration mode {true: capturebrowsers, false: runtests and exit}
 singleRun = false;
+
+junitReporter = {
+  outputFile: 'test_out/e2e.xml',
+  suite: 'e2e'
+};
+
