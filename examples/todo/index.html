@@ -1,4 +1,4 @@
-<html ng-app>
+<html ng-app="TodoExample">
     <head>
         <title>Todo Example: Lungo Angular Bridge</title>
 
@@ -6,13 +6,17 @@
         <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.icon.css"/>
         <link rel="stylesheet" type="text/css" href="../../components/lungo/theme.lungo.css">
         <script type="text/javascript" src="../../components/quojs/quo.debug.js"></script>
-        <script type="text/javascript" src="../../components/lungo/lungo.js"></script>
+        <script type="text/javascript" src="../../lib/lungo.debug.js"></script>
     </head>
 
     <body>
         <section id="main" data-transition="slide">
-            <header data-title="Todo Example" ng-controller="AppCtrl"></header>
-            <article class="active" ng-controller="TodoCtrl">
+            <header data-title="Todo Example" ng-controller="AppCtrl">
+                <nav class="right">
+                    <a href="add-todo" data-icon="plus"></a>
+                 </nav>
+            </header>
+            <article class="active" ng-controller="TodoCtrl" id="main">
                  <span>{{remaining()}} of {{todos.length}} remaining</span>
                 [ <a href="" ng-click="archive()">archive</a> ]
                 <ul class="unstyled">
@@ -21,6 +25,11 @@
                         <span class="done-{{todo.done}}">{{todo.text}}</span>
                     </li>
                 </ul>
+            </article>
+        </section>
+
+        <section id="add-todo" data-transition="slide">
+            <article class="active">
                 <form ng-submit="addTodo()">
                     <input type="text" ng-model="todoText"  size="30" placeholder="add new todo here">
                     <input class="btn-primary" type="submit" value="add">
@@ -28,10 +37,15 @@
             </article>
         </section>
 
-<!--         <cw-view></cw-view> -->
+        <!-- 
+            routing does not work without either cw-view or ng-view 
+            https://github.com/angular/angular.js/issues/1580 
+        -->
+        <cw-view></cw-view>
 
         <script type="text/javascript" src="../../components/angular/angular.js"></script>
         <script type="text/javascript" src="../../src/lungo-angular-bridge.js"></script>
+        <script type="text/javascript" src="app.js"></script>
         <script type="text/javascript" src="controllers.js"></script>
 
         <script type="text/javascript">
