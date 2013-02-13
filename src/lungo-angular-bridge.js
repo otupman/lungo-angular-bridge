@@ -17,7 +17,7 @@ var AppRouter = function(Lungo, $location, $scope) {
     var sectionName = pathParts[1] !== '' ? pathParts[1] : 'main';
     
     if(pathParts.length > sectionPathLength) {
-      Lungo.Router.article(pathParts[0], pathParts[1]);
+      Lungo.Router.article(sectionName, pathParts[2]);
     }
     else {
       console.log('AppRouter::showSection - transitioning to ', sectionName);
