@@ -6,7 +6,7 @@ function AppCtrl($scope, $location) {
 	  * A short cut to manually refresh the application from the example/ directory
 	  */
     $scope.refreshApplication = function() {
-    	window.location = '/examples/sample/index.html';
+    	window.location = '/examples/simple/index.html';
     }
     AppRouter.instance = AppRouter(Lungo, $location, $scope);
 }
