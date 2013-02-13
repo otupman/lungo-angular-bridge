@@ -1,0 +1,11 @@
+{
+  "name": "Todo Example",
+  "description": "An example from the lungo-angular-bridge project",
+  "version": "0.0.1",
+  "author": {
+    "name": "Centralway Factory"
+  },
+  "dependencies": {
+    "moment": "2.0.0"
+  }
+}
