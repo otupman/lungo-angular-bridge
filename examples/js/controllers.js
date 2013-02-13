@@ -14,3 +14,11 @@ function AppCtrl($scope, $location) {
 function DynamicCtrl($scope) {
 	
 }
+
+angular.module('BridgeExample.controllers', []).
+	controller('SearchCtrl', function($scope) {
+		$scope.term = $location.search('term');
+	})
+	.controller('PersonCtrl', function($scope, $routeParams) {
+		$scope.personId = $routeParams.personId;
+	});
