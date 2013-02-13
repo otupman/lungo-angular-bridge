@@ -16,10 +16,10 @@
                     <a href="add-todo" data-icon="plus"></a>
                  </nav>
             </header>
-            <article class="active" ng-controller="TodoCtrl" id="main">
+            <article class="active list indented scroll" ng-controller="TodoCtrl" id="main">
                  <span>{{remaining()}} of {{todos.length}} remaining</span>
                 [ <a href="" ng-click="archive()">archive</a> ]
-                <ul class="unstyled">
+                <ul>
                     <li ng-repeat="todo in todos">
                         <input type="checkbox" ng-model="todo.done">
                         <span class="done-{{todo.done}}">{{todo.text}}</span>
