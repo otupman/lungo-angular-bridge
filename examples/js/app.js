@@ -10,8 +10,6 @@ angular.module('BridgeExample',
     $routeProvider.when('/section1', {});
     // Dynamic section is loaded via cw-view
     $routeProvider.when('/dynamic', { templateUrl: 'examples/partials/dynamic.html', controller: DynamicCtrl});
-    // $routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: LoginCtrl});
-    // $routeProvider.when('/logout', {templateUrl: 'partials/dashboard.html', controller: LogoutCtrl});
     // Demo of using query parameters for search terms
     $routeProvider.when('/search', { templateUrl: 'examples/partials/search.html', controller: 'SearchCtrl'});
     // Demo of using IDs within URLs - note the section ID then article ID and **then** the person ID
