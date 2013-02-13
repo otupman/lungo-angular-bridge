@@ -34,5 +34,6 @@ function TodoAddCtrl($scope) {
   $scope.addTodo = function() {
     $scope.$emit('handleEmit', {text: $scope.todoText});
     $scope.todoText = '';
+    AppRouter.instance.back();
   };
 }
