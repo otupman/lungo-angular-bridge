@@ -7,10 +7,10 @@ function TodoCtrl($scope) {
     {text:'learn angular', done:true},
     {text:'build an angular app', done:false}];
 
-  $scope.addTodo = function() {
-    $scope.todos.push({text:$scope.todoText, done:false});
-    $scope.todoText = '';
-  };
+  $scope.$on('handleBroadcast', function(event, args) {
+    console.log('TodoCtrl::addTodo - received!');
+    $scope.todos.push({text:args.text, done:false});
+  });
 
   $scope.remaining = function() {
     var count = 0;
@@ -29,3 +29,10 @@ function TodoCtrl($scope) {
   };
 }
 
+function TodoAddCtrl($scope) {
+ 
+  $scope.addTodo = function() {
+    $scope.$emit('handleEmit', {text: $scope.todoText});
+    $scope.todoText = '';
+  };
+}
