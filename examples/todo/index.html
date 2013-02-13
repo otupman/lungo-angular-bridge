@@ -23,6 +23,7 @@
                     <li ng-repeat="todo in todos">
                         <input type="checkbox" ng-model="todo.done">
                         <span class="done-{{todo.done}}">{{todo.text}}</span>
+                        <span>Due: <strong format-date='todo.dueOn' ng-model='todo.dueOn'></strong></span>
                     </li>
                 </ul>
             </article>
