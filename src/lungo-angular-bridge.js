@@ -118,14 +118,13 @@ angular.module('Centralway.lungo-angular-bridge', [])
 
         if (template) {
           var targetContainer = element.parent();
-          var newElement = null;
 
           if($route.current.$route.sectionId) {
             removePreviouslyLoadedContent($route.current.$route.sectionId);
           }
 
           targetContainer.append(template);  
-          newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
+          var newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
           if(newElement.attr('id')) {
             $route.current.$route.sectionId = newElement.attr('id');
           }
