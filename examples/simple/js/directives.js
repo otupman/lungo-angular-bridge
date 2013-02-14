@@ -7,4 +7,11 @@ angular.module('BridgeExample.directives', []).
     return function(scope, elm, attrs) {
       elm.text(version);
     };
-  }]);
+  }])
+  .directive('directiveAndLungoTest', function() {
+  	return {
+            restrict: 'E',
+            template: '<a data-icon="home">Has home icon?</a>'
+
+        }
+  });
