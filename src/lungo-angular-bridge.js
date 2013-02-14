@@ -106,6 +106,11 @@ angular.module('Centralway.lungo-angular-bridge', [])
         destroyLastScope();
       }
 
+      function removePreviouslyLoadedContent(contentId) {
+        var existingElement = angular.element(Lungo.dom('#' + contentId)[0]);
+        existingElement.remove();
+      }
+
       function update() {
       	console.log('cw-view::update() - Performing content update');
         var locals = $route.current && $route.current.locals,
@@ -116,12 +121,16 @@ angular.module('Centralway.lungo-angular-bridge', [])
           var newElement = null;
 
           if($route.current.$route.sectionId) {
-            newElement = angular.element(Lungo.dom('#' + $route.current.$route.sectionId)[0]);
+            removePreviouslyLoadedContent($route.current.$route.sectionId);
+          }
+
+          targetContainer.append(template);  
+          newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
+          if(newElement.attr('id')) {
+            $route.current.$route.sectionId = newElement.attr('id');
           }
           else {
-            targetContainer.append(template);  
-            newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
-            $route.current.$route.sectionId = newElement.attr('id');
+            throw new Error('Elements loaded via templates must have an ID attribute');
           }
           
           destroyLastScope();
