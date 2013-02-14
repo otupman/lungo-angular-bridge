@@ -131,6 +131,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
           else {
             throw new Error('Elements loaded via templates must have an ID attribute');
           }
+          Lungo.Boot.Data.init('#' + newElement.attr('id'));
           
           destroyLastScope();
 
