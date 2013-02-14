@@ -62,16 +62,25 @@ This tests are as effective as browsers we can use in order to ensure the proper
 *Start Web Browser*
 Start the web browser (a simple wrapper for Python -m SimpleHTTPServer)
 
+<<<<<<< HEAD
     ./scripts/web-server.sh
+=======
+	./scripts/web-server.sh
+>>>>>>> Fixed testacular configuration in order to make the runner work; set up proper ports and paths, added sample test
 
 *Start Testacular Server*
 It will watch your tests and pop as many browsers as you want to test in order to ensure compatibility. In the future we can put PhantomJS for headless tests for CI
 
+<<<<<<< HEAD
     ./scripts/e2e-test.sh
+=======
+	./scripts/e2e-test.sh
+>>>>>>> Fixed testacular configuration in order to make the runner work; set up proper ports and paths, added sample test
 
 *Sample tests*
 E2E Tests are located in `test/e2e`.
 
+<<<<<<< HEAD
 ### Unit tests
 
 These are to test specific parts of the Bridge outside of the web browser environment. Things that should be tested:
@@ -94,6 +103,8 @@ Your friend is:
     ./scripts/unit-test.sh
 
 
+=======
+>>>>>>> Fixed testacular configuration in order to make the runner work; set up proper ports and paths, added sample test
 ## Credits
 
 Copyright (c) 2013 by Centralway Factory AG.
