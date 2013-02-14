@@ -117,6 +117,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
           targetContainer.append(template);
 
           var newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
+          Lungo.Boot.Data.init('#' + newElement.attr('id'));
           
           destroyLastScope();
 
