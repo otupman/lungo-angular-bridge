@@ -7,6 +7,19 @@
         <link rel="stylesheet" type="text/css" href="../../components/lungo/theme.lungo.css">
         <script type="text/javascript" src="../../components/quojs/quo.debug.js"></script>
         <script type="text/javascript" src="../../components/lungo/lungo.js"></script>
+
+        <script>
+            Lungo.Router.section = (function() {
+                var originalFn = Lungo.Router.section;
+                var sectionCallCount = 0;
+                return function(sectionId) {
+                    document.getElementById('lungo-router-section').text = sectionCallCount;
+                    sectionCallCount++;
+                    originalFn(sectionId);
+                }
+            })();
+        </script>
+        <call-count id='lungo-router-section'></call-count>
     </head>
 
     <body>
