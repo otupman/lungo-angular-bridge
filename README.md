@@ -51,9 +51,9 @@ Sooner or later we'll add a node.js server to handle things a litle nicer.
 
 In order to run the tests, we are using [Testacular](http://vojtajina.github.com/testacular/). We have two kind of tests, [unit tests](http://docs.angularjs.org/guide/dev_guide.unit-testing) and [end-2-end](http://docs.angularjs.org/guide/dev_guide.e2e-testing) tests.
 
-You need a version of v0.8.4+ and the latest version of Testacular (0.5.9).
+You need a version of v0.8.4+ and the latest stable version of Testacular (0.5.9).
 
-	npm install -g testacular@canary
+	npm install -g testacular@0.5.9
 
 ### End-2-End Tests
 
