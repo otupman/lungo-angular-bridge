@@ -53,7 +53,7 @@ In order to run the tests, we are using [Testacular](http://vojtajina.github.com
 
 You need a version of v0.8.4+ and the latest stable version of Testacular (0.5.9).
 
-	npm install -g testacular@0.5.9
+    npm install -g testacular@0.5.9
 
 ### End-2-End Tests
 
@@ -62,15 +62,37 @@ This tests are as effective as browsers we can use in order to ensure the proper
 *Start Web Browser*
 Start the web browser (a simple wrapper for Python -m SimpleHTTPServer)
 
-	./scripts/web-server.sh
+    ./scripts/web-server.sh
 
 *Start Testacular Server*
 It will watch your tests and pop as many browsers as you want to test in order to ensure compatibility. In the future we can put PhantomJS for headless tests for CI
 
-	./scripts/e2e-test.sh
+    ./scripts/e2e-test.sh
 
 *Sample tests*
 E2E Tests are located in `test/e2e`.
+
+### Unit tests
+
+These are to test specific parts of the Bridge outside of the web browser environment. Things that should be tested:
+
+ * directives
+ * modules
+ * classes
+ * controllers (if any!)
+
+The unit test configuration (`config/testacular-unit.conf.js`) includes the following:
+
+1. angular
+2. angular mocks
+3. quo (debug version)
+4. lungo (debug version)
+
+*Running tests*
+Your friend is:
+
+    ./scripts/unit-test.sh
+
 
 ## Credits
 
