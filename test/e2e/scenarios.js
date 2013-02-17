@@ -26,7 +26,8 @@ describe('Angular Lungo Bridge', function() {
 		it('Navigate to a different dynamic section through the UI', function() {
 			element('a[href="dynamic"]').click();
 			expect(browser().location().url()).toBe('/dynamic');
-		});		
+			expect(repeater('ul.items li').count()).toBe(3);
+		});
 	});
 
 });
