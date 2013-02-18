@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.centralway.photomap"
+        versionCode="10" 
+        version   = "1.0.0">
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>PhotoMap</name>            
+    <description>
+        A full demo app for the Lungo-Angular-Bridge and PhoneGap
+    </description>
+    <author href="https://www.centralway.com" email="info@centralway.com">
+        Martin Naumann
+    </author>
+</widget>
