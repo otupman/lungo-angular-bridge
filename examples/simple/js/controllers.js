@@ -12,7 +12,14 @@ function AppCtrl($scope, $location) {
 }
 
 function DynamicCtrl($scope) {
-	
+	$scope.items = [
+    {"name": "Dynamically Loaded",
+     "description": "This particular template has been loaded via Angular's dynamic loading."},
+    {"name": "Tied with Angular Controllers",
+     "description": "The content of this articles are being retrieved from an Angular controller."},
+    {"name": "Usage of Ng-Repeater",
+     "description": "And repeated through the ng-repeater directive to test it through our End-to-End scenarios."}
+  	];
 }
 
 angular.module('BridgeExample.controllers', []).
@@ -21,4 +28,7 @@ angular.module('BridgeExample.controllers', []).
 	})
 	.controller('PersonCtrl', function($scope, $routeParams) {
 		$scope.personId = $routeParams.personId;
+	})
+	.controller('DynamicPersonCtrl', function($scope) {
+		$scope.personId = "2";
 	});
