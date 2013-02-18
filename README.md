@@ -115,7 +115,7 @@ Start the web browser (a simple wrapper for Python -m SimpleHTTPServer)
 *Start Testacular Server*
 It will watch your tests and pop as many browsers as you want to test in order to ensure compatibility. In the future we can put PhantomJS for headless tests for CI
 
-    ./scripts/e2e-test.sh
+	./scripts/e2e-test.sh
 
 *Sample tests*
 E2E Tests are located in `test/e2e`.

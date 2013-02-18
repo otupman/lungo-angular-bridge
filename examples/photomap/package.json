@@ -1,0 +1,12 @@
+{
+  "name": "photomap",
+  "version": "0.0.1",
+  "description": "Demo App for Angular-Lungo-Bridge and PhoneGap",
+  "dependencies": {
+    "grunt": "~0.4.0",
+    "grunt-zipstream": "https://github.com/martin-naumann/grunt-zipstream/tarball/master",
+    "grunt-phonegap-build": "https://github.com/centralway/grunt-phonegap-build/tarball/master"
+  },
+  "author": "Martin Naumann <martin.naumann@centralway.com>",
+  "license": "BSD"
+}
