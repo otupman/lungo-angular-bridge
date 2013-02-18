@@ -2,6 +2,38 @@ Lungo Angular Bridge
 ====
 Linking Lungo to Angular
 
+## Things to know before you start
+
+Lungo and Angular both have some common concepts and therefore have some cross-over in the functionality provided. The bridge views Angular's functionality as being more advanced and so it tends to favour Angular over Lungo. 
+
+#### Open issues
+
+There are lots of issues in our github project, however issue != bug. We like issues, we like to keep track of ideas, things that could be done, questions, etc. So you'll find quite a few issues. If you're interested in contributing, there would be somewhere to look first
+
+#### Routing
+
+Both Angular and Lungo have the concept of 'routing'. In Lungo, 'routing' is used to provide navigation between sections, articles and asides. In Angular, routing is a much more powerful beast, more like rails. 
+
+The Bridge favours Angular's routes; in fact, the majority of the work has been spent on making Angular's routes work well within Lungo. Lungo's "routing" should not be used apart from in **one** case: asides. To show a Lungo aside, one mus use the standard Lungo method:
+
+    <a href='#aside-id' data-router='aside'>Show aside</a>
+
+#### Services
+
+Both Angular and Lungo have the concept of 'services'. We tend to favour Angular services over Lungo services. 
+
+#### Application delivery
+
+Tapquo, Lungo's creators, favour delivering mobile apps as mobile web applications. At Centralway, we love that. But we also love deploying our apps as if they were "native" mobile applications, so we aim to support that too. So if Phonegap is your thing, you'll probably want to look around here.
+
+#### DOM access
+
+Angular relies on a jQuery-like API to modify the browser's DOM. If jQuery is not available, then it uses a built-in jqLite that does something very similar.
+
+Lungo is built upon Quo.js, a mobile-focussed DOM manipulation API (also built by the guys at Tapquo). 
+
+We would try to favour Quo.js to keep things consisent, however we are not consistentin this. We do have an open issue to create a jQuery-like wrapper for Quo.js and make Angular use that - but we're not there yet.
+
 ## Getting Started
 
 ### Installation
