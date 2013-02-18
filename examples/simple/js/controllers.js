@@ -28,4 +28,7 @@ angular.module('BridgeExample.controllers', []).
 	})
 	.controller('PersonCtrl', function($scope, $routeParams) {
 		$scope.personId = $routeParams.personId;
+	})
+	.controller('DynamicPersonCtrl', function($scope) {
+		$scope.personId = "2";
 	});

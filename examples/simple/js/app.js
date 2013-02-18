@@ -12,8 +12,11 @@ angular.module('BridgeExample',
     $routeProvider.when('/dynamic', { templateUrl: 'examples/simple/partials/dynamic.html', controller: 'DynamicCtrl'});
     // Demo of using query parameters for search terms
     $routeProvider.when('/search', { templateUrl: 'examples/simple/partials/search.html', controller: 'SearchCtrl'});
+    // Demo of using IDs within URLs - The number 2 is used in order to catch that specific URL for E2E Testing
+    $routeProvider.when('/person/view/2', { templateUrl: '/examples/simple/partials/dynamicPerson.html', controller: 'DynamicPersonCtrl'});
     // Demo of using IDs within URLs - note the section ID then article ID and **then** the person ID
     $routeProvider.when('/person/view/:personId', { templateUrl: '/examples/simple/partials/person.html', controller: 'PersonCtrl'});
+    
 
     $routeProvider.otherwise({redirectTo: '/'});
     $locationProvider.html5Mode(true);
