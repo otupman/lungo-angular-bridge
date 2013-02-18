@@ -9,9 +9,4 @@ angular.module('photoMapApp',
     $routeProvider.when('/map', {templateUrl: "partials/map.html"});
     $routeProvider.otherwise({redirectTo: '/'});
     $locationProvider.html5Mode(false);
-  }])
-	.run(function($rootScope) {
-		$rootScope.$on('handleEmit', function(event, args) {
-			$rootScope.$broadcast('handleBroadcast', args);
-		});
-	});  
+  }]);  
