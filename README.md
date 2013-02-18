@@ -79,6 +79,22 @@ For the moment, run python -m SimpleHTTPServer from within the root of the repos
 
 Sooner or later we'll add a node.js server to handle things a litle nicer.
 
+### Available examples: 
+
+You'll find all the following examples within the 'examples' directory (surprise).
+
+#### 'simple' example
+
+This is more of a kitchen sink demo, used also by our test suite. Here we try to demonstrate using the functionality of both Angular & Lungo together at the same time.
+
+#### Todo example
+
+This takes the simple todo example from Angular's front page and puts it into a Lungo application, adding Lungo/mobile features along the way.
+
+#### Photomap examples - Phonegap awesomeness
+
+This example demonstrates accessing aspects of a mobile device to provide a native experience using mapping, geolocation and accessing the device's camera.
+
 ## Tests
 
 In order to run the tests, we are using [Testacular](http://vojtajina.github.com/testacular/). We have two kind of tests, [unit tests](http://docs.angularjs.org/guide/dev_guide.unit-testing) and [end-2-end](http://docs.angularjs.org/guide/dev_guide.e2e-testing) tests.
