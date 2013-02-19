@@ -73,7 +73,7 @@ var AppRouter = function(Lungo, $location, $scope) {
 };
 
 angular.module('Centralway.lungo-angular-bridge', [])
-	.directive('labRouting', ['$location', function($location) {
+	.directive('labBoot', ['$location', function($location) {
     function _parseResourceParam(param) {
       return param.indexOf(',') == -1 ? param : param.split(',');
     }
