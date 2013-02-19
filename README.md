@@ -106,6 +106,9 @@ For the moment, until lab-router is implemented, you need to have one controller
 
 If you want to use ng-view, then you'll need to use the Bridge's own implementation instead, lab-view and it must be declared as a child of the body element.
 
+    <body>
+        <lab-view></lab-view>
+
 ### Usage
 
 Lungo imposes a section/article constraint on URLs. It expects all URLs to be in the following format:
