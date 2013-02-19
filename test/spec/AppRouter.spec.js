@@ -1,12 +1,15 @@
 'use strict';
+
 Lungo.mock = function() {
-	return {
-		Router: {
-			section: function(sectionId) {}
-			, article: function(sectionId, articleId) {}
-			, back: function() {}
-		}
-	};
+  //TODO: Pretty sure this could be done via a spy rather than a custom mock
+  return {
+    Router: {
+      section: function(sectionId) {}
+      , article: function(sectionId, articleId) {}
+      , back: function() {}
+    }
+    , Init: function() {}
+  };
 }
 
 Lungo = Lungo.mock();
