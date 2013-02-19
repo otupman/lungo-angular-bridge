@@ -8,7 +8,6 @@ var AppRouter = function(Lungo, $location, $scope) {
   $location.replace = function() {
     console.log('$location.replace - called!');
     $location.$$replace = true;
-    //routingHistory = [];
     return $location;
   }
 
