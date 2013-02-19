@@ -6,6 +6,7 @@ var AppRouter = function(Lungo, $location, $scope) {
   var oldReplace = $location.replace;
 
   $location.replace = function() {
+    console.log('$location.replace - called!');
     $location.$$replace = true;
     return $location;
   }
@@ -29,7 +30,7 @@ var AppRouter = function(Lungo, $location, $scope) {
   });
 
   $scope.$on('$routeChangeSuccess', function(next, last) {    
-    console.log('AppRouter::routeChangeSuccess - route change successful to: ', $location.path());
+    console.log('AppRouter::routeChangeSuccess - route change successful to: ', $location.path(), ' current history is: ', routingHistory);
     if(routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path()) {
       console.log('AppRouter::routeChangeSuccess - detected back, and going there...');
       routingHistory.pop();
@@ -71,7 +72,7 @@ var AppRouter = function(Lungo, $location, $scope) {
 };
 
 angular.module('Centralway.lungo-angular-bridge', [])
-	.directive('cwRouting', function($location) {
+	.directive('labRouting', function($location) {
 		return {
 			restrict: 'ECA',
 			terminal: true,
@@ -81,7 +82,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
 		}
 		
 	})
-	.directive('cwView', function($http,   $templateCache,   $route,   $anchorScroll,   $compile, $controller) {
+	.directive('labView', function($http,   $templateCache,   $route,   $anchorScroll,   $compile, $controller) {
   return {
     restrict: 'ECA',
     terminal: true,
@@ -111,7 +112,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
       }
 
       function update() {
-      	console.log('cw-view::update() - Performing content update');
+      	console.log('lab-view::update() - Performing content update');
         var locals = $route.current && $route.current.locals,
             template = locals && locals.$template;
 
