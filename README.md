@@ -1,6 +1,16 @@
 Lungo Angular Bridge
 ====
-Linking Lungo to Angular
+Linking [Lungo](http://lungo.tapquo.com) to [Angular](http://angularjs.org) to bring you mobile awesomeness
+
+#### What is Lungo?
+
+[Lungo](http://lungo.tapquo.com), created by the geniuses at [Tapquo](http://www.tapquo.com), is an awesome mobile framework that, in the words of one Centralway JS expert, is "better than native" when it comes to building mobile applications.
+
+Here at [Centralway](http://www.centralway.com) we tried many, many different options (Calatrava, Titanium, the m-project, etc.) and only found one - Lungo - that gave the user experience that we feel our users deserve.
+
+#### What is Angular?
+
+Angular provides MVC on steriods. As you're more likely to have heard of Angular, please check out their page - http://angularjs.org for more info!
 
 ## Things to know before you start
 
@@ -14,9 +24,13 @@ There are lots of issues in our github project, however issue != bug. We like is
 
 Both Angular and Lungo have the concept of 'routing'. In Lungo, 'routing' is used to provide navigation between sections, articles and asides. In Angular, routing is a much more powerful beast, more like rails. 
 
-The Bridge favours Angular's routes; in fact, the majority of the work has been spent on making Angular's routes work well within Lungo. Lungo's "routing" should not be used apart from in **one** case: asides. To show a Lungo aside, one mus use the standard Lungo method:
+The Bridge favours Angular's routes; in fact, the majority of the work has been spent on making Angular's routes work well within Lungo. Lungo's "routing" should not be used apart from in **one** case: asides (these are facebook-like side menus that pop out). 
 
-    <a href='#aside-id' data-router='aside'>Show aside</a>
+To toggle the display of an aise, please use the following call:
+
+    Lungo.Router.aside([section id], [aside id]);
+    
+We typically choose to bind it in an ng-click attribute.
 
 #### Services
 
@@ -35,6 +49,37 @@ Lungo is built upon Quo.js, a mobile-focussed DOM manipulation API (also built b
 We would try to favour Quo.js to keep things consisent, however we are not consistentin this. We do have an open issue to create a jQuery-like wrapper for Quo.js and make Angular use that - but we're not there yet.
 
 ## Getting Started
+
+### A few Lungo concepts
+
+Before you begin, it's a good idea to familiarise yourself with 3 key Lungo concepts (which are also tags):
+
+1. section
+2. article
+3. aside
+
+These are best shown in this simple example:
+
+    <body class="app">
+        <section id="main" data-transition="">
+            <article id="main-article" class="active">
+                <strong>This is some text</strong>
+                <a ng-click="showAside()">Show aside</a>
+            </article>
+        </section>
+        <aside id="mainAside">
+            <strong>This is my aside</strong>
+        </aside>
+        <!-- Angular, Lungo and Bridge code not shown -->
+    </body>
+
+Sections are essentially containers for articles. They can also contain a header and footer tags for, well, headers and footers.
+
+Articles contain content that is to be displayed.
+
+Asides are essentially side-menus that can pop out from the left or the right of the screen.
+
+To play around with Lungo concepts, you can use their excellent [prototyping](http://lungo.tapquo.com/howto/prototype/) documentation to build up some templates. You can, more-or-less, take prototyped Lungo code and build Angular functionality in using the bridge.
 
 ### Installation
 
@@ -115,7 +160,7 @@ Start the web browser (a simple wrapper for Python -m SimpleHTTPServer)
 *Start Testacular Server*
 It will watch your tests and pop as many browsers as you want to test in order to ensure compatibility. In the future we can put PhantomJS for headless tests for CI
 
-	./scripts/e2e-test.sh
+    ./scripts/e2e-test.sh
 
 *Sample tests*
 E2E Tests are located in `test/e2e`.
