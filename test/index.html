@@ -1,0 +1,31 @@
+<!doctype html>
+<head>
+  <title>Jasmine Spec Runner</title>
+
+  <link rel="stylesheet" href="lib/jasmine-1.2.0/jasmine.css">
+  <script src="lib/jasmine-1.2.0/jasmine.js"></script>
+  <script src="lib/jasmine-1.2.0/jasmine-html.js"></script>
+
+  <script src="../components/quojs/quo.debug.js"></script>
+  <script src="../lib/lungo.debug.js"></script>
+  <script src="../components/angular/angular.js"></script>
+  <script src="lib/angular-mocks.js"></script>
+  <script src="lib/lungo-mocks.js"></script>
+  <!-- include source files here... -->
+  <script src="../src/lungo-angular-bridge.js"></script>
+
+  <script src="spec/AppRouter.spec.js"></script>
+  <script src="spec/directives.spec.js"></script>
+
+  <script>
+    if (window.phantom)
+      document.write('<script src="runner/headless.js"><\/script>');
+    else
+      document.write('<script src="runner/html.js"><\/script>');
+  </script>
+
+</head>
+<body>
+
+</body>
+</html>
