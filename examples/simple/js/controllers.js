@@ -8,6 +8,11 @@ function AppCtrl($scope) {
     $scope.refreshApplication = function() {
     	window.location = '/examples/simple/index.html';
     }
+    console.log('AppCtrl::AppCtrl() - Instantiated');
+
+    $scope.$on('$routeChangeSuccess', function(next, last) {
+        console.log('AppCtrl::$routeChangeSuccess() - handled route change to ', $location.path());
+    });
 }
 
 function DynamicCtrl($scope) {
