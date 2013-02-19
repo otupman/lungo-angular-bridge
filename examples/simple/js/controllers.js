@@ -11,9 +11,11 @@ function AppCtrl($scope, $location) {
     AppRouter.instance = AppRouter(Lungo, $location, $scope);
     console.log('AppCtrl::AppCtrl() - Instantiated');
 
-    $scope.$on('$routeChangeSuccess', function(next, last) {    
-        console.log('AppCtrl::$routeChangeSuccess() - handled route change to ', $location.path());
-    });
+   
+    $scope.triggerAside = function() {
+        console.log('triggering aside');
+        Lungo.Router.aside('main', 'aside1');
+    }
 }
 
 function DynamicCtrl($scope) {
