@@ -75,10 +75,7 @@ var AppRouter = function(Lungo, $location, $scope) {
 angular.module('Centralway.lungo-angular-bridge', [])
 	.directive('labRouting', ['$location', function($location) {
     return function(scope, elm, attrs) {
-      Lungo.init({
-          data    : 'Angular Bridge',
-          version : '0.0.1'
-      });
+      Lungo.init({});
 
       AppRouter.instance = AppRouter(Lungo, $location, scope);
     };
