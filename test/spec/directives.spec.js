@@ -17,9 +17,6 @@ Lungo = Lungo.mock();
 describe('directives', function() {
 	beforeEach(function() {
 		angular.mock.module('Centralway.lungo-angular-bridge');
-  // 	angular.mock.inject(function($location, $rootScope) {
-		// 	AppRouter.instance = new AppRouter(Lungo, $location, $rootScope);
-		// })
 		spyOn(Lungo, 'init');
   });
 
@@ -27,7 +24,6 @@ describe('directives', function() {
 		it('should call Lungo init', function() {
       inject(function($compile, $rootScope) {
         var element = $compile('<div lab-routing></div>')($rootScope);
-        console.log(element);
         expect(Lungo.init).toHaveBeenCalled();
       });
 
