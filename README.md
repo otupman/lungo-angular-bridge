@@ -50,13 +50,20 @@ Next, reference the Bridge source file after Lungo & Angular has been referenced
 
     <script type="text/javascript" src="../src/lungo-angular-bridge.js"></script>
 
-To get lab-view functionality we'll need to list the Bridge as a dependency:
+To get any of the bridge functionality we'll need to list the Bridge as a dependency:
 
     angular.module('BridgeExample', ['Centralway.lungo-angular-bridge', 'BridgeExample.filters']).
 
-and add cw-routing into the body or html tag.
+Then, you'll need to add references to the Bridge directives lab-boot (that initialises the Bridge) and lab-view (that enables the routing behaviour itself and dynamic templates). Like so:
 
-If you want to use ng-view, then you'll need to use the Bridge's own implementation instead, lab-view and it must be declared as a child of the body element.
+    <body lab-boot>
+        <section id="firstSection">
+            <article class="active">
+                <strong>Currently Lungo needs a first section with an article with a active class applied.</strong>
+            </article>
+        </section>
+        
+        <lab-view>
 
 ### Usage
 
