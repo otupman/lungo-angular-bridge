@@ -15,7 +15,7 @@ var AppRouter = function(Lungo, $location, $scope) {
     var pathParts = path.split('/');
     var sectionPathLength = 2;
     var sectionName = pathParts[1] !== '' ? pathParts[1] : 'main';
-    
+
     if(pathParts.length > sectionPathLength) {
       Lungo.Router.article(sectionName, pathParts[2]);
     }
@@ -29,7 +29,7 @@ var AppRouter = function(Lungo, $location, $scope) {
     console.log('AppRouter::routeChangeStart - route change beginning');
   });
 
-  $scope.$on('$routeChangeSuccess', function(next, last) {    
+  $scope.$on('$routeChangeSuccess', function(next, last) {
     console.log('AppRouter::routeChangeSuccess - route change successful to: ', $location.path());
     if(routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path()) {
       console.log('AppRouter::routeChangeSuccess - detected back, and going there...');
@@ -72,16 +72,16 @@ var AppRouter = function(Lungo, $location, $scope) {
 };
 
 angular.module('Centralway.lungo-angular-bridge', [])
-	.directive('cwRouting', function($location) {
-		return {
-			restrict: 'ECA',
-			terminal: true,
-			link: function(scope, element, attr) {
-				AppRouter.instance = AppRouter(Lungo, $location, scope);		
-			}	
-		}
-		
-	})
+	directive('cwRouting', ['$location', function($location) {
+    return function(scope, elm, attrs) {
+      Lungo.init({
+          data    : 'Angular Bridge',
+          version : '0.0.1'
+      });
+
+      AppRouter.instance = AppRouter(Lungo, $location, scope);
+    };
+  }])
 	.directive('cwView', function($http,   $templateCache,   $route,   $anchorScroll,   $compile, $controller) {
   return {
     restrict: 'ECA',
@@ -123,7 +123,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
             removePreviouslyLoadedContent($route.current.$route.sectionId);
           }
 
-          targetContainer.append(template);  
+          targetContainer.append(template);
           var newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
           if(newElement.attr('id')) {
             $route.current.$route.sectionId = newElement.attr('id');
@@ -132,7 +132,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
             throw new Error('Elements loaded via templates must have an ID attribute');
           }
           Lungo.Boot.Data.init('#' + newElement.attr('id'));
-          
+
           destroyLastScope();
 
           var link = $compile(newElement.contents()),
