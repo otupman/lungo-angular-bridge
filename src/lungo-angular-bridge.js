@@ -72,7 +72,7 @@ var AppRouter = function(Lungo, $location, $scope) {
 };
 
 angular.module('Centralway.lungo-angular-bridge', [])
-	directive('cwRouting', ['$location', function($location) {
+	.directive('cwRouting', ['$location', function($location) {
     return function(scope, elm, attrs) {
       Lungo.init({
           data    : 'Angular Bridge',
