@@ -27,8 +27,16 @@ describe('directives', function() {
         expect(Lungo.init).toHaveBeenCalled();
         expect(Lungo.init.mostRecentCall.args[0]).toEqual({});
       });
+		});
 
-      
+		it('should instantiate the AppRouter', function() {
+			AppRouter = jasmine.createSpy('AppRouter');
+			inject(function($compile, $rootScope, $location) {
+					var element = $compile('<div lab-routing resources="singleFile.html"></div>')($rootScope);
+					expect(AppRouter).toHaveBeenCalled();
+					expect(AppRouter).toHaveBeenCalledWith(Lungo, $location, $rootScope);
+			});
+
 		});
 
 		describe('with resources', function() {
