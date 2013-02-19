@@ -13,7 +13,8 @@ files = [
   'components/angular/angular.js',
   'test/lib/angular-mocks.js',
   'components/quojs/quo.debug.js',
-  'lib/lungo.debug.js',  
+  'lib/lungo.debug.js',
+  'test/lib/lungo-mocks.js',
   'src/**/*.js',
   'test/spec/**/*.js'
 ];

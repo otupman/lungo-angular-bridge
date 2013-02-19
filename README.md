@@ -14,7 +14,7 @@ Angular provides MVC on steriods. As you're more likely to have heard of Angular
 
 ## Things to know before you start
 
-Lungo and Angular both have some common concepts and therefore have some cross-over in the functionality provided. The bridge views Angular's functionality as being more advanced and so it tends to favour Angular over Lungo. 
+Lungo and Angular both have some common concepts and therefore have some cross-over in the functionality provided. The bridge views Angular's functionality as being more advanced and so it tends to favour Angular over Lungo.
 
 #### Open issues
 
@@ -22,7 +22,7 @@ There are lots of issues in our github project, however issue != bug. We like is
 
 #### Routing
 
-Both Angular and Lungo have the concept of 'routing'. In Lungo, 'routing' is used to provide navigation between sections, articles and asides. In Angular, routing is a much more powerful beast, more like rails. 
+Both Angular and Lungo have the concept of 'routing'. In Lungo, 'routing' is used to provide navigation between sections, articles and asides. In Angular, routing is a much more powerful beast, more like rails.
 
 The Bridge favours Angular's routes; in fact, the majority of the work has been spent on making Angular's routes work well within Lungo. Lungo's "routing" should not be used apart from in **one** case: asides (these are facebook-like side menus that pop out). 
 
@@ -34,7 +34,7 @@ We typically choose to bind it in an ng-click attribute.
 
 #### Services
 
-Both Angular and Lungo have the concept of 'services'. We tend to favour Angular services over Lungo services. 
+Both Angular and Lungo have the concept of 'services'. We tend to favour Angular services over Lungo services.
 
 #### Application delivery
 
@@ -44,7 +44,7 @@ Tapquo, Lungo's creators, favour delivering mobile apps as mobile web applicatio
 
 Angular relies on a jQuery-like API to modify the browser's DOM. If jQuery is not available, then it uses a built-in jqLite that does something very similar.
 
-Lungo is built upon Quo.js, a mobile-focussed DOM manipulation API (also built by the guys at Tapquo). 
+Lungo is built upon Quo.js, a mobile-focussed DOM manipulation API (also built by the guys at Tapquo).
 
 We would try to favour Quo.js to keep things consisent, however we are not consistentin this. We do have an open issue to create a jQuery-like wrapper for Quo.js and make Angular use that - but we're not there yet.
 
@@ -83,7 +83,7 @@ To play around with Lungo concepts, you can use their excellent [prototyping](ht
 
 ### Installation
 
-The Bridge is a Bower package, so you just need to install Bower - 
+The Bridge is a Bower package, so you just need to install Bower -
 
     npm install bower -g
 
@@ -95,16 +95,20 @@ Next, reference the Bridge source file after Lungo & Angular has been referenced
 
     <script type="text/javascript" src="../src/lungo-angular-bridge.js"></script>
 
-To get lab-view functionality we'll need to list the Bridge as a dependency:
+To get any of the bridge functionality we'll need to list the Bridge as a dependency:
 
     angular.module('BridgeExample', ['Centralway.lungo-angular-bridge', 'BridgeExample.filters']).
 
-For the moment, until lab-router is implemented, you need to have one controller call the routing class like so
+Then, you'll need to add references to the Bridge directives lab-boot (that initialises the Bridge) and lab-view (that enables the routing behaviour itself and dynamic templates). Like so:
 
-    function AppCtrl($scope, $location) {
-        AppRouter.instance = AppRouter(Lungo, $location, $scope);
-
-If you want to use ng-view, then you'll need to use the Bridge's own implementation instead, lab-view and it must be declared as a child of the body element.
+    <body lab-boot>
+        <section id="firstSection">
+            <article class="active">
+                <strong>Currently Lungo needs a first section with an article with a active class applied.</strong>
+            </article>
+        </section>
+        
+        <lab-view>
 
     <body>
         <lab-view></lab-view>
@@ -114,7 +118,7 @@ If you want to use ng-view, then you'll need to use the Bridge's own implementat
 Lungo imposes a section/article constraint on URLs. It expects all URLs to be in the following format:
 
     /[section id](/[article id](/... other params))
-    
+
 Some examples:
 
 + /dashboard => section id='dashboard'
@@ -127,7 +131,7 @@ For the moment, run python -m SimpleHTTPServer from within the root of the repos
 
 Sooner or later we'll add a node.js server to handle things a litle nicer.
 
-### Available examples: 
+### Available examples:
 
 You'll find all the following examples within the 'examples' directory (surprise).
 

@@ -1,4 +1,4 @@
-<html ng-app="TodoExample">
+<html ng-app="TodoExample" lab-boot>
     <head>
         <title>Todo Example: Lungo Angular Bridge</title>
 
@@ -11,7 +11,7 @@
 
     <body>
         <section id="main" data-transition="slide">
-            <header data-title="Todo Example" ng-controller="AppCtrl">
+            <header data-title="Todo Example">
                 <nav class="right">
                     <a href="add-todo" data-icon="plus"></a>
                  </nav>
@@ -43,23 +43,12 @@
             </article>
         </section>
 
-        <!-- 
-            routing does not work without either lab-view or ng-view 
-            https://github.com/angular/angular.js/issues/1580 
-        -->
         <lab-view></lab-view>
 
         <script type="text/javascript" src="../../components/angular/angular.js"></script>
         <script type="text/javascript" src="../../src/lungo-angular-bridge.js"></script>
         <script type="text/javascript" src="app.js"></script>
         <script type="text/javascript" src="controllers.js"></script>
-
-        <script type="text/javascript">
-            Lungo.init({
-                data    : 'Todo Example: Lungo Angular Bridge',
-                version : '0.0.1'
-            });
-        </script>
     </body>
 
 </html>
