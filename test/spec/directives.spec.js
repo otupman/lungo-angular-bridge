@@ -26,7 +26,7 @@ describe('directives', function() {
 	describe('lab-routing', function() {
 		it('should call Lungo init', function() {
       inject(function($compile, $rootScope) {
-        var element = $compile('<body lab-routing></body>')($rootScope);
+        var element = $compile('<div lab-routing></div>')($rootScope);
         console.log(element);
         expect(Lungo.Init).toHaveBeenCalled();
       });
