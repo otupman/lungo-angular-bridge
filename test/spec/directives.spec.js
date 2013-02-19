@@ -8,7 +8,7 @@ Lungo.mock = function() {
 			, article: function(sectionId, articleId) {}
 			, back: function() {}
 		}
-		, Init: function() {}
+		, init: function() {}
 	};
 }
 
