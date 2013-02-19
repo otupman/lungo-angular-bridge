@@ -4,7 +4,7 @@ Linking Lungo to Angular
 
 ## Things to know before you start
 
-Lungo and Angular both have some common concepts and therefore have some cross-over in the functionality provided. The bridge views Angular's functionality as being more advanced and so it tends to favour Angular over Lungo. 
+Lungo and Angular both have some common concepts and therefore have some cross-over in the functionality provided. The bridge views Angular's functionality as being more advanced and so it tends to favour Angular over Lungo.
 
 #### Open issues
 
@@ -12,7 +12,7 @@ There are lots of issues in our github project, however issue != bug. We like is
 
 #### Routing
 
-Both Angular and Lungo have the concept of 'routing'. In Lungo, 'routing' is used to provide navigation between sections, articles and asides. In Angular, routing is a much more powerful beast, more like rails. 
+Both Angular and Lungo have the concept of 'routing'. In Lungo, 'routing' is used to provide navigation between sections, articles and asides. In Angular, routing is a much more powerful beast, more like rails.
 
 The Bridge favours Angular's routes; in fact, the majority of the work has been spent on making Angular's routes work well within Lungo. Lungo's "routing" should not be used apart from in **one** case: asides. To show a Lungo aside, one mus use the standard Lungo method:
 
@@ -20,7 +20,7 @@ The Bridge favours Angular's routes; in fact, the majority of the work has been 
 
 #### Services
 
-Both Angular and Lungo have the concept of 'services'. We tend to favour Angular services over Lungo services. 
+Both Angular and Lungo have the concept of 'services'. We tend to favour Angular services over Lungo services.
 
 #### Application delivery
 
@@ -30,7 +30,7 @@ Tapquo, Lungo's creators, favour delivering mobile apps as mobile web applicatio
 
 Angular relies on a jQuery-like API to modify the browser's DOM. If jQuery is not available, then it uses a built-in jqLite that does something very similar.
 
-Lungo is built upon Quo.js, a mobile-focussed DOM manipulation API (also built by the guys at Tapquo). 
+Lungo is built upon Quo.js, a mobile-focussed DOM manipulation API (also built by the guys at Tapquo).
 
 We would try to favour Quo.js to keep things consisent, however we are not consistentin this. We do have an open issue to create a jQuery-like wrapper for Quo.js and make Angular use that - but we're not there yet.
 
@@ -38,7 +38,7 @@ We would try to favour Quo.js to keep things consisent, however we are not consi
 
 ### Installation
 
-The Bridge is a Bower package, so you just need to install Bower - 
+The Bridge is a Bower package, so you just need to install Bower -
 
     npm install bower -g
 
@@ -54,10 +54,7 @@ To get cw-view functionality we'll need to list the Bridge as a dependency:
 
     angular.module('BridgeExample', ['Centralway.lungo-angular-bridge', 'BridgeExample.filters']).
 
-For the moment, until cw-router is implemented, you need to have one controller call the routing class like so
-
-    function AppCtrl($scope, $location) {
-        AppRouter.instance = AppRouter(Lungo, $location, $scope);
+and add cw-routing into the body or html tag.
 
 If you want to use ng-view, then you'll need to use the Bridge's own implementation instead, cw-view and it must be declared as a child of the body element.
 
@@ -66,7 +63,7 @@ If you want to use ng-view, then you'll need to use the Bridge's own implementat
 Lungo imposes a section/article constraint on URLs. It expects all URLs to be in the following format:
 
     /[section id](/[article id](/... other params))
-    
+
 Some examples:
 
 + /dashboard => section id='dashboard'
@@ -79,7 +76,7 @@ For the moment, run python -m SimpleHTTPServer from within the root of the repos
 
 Sooner or later we'll add a node.js server to handle things a litle nicer.
 
-### Available examples: 
+### Available examples:
 
 You'll find all the following examples within the 'examples' directory (surprise).
 
