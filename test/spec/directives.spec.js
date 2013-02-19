@@ -20,7 +20,7 @@ describe('directives', function() {
   // 	angular.mock.inject(function($location, $rootScope) {
 		// 	AppRouter.instance = new AppRouter(Lungo, $location, $rootScope);
 		// })
-		spyOn(Lungo, 'Init');
+		spyOn(Lungo, 'init');
   });
 
 	describe('lab-routing', function() {
@@ -28,7 +28,7 @@ describe('directives', function() {
       inject(function($compile, $rootScope) {
         var element = $compile('<div lab-routing></div>')($rootScope);
         console.log(element);
-        expect(Lungo.Init).toHaveBeenCalled();
+        expect(Lungo.init).toHaveBeenCalled();
       });
 
       
