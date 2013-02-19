@@ -9,6 +9,11 @@ function AppCtrl($scope, $location) {
     	window.location = '/examples/simple/index.html';
     }
     AppRouter.instance = AppRouter(Lungo, $location, $scope);
+    console.log('AppCtrl::AppCtrl() - Instantiated');
+
+    $scope.$on('$routeChangeSuccess', function(next, last) {    
+        console.log('AppCtrl::$routeChangeSuccess() - handled route change to ', $location.path());
+    });
 }
 
 function DynamicCtrl($scope) {

@@ -14,8 +14,8 @@ describe('Angular Lungo Bridge Simple App E2E Tests', function() {
 			browser().navigateTo('../../examples/simple/index.html');
 		});
 
-		it('Should find the cw-view through the browser', function() {
-			expect(element('cw-view').count()).toEqual(1);
+		it('Should find the lab-view through the browser', function() {
+			expect(element('lab-view').count()).toEqual(1);
 		});
 
 		it('Should render a static section using the UI', function() {

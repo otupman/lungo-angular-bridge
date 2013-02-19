@@ -8,7 +8,7 @@ angular.module('BridgeExample',
   config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     // First section is embedded in index.html, so no parameters
     $routeProvider.when('/section1', {});
-    // Dynamic section is loaded via cw-view
+    // Dynamic section is loaded via lab-view
     $routeProvider.when('/dynamic', { templateUrl: 'examples/simple/partials/dynamic.html', controller: 'DynamicCtrl'});
     // Demo of using query parameters for search terms
     $routeProvider.when('/search', { templateUrl: 'examples/simple/partials/search.html', controller: 'SearchCtrl'});
