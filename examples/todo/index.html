@@ -9,9 +9,9 @@
         <script type="text/javascript" src="../../lib/lungo.debug.js"></script>
     </head>
 
-    <body>
+    <body cw-routing>
         <section id="main" data-transition="slide">
-            <header data-title="Todo Example" ng-controller="AppCtrl">
+            <header data-title="Todo Example">
                 <nav class="right">
                     <a href="add-todo" data-icon="plus"></a>
                  </nav>
@@ -43,9 +43,9 @@
             </article>
         </section>
 
-        <!-- 
-            routing does not work without either cw-view or ng-view 
-            https://github.com/angular/angular.js/issues/1580 
+        <!--
+            routing does not work without either cw-view or ng-view
+            https://github.com/angular/angular.js/issues/1580
         -->
         <cw-view></cw-view>
 
@@ -53,13 +53,6 @@
         <script type="text/javascript" src="../../src/lungo-angular-bridge.js"></script>
         <script type="text/javascript" src="app.js"></script>
         <script type="text/javascript" src="controllers.js"></script>
-
-        <script type="text/javascript">
-            Lungo.init({
-                data    : 'Todo Example: Lungo Angular Bridge',
-                version : '0.0.1'
-            });
-        </script>
     </body>
 
 </html>

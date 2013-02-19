@@ -1,6 +1,6 @@
 'use strict';
 
-function AppCtrl($scope, $location) {
+function AppCtrl($scope) {
     $scope.name = "Some name";
     /**
 	  * A short cut to manually refresh the application from the example/ directory
@@ -8,7 +8,6 @@ function AppCtrl($scope, $location) {
     $scope.refreshApplication = function() {
     	window.location = '/examples/simple/index.html';
     }
-    AppRouter.instance = AppRouter(Lungo, $location, $scope);
 }
 
 function DynamicCtrl($scope) {

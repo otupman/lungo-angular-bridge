@@ -1,7 +1,3 @@
-function AppCtrl($scope, $location) {
-  AppRouter.instance = AppRouter(Lungo, $location, $scope);
-}
-
 function MapCtrl($scope) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -10,12 +6,12 @@ function MapCtrl($scope) {
         center: latLng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       });
-        
+
       $scope.locationMarker = new google.maps.Marker({
         position: latLng,
-        title: "You are here" 
-      }).setMap($scope.map);         
-        
+        title: "You are here"
+      }).setMap($scope.map);
+
     });
 }
 
@@ -24,8 +20,8 @@ function PhotoCtrl($scope) {
         navigator.camera.getPicture(function(imgUri) {
             var image = document.getElementById("photo");
             image.src = imgUri;
-        }, function() { 
-            navigator.notification.alert("Photo fail :(", null, "Oh noes!", "I can cope with it"); 
+        }, function() {
+            navigator.notification.alert("Photo fail :(", null, "Oh noes!", "I can cope with it");
         }, {
             quality: 100,
             destinationType: Camera.DestinationType.FILE_URI

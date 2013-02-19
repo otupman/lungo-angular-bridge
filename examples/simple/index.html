@@ -9,7 +9,7 @@
         <script type="text/javascript" src="../../components/lungo/lungo.js"></script>
     </head>
 
-    <body>
+    <body cw-routing>
         <section id="main" data-transition="slide">
             <header ng-controller="AppCtrl" data-title="Simple Application">
                 <nav class="left">
@@ -18,7 +18,7 @@
                     Hello, {{name}}
                 </nav>
                 <nav class="right">
-                    
+
                     <a href="section1">Section 1</a>
                 </nav>
             </header>
@@ -75,13 +75,6 @@
         <script type="text/javascript" src="js/services.js"></script>
         <script type="text/javascript" src="js/filters.js"></script>
         <script type="text/javascript" src="js/directives.js"></script>
-
-        <script type="text/javascript">
-            Lungo.init({
-                data    : 'Lungo Angular Bridge',
-                version : '0.0.1'
-            });
-        </script>
     </body>
 
 </html>

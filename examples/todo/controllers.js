@@ -1,7 +1,3 @@
-function AppCtrl($scope, $location) {
-  AppRouter.instance = AppRouter(Lungo, $location, $scope);
-}
-
 function TodoCtrl($scope) {
   $scope.todos = [
     {text:'learn angular', done:true},
@@ -30,7 +26,7 @@ function TodoCtrl($scope) {
 }
 
 function TodoAddCtrl($scope) {
- 
+
   $scope.addTodo = function() {
     $scope.$emit('handleEmit', {text: $scope.todoText});
     $scope.todoText = '';
