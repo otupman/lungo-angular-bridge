@@ -16,7 +16,7 @@ Lungo = Lungo.mock();
 
 describe('directives', function() {
 	beforeEach(function() {
-		angular.module('Centralway.lungo-angular-bridge');
+		angular.mock.module('Centralway.lungo-angular-bridge');
   // 	angular.mock.inject(function($location, $rootScope) {
 		// 	AppRouter.instance = new AppRouter(Lungo, $location, $rootScope);
 		// })
