@@ -1,16 +1,50 @@
 'use strict';
 
 Lungo.mock = function() {
-	//TODO: Pretty sure this could be done via a spy rather than a custom mock
-	return {
-		Router: {
-			section: function(sectionId) {}
-			, article: function(sectionId, articleId) {}
-			, back: function() {}
-		}
-		, init: function() {}
-	};
-}
+  var _oldLungo = Lungo;
+  console.log('whee');
+  var _absoluteHistory = [];
+  //TODO: Pretty sure this could be done via a spy rather than a custom mock
+  var section = function(sectionId) {
+    _absoluteHistory.push(sectionId);
+  };
+
+  var article = function(sectionId, articleId) {
+    _absoluteHistory.push(sectionId + '/' + articleId);
+  }
+
+  var back = function() {
+    _absoluteHistory.pop();
+  }
+
+  var getHistory = function() {
+    return _absoluteHistory;
+  }
+
+  var clearHistory = function() {
+    _absoluteHistory = [];
+  }
+
+  var restore = function() {
+    Lungo = _oldLungo;
+  }
+
+  var noop = function() {};
+
+  return {
+    Router: {
+      section: section
+      , article: article
+      , back: back
+      , history: {
+        get: getHistory
+        , clear: clearHistory
+      }
+    }
+    , init: noop
+    , restore: restore
+  };
+};
 
 Lungo = Lungo.mock();
 
