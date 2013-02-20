@@ -110,7 +110,6 @@ angular.module('Centralway.lungo-angular-bridge', [])
       }
 
       function update() {
-      	console.log('lab-view::update() - Performing content update');
         var locals = $route.current && $route.current.locals,
             template = locals && locals.$template;
 
