@@ -25,10 +25,6 @@ var AppRouter = function(Lungo, $location, $scope) {
     }
   };
 
-  $scope.$on('$routeChangeStart', function() {
-    console.log('AppRouter::routeChangeStart - route change beginning');
-  });
-
   $scope.$on('$routeChangeSuccess', function(next, last) {
     console.log('AppRouter::routeChangeSuccess - route change successful to: ', $location.path(), ' current history is: ', routingHistory);
 
