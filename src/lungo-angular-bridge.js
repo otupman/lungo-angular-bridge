@@ -5,18 +5,24 @@ var AppRouter = function(Lungo, $location, $scope) {
 
   var oldReplace = $location.replace;
 
+  var _SECTION_PATH_LENGTH = 2;
+
   $location.replace = function() {
     console.log('$location.replace - called!');
     $location.$$replace = true;
     return $location;
   }
 
+  var _hasArticle = function(path) {
+    var splitPath = angular.isArray(path) ? path : path.split('/');
+    return splitPath.length > _SECTION_PATH_LENGTH;
+  }
+
   var showSection = function(path) {
     var pathParts = path.split('/');
-    var sectionPathLength = 2;
     var sectionName = pathParts[1] !== '' ? pathParts[1] : 'main';
 
-    if(pathParts.length > sectionPathLength) {
+    if(pathParts.length > _SECTION_PATH_LENGTH) {
       Lungo.Router.article(sectionName, pathParts[2]);
     }
     else {
@@ -28,7 +34,7 @@ var AppRouter = function(Lungo, $location, $scope) {
   $scope.$on('$routeChangeSuccess', function(next, last) {
     console.log('AppRouter::routeChangeSuccess - route change successful to: ', $location.path(), ' current history is: ', routingHistory);
 
-    if(routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path()) {
+    if(routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path() && !_hasArticle($location.path())) {
       console.log('AppRouter::routeChangeSuccess - detected back, and going there...');
       routingHistory.pop();
       try {
