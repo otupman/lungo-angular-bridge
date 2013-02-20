@@ -64,6 +64,49 @@ describe('AppRouter', function() {
 		})
   });
 
+  describe('Moving between articles in a section', function() {
+    beforeEach(function() {
+      spyOn(Lungo.Router, 'section');
+      spyOn(Lungo.Router, 'back');
+      Lungo.Router.history.clear();
+      navigateTo('/section/firstArticle');
+      navigateTo('/section/secondArticle');
+      navigateTo('/section/thirdArticle');
+    });
+
+    it('should move forward first -> second -> third', function() {
+      expect(Lungo.Router.history.get().length).toEqual(3);
+      expect(Lungo.Router.history.get()[2]).toEqual('section/thirdArticle');
+    });
+
+    it('should not call back', function() {
+      expect(Lungo.Router.back.calls.length).toEqual(0);
+    })
+
+    describe('and then to a previous article', function() {
+      beforeEach(function() {
+        navigateTo('/section/secondArticle');
+      });
+
+      it('should not call back if we switch to a previous article', function() {
+        expect(Lungo.Router.back.calls.length).toEqual(0);
+      });
+
+      it('should move in a next fashion', function() {
+        expect(Lungo.Router.history.get().length).toEqual(4);
+        expect(Lungo.Router.history.get()[3]).toEqual('section/secondArticle');
+      })
+    });
+  });
+
+  describe('Moving between articles within different sections', function() {
+    beforeEach(function() {
+      spyOn(Lungo.Router, 'section');
+      spyOn(Lungo.Router, 'back');
+    });
+
+  });
+
   describe('Moving forwards then backwards', function() {
   	beforeEach(function() {
   		spyOn(Lungo.Router, 'section');
