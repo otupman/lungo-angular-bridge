@@ -30,8 +30,9 @@ var AppRouter = function(Lungo, $location, $scope) {
   var showSection = function(path) {
     var pathParts = path.split('/');
     var sectionName = pathParts[1] !== '' ? pathParts[1] : 'main';
-
+    _assertElementExists(sectionName);
     if(pathParts.length > _SECTION_PATH_LENGTH) {
+      _assertElementExists(pathParts[2]);
       Lungo.Router.article(sectionName, pathParts[2]);
     }
     else {
