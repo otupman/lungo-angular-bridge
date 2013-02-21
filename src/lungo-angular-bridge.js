@@ -58,7 +58,10 @@ var AppRouter = function(Lungo, $location, $scope) {
       showSection($location.path());
       routingHistory.push($location.path());
     }
+    Lungo.dom('*[class*="lab-view-old"]').remove()
   });
+
+
 
   var getPrevious = function() {
     if(routingHistory.length < 2) {
@@ -132,18 +135,13 @@ angular.module('Centralway.lungo-angular-bridge', [])
         if (template) {
           var targetContainer = element.parent();
 
-          if($route.current.$route.sectionId) {
-            removePreviouslyLoadedContent($route.current.$route.sectionId);
-          }
+          Lungo.dom('*[class*="lab-view"]').removeClass('lab-view').addClass('lab-view-old').attr('id', '');
 
           targetContainer.append(template);
+          
           var newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
-          if(newElement.attr('id')) {
-            $route.current.$route.sectionId = newElement.attr('id');
-          }
-          else {
-            throw new Error('Elements loaded via templates must have an ID attribute');
-          }
+          newElement.addClass('lab-view');
+
           Lungo.Boot.Data.init('#' + newElement.attr('id'));
 
           destroyLastScope();
