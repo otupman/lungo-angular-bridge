@@ -50,7 +50,7 @@ var AppRouter = function(Lungo, $location, $scope) {
       try {
         Lungo.Router.back();
       } catch(e) {
-        console.log('AppRouter::$routeChangeSuccess - caught exception while navigating to ', $location.path(), ' : ', e);
+        console.log('AppRouter::$routeChangeSuccess - caught exception while navigating back to ', $location.path(), ' : ', e);
         throw e;
       }
     }
