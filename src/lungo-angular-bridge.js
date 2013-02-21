@@ -18,6 +18,15 @@ var AppRouter = function(Lungo, $location, $scope) {
     return splitPath.length > _SECTION_PATH_LENGTH;
   }
 
+  var _assertElementExists = function(id) {
+    if(id.indexOf('#') == -1) {
+      id = '#' + id;
+    }
+    if(Lungo.dom(id).length == 0) {
+      throw new Error('No such element with ID ', id);
+    }
+  }
+
   var showSection = function(path) {
     var pathParts = path.split('/');
     var sectionName = pathParts[1] !== '' ? pathParts[1] : 'main';
