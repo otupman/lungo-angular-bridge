@@ -43,6 +43,15 @@ var AppRouter = function(Lungo, $location, $scope) {
     }
   };
 
+  var _isSameSection = function(path) {
+    if(routingHistory.length == 0) {
+      return false;
+    }
+    var currentPathParts = routingHistory[routingHistory.length-1].split('/');
+    var pathParts = path.split('/');
+    return currentPathParts[_SECTION_INDEX] === pathParts[_SECTION_INDEX];
+  }
+
   $scope.$on('$routeChangeSuccess', function(next, last) {
 
     if(routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path() && !_hasArticle($location.path())) {
@@ -59,7 +68,9 @@ var AppRouter = function(Lungo, $location, $scope) {
       console.log('AppRouter::routeChangeSuccess - going forward to: ', $location.path(), ' current history is: ', routingHistory);
 
       showSection($location.path());
-      routingHistory.push($location.path());
+      if(!_isSameSection($location.path())) {
+        routingHistory.push($location.path()); 
+      }
     }
     Lungo.dom('*[class*="lab-view-old"]').remove()
   });
