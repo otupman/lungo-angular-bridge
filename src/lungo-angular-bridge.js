@@ -44,7 +44,6 @@ var AppRouter = function(Lungo, $location, $scope) {
   };
 
   $scope.$on('$routeChangeSuccess', function(next, last) {
-    console.log('AppRouter::routeChangeSuccess - route change successful to: ', $location.path(), ' current history is: ', routingHistory);
 
     if(routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path() && !_hasArticle($location.path())) {
       console.log('AppRouter::routeChangeSuccess - detected back, and going there...');
@@ -57,6 +56,8 @@ var AppRouter = function(Lungo, $location, $scope) {
       }
     }
     else {
+      console.log('AppRouter::routeChangeSuccess - going forward to: ', $location.path(), ' current history is: ', routingHistory);
+
       showSection($location.path());
       routingHistory.push($location.path());
     }
