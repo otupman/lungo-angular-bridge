@@ -7,7 +7,7 @@
     "name": "Centralway Factory"
   },
   "dependencies": {
-    "lungo": "latest",
+    "lungo": "2.1.0",
     "angular": "1.0.4"
   },
   "readme": "ERROR: No README.md file found!",
