@@ -29,8 +29,17 @@ var AppRouter = function(Lungo, $location, $scope) {
     console.log('AppRouter::routeChangeStart - route change beginning');
   });
 
+  var _resetAsideStates = function() {
+    var openAsides = Lungo.dom('aside[class*="show"]');
+    angular.forEach(openAsides, function(value) {
+      Lungo.View.Aside.toggle('#' + $$(value).attr('id'));
+    });
+    Lungo.dom('section[class*="aside"]').removeClass('aside');
+  }
+
   $scope.$on('$routeChangeSuccess', function(next, last) {
     console.log('AppRouter::routeChangeSuccess - route change successful to: ', $location.path(), ' current history is: ', routingHistory);
+    _resetAsideStates();
 
     if(routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path()) {
       console.log('AppRouter::routeChangeSuccess - detected back, and going there...');
