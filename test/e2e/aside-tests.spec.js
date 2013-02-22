@@ -21,6 +21,9 @@ describe('Aside tests', function() {
 		it('should hide when navigating to a new section', function() {
 			expect(element('#aside1:visible', 'Lefthand aside').count()).toBe(0);
 		});
+
+		it('should hide the previous section', function() {
+		});
 	});
 
 	describe('Basic aside operations', function() {
