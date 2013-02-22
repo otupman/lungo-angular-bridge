@@ -10,12 +10,15 @@ describe('Aside tests', function() {
 
 
 	describe('Aside across sections', function() {
-		it('should hide when navigating to a new section', function() {
+
+		beforeEach(function() {
 			element('#triggerLeftAsideLink').click();
 			sleep(ASIDE_WAIT);
 			element('#aside1_dynamic').click();
-			sleep(ASIDE_WAIT);
+			sleep(ASIDE_WAIT);			
+		})
 
+		it('should hide when navigating to a new section', function() {
 			expect(element('#aside1:visible', 'Lefthand aside').count()).toBe(0);
 		});
 	});
