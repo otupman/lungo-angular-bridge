@@ -6,6 +6,8 @@ var AppRouter = function(Lungo, $location, $scope) {
   var oldReplace = $location.replace;
 
   var _SECTION_PATH_LENGTH = 2;
+  var _SECTION_INDEX = 1;
+  var _ARTICLE_INDEX = 2;
 
   $location.replace = function() {
     console.log('$location.replace - called!');
@@ -29,11 +31,11 @@ var AppRouter = function(Lungo, $location, $scope) {
 
   var showSection = function(path) {
     var pathParts = path.split('/');
-    var sectionName = pathParts[1] !== '' ? pathParts[1] : 'main';
+    var sectionName = pathParts[_SECTION_INDEX] !== '' ? pathParts[_SECTION_INDEX] : 'main';
     _assertElementExists(sectionName);
     if(pathParts.length > _SECTION_PATH_LENGTH) {
-      _assertElementExists(pathParts[2]);
-      Lungo.Router.article(sectionName, pathParts[2]);
+      _assertElementExists(pathParts[_ARTICLE_INDEX]);
+      Lungo.Router.article(sectionName, pathParts[_ARTICLE_INDEX]);
     }
     else {
       console.log('AppRouter::showSection - transitioning to ', sectionName);
