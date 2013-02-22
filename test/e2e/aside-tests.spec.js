@@ -23,6 +23,7 @@ describe('Aside tests', function() {
 		});
 
 		it('should hide the previous section', function() {
+			expect(element('#main[class*="aside"]').count()).toBe(0);
 		});
 	});
 
