@@ -13,7 +13,7 @@
         <section id="main" data-transition="slide">
             <header ng-controller="AppCtrl" data-title="Simple Application">
                 <nav class="left">
-                    <a data-icon="menu" ng-click='triggerAside()'></a>
+                    <a data-icon="menu" ng-click='triggerAside()' id="triggerLeftAsideLink"></a>
                     <a ng-click='refreshApplication()' data-icon="refresh"></a>
                     Hello, {{name}}
                 </nav>
@@ -70,7 +70,7 @@
             <article class="active list scroll">
                 <ul>
                     <li><a href="/section1"><strong>Section 1</strong></a></li>
-                    <li><a href="/dynamic"><strong>Dynamic</strong></a></li>
+                    <li><a href="/dynamic" id="aside1_dynamic"><strong>Dynamic</strong></a></li>
                 </ul>
             </article>
         </aside>
