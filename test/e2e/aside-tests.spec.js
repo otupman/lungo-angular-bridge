@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Aside tests', function() {
-	var ASIDE_WAIT = 1;
+	var ASIDE_WAIT = 0.5;
 
 	beforeEach(function() {
 		browser().navigateTo('../../examples/simple/index.html');
