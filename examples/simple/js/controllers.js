@@ -1,5 +1,9 @@
 'use strict';
 
+function toggleRightAside() {
+  Lungo.View.Aside.toggle('#rightaside');
+}
+
 function AppCtrl($scope) {
     $scope.name = "Some name";
     /**
@@ -14,6 +18,8 @@ function AppCtrl($scope) {
         console.log('triggering aside');
         Lungo.Router.aside('main', 'aside1');
     }
+
+    $scope.triggerRightAside = toggleRightAside;
 }
 
 function DynamicCtrl($scope) {
@@ -25,6 +31,8 @@ function DynamicCtrl($scope) {
     {"name": "Usage of Ng-Repeater",
      "description": "And repeated through the ng-repeater directive to test it through our End-to-End scenarios."}
   	];
+
+  $scope.triggerRightAside = toggleRightAside;
 }
 
 angular.module('BridgeExample.controllers', []).

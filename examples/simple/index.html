@@ -20,6 +20,7 @@
                 <nav class="right">
 
                     <a href="section1">Section 1</a>
+                    <a ng-click="triggerRightAside()">Right aside</a>
                 </nav>
             </header>
             <article id="something" class="active">
@@ -53,6 +54,16 @@
                 <p>Section 1</p>
             </article>
         </section>
+
+        <aside id="rightaside" class="right">
+            <header data-title="Right aside"></header>
+            <article class="active list scroll">
+                <ul>
+                    <li><a href="/section1"><strong>Section 1</strong></a></li>
+                </ul>
+            </article>
+        </aside>
+
 
         <aside id="aside1">
             <header data-title="As an aside"></header>
