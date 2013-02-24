@@ -8,14 +8,10 @@ describe('Inter-section links', function() {
 	});
 
 	describe('first, second, first, second - shaking it for issues #42 and #41', function() {
-		beforeEach(function() {  
-			pause();
-			element('a[href="/navbarissue/navart1"]').click();
-			pause();
-			element('a[href="/navbarissue/navart2"]').click();
-			pause(); 
-			element('a[href="/navbarissue/navart1"]').click();
-			element('a[href="/navbarissue/navart2"]').click();
+		beforeEach(function() { 
+			element('#navbarissue_navart2_link').click();
+			element('#navbarissue_navart1_link').click(); 
+			element('#navbarissue_navart2_link').click();
 		});
 
 		it('should not break horribly', function() {
@@ -25,8 +21,8 @@ describe('Inter-section links', function() {
 
 	describe('first, second - #41 strikes here too', function() {
 		beforeEach(function() { 
-			element('a[href="/navbarissue/navart1"]').click();
-			element('a[href="/navbarissue/navart2"]').click();
+			element('#navbarissue_navart1_link').click(); 
+			element('#navbarissue_navart2_link').click();
 		});
 
 		it('should only have 1 title in the header', function() {
