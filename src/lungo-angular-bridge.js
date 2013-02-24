@@ -52,8 +52,17 @@ var AppRouter = function(Lungo, $location, $scope) {
     return currentPathParts[_SECTION_INDEX] === pathParts[_SECTION_INDEX];
   }
 
-  $scope.$on('$routeChangeSuccess', function(next, last) {
+  var _resetAsideStates = function() {
+    var openAsides = Lungo.dom('aside[class*="show"]');
+    angular.forEach(openAsides, function(value) {
+      Lungo.View.Aside.toggle('#' + $$(value).attr('id'));
+    });
+    Lungo.dom('section[class*="aside"]').removeClass('aside');
+  }
 
+  $scope.$on('$routeChangeSuccess', function(next, last) {
+    console.log('AppRouter::routeChangeSuccess - route change successful to: ', $location.path(), ' current history is: ', routingHistory);
+    _resetAsideStates();
     if(routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path() && !_hasArticle($location.path())) {
       console.log('AppRouter::routeChangeSuccess - detected back, and going there...');
       routingHistory.pop();
@@ -155,6 +164,13 @@ angular.module('Centralway.lungo-angular-bridge', [])
           
           var newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
           newElement.addClass('lab-view');
+
+          if(newElement.attr('id')) {
+            $route.current.$route.sectionId = newElement.attr('id');
+          }
+          else {
+            throw new Error('Elements loaded via templates must have an ID attribute');
+          }
 
           Lungo.Boot.Data.init('#' + newElement.attr('id'));
 

@@ -1,3 +1,9 @@
+function AppCtrl($scope) {
+    $scope.triggerAside = function() {
+        Lungo.Router.aside('main', 'aside1');
+    }
+}
+
 function MapCtrl($scope) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
