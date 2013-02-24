@@ -17,6 +17,21 @@ describe('Inter-section links', function() {
 		it('should not break horribly', function() {
 			expect(element('#navart2').attr('class')).toMatch(/active/);
 		});
+
+		describe("when clicking on the current page's link", function() {
+			beforeEach(function() {
+				element('#navbarissue_navart2_link').click();
+			});
+
+			it('should continue to display the current', function() {
+				expect(element('#navart2').attr('class')).toMatch(/active/);	
+			})
+
+			it('should display the navart2 article', function() {
+				expect(element('#navart2:visible').count()).toBe(1);
+			});
+			
+		});
 	});
 
 	describe('first, second - #41 strikes here too', function() {
