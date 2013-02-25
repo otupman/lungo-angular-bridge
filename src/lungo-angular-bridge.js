@@ -25,7 +25,7 @@ var AppRouter = function(Lungo, $location, $scope) {
       id = '#' + id;
     }
     if(Lungo.dom(id).length == 0) {
-      throw new Error('No such element with ID [', id, ']');
+      throw new Error('No such element with ID [' + id + ']');
     }
   }
 
