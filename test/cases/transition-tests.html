@@ -1,0 +1,81 @@
+<html ng-app="TransitionTest">
+  <head>
+      <title>Lungo Angular Bridge Example</title>
+
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.css"/>
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.icon.css"/>
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/theme.lungo.css">
+      <script type="text/javascript" src="../../components/quojs/quo.debug.js"></script>
+      <script type="text/javascript" src="../../lib/lungo.debug.js"></script>
+
+      <script type="text/ng-template" id="screen1.html">
+		    <section id="screen1" data-transition="slide">
+			    <article class="active">
+						<strong>Screen 1</strong>
+						<a href="#/screen2">Go to Screen 2</a>
+					</active>
+				</section>
+			</script>
+
+      <script type="text/ng-template" id="screen2.html">
+		    <section id="screen2" data-transition="slide">
+			    <article class="active">
+						<strong>Screen 2</strong>
+		  			<a href="#/screen3">Go to Screen 3</a>
+		  			<a href="#/screen1">Go back to screen 1</a>
+					</active>
+	  		</section>
+			</script>
+
+      <script type="text/ng-template" id="screen3.html">
+		    <section id="screen3" data-transition="slide">
+			    <article class="active">
+						<strong>Screen 3</strong>
+		  			<a href="#/screen2">Go back to screen 2</a>
+					</active>
+	  		</section>
+			</script>
+
+
+  </head>
+
+  <body lab-boot>
+  	<section id="main" data-transition="slide">
+  		<article class="active" id="first_article">
+  			<strong>Start page</strong>
+  			<a href="#/screen1">Go to Screen 1</a>
+  		</article>
+  	</section>
+
+  	<lab-view></lab-view>
+
+		<script type="text/javascript" src="../../components/angular/angular.js"></script>
+    <script type="text/javascript" src="../../src/lungo-angular-bridge.js"></script>
+
+    <script>
+			// Declare app level module which depends on filters, and services
+			angular.module('TransitionTest', 
+				['Centralway.lungo-angular-bridge']).
+			  config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+
+			    $routeProvider.when('/screen1', {templateUrl: 'screen1.html'});
+			    $routeProvider.when('/screen2', {templateUrl: 'screen2.html'});
+			    $routeProvider.when('/screen3', {templateUrl: 'screen3.html'});
+
+			    $routeProvider.otherwise({redirectTo: '/'});
+			    $locationProvider.html5Mode(false);
+			  }]);
+    </script>
+  </body>
+</html>	
+
+
+
+
+
+
+
+
+
+
+
