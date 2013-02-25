@@ -81,7 +81,10 @@ var AppRouter = function(Lungo, $location, $scope) {
         routingHistory.push($location.path()); 
       }
     }
-    Lungo.dom('*[class*="lab-view-old"]').remove()
+    setTimeout(function() {
+        Lungo.dom('*[class*="lab-view-old"]').remove()  
+      }, 400); 
+    
   });
 
 
