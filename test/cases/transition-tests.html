@@ -3,6 +3,7 @@
       <title>Lungo Angular Bridge Example</title>
 
       <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.css"/>
+      <!-- <link rel="stylesheet" type="text/css" href="../../test/lib/lungo.slow-transitions.css"/> -->
       <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.icon.css"/>
       <link rel="stylesheet" type="text/css" href="../../components/lungo/theme.lungo.css">
       <script type="text/javascript" src="../../components/quojs/quo.debug.js"></script>
@@ -16,6 +17,7 @@
 			    <article class="active">
 						<strong>Screen 1</strong>
 						<a href="#/screen2">Go to Screen 2</a>
+						<strong class="right" style="background-color: green">RIGHT</strong>
 					</active>
 				</section>
 			</script>
@@ -29,6 +31,9 @@
 						<strong>Screen 2</strong>
 		  			<a href="#/screen3">Go to Screen 3</a>
 		  			<a href="#/screen1">Go back to screen 1</a>
+
+						<strong class="left" style="background-color: red">LEFT</strong>
+						<strong class="right" style="background-color: green">RIGHT</strong>
 					</active>
 	  		</section>
 			</script>
@@ -41,6 +46,8 @@
 			    <article class="active">
 						<strong>Screen 3</strong>
 		  			<a href="#/screen2">Go back to screen 2</a>
+						<strong class="left" style="background-color: red">LEFT</strong>
+						<strong class="right" style="background-color: green">RIGHT</strong>
 					</active>
 	  		</section>
 			</script>
