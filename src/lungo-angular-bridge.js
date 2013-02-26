@@ -171,6 +171,15 @@ angular.module('Centralway.lungo-angular-bridge', [])
         existingElement.remove();
       }
 
+      function _archiveOldContent() {
+         var previousElement = Lungo.dom('*[class*="lab-view"]').removeClass('lab-view').addClass('lab-old-view');
+          if(previousElement.length > 0) {
+            previousElement
+              .attr('lab-view-old-id', previousElement.attr('id'))
+              .removeAttr('id');
+          }
+      }
+
       function update() {
         var locals = $route.current && $route.current.locals,
             template = locals && locals.$template;
@@ -180,12 +189,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
           scope.$emit('$labViewUpdateStart', null);
           var targetContainer = element.parent();
 
-          var previousElement = Lungo.dom('*[class*="lab-view"]').removeClass('lab-view').addClass('lab-old-view');
-          if(previousElement.length > 0) {
-            previousElement
-              .attr('lab-view-old-id', previousElement.attr('id'))
-              .removeAttr('id');
-          }
+          _archiveOldContent();
 
           var newElement = null;
 
