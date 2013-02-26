@@ -65,6 +65,10 @@ var AppRouter = function(Lungo, $location, $scope) {
   var _isBack = function($location) {
     return routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path() && !_hasArticle($location.path());
   }
+
+  var isBack = function() {
+    return _isBack($location);
+  }
   $scope.$on('$routeChangeSuccess', function(next, last) {
     console.log('AppRouter::routeChangeSuccess - route change successful to: ', $location.path(), ' current history is: ', routingHistory);
     _resetAsideStates();
@@ -116,6 +120,7 @@ var AppRouter = function(Lungo, $location, $scope) {
 
   return {
     back: back
+    , isBack: isBack
   }
 
 };
