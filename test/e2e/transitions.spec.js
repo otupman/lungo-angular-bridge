@@ -5,6 +5,11 @@ angular.scenario.dsl('xPosition', function() {
 	return function(selector) {
 		return this.addFutureAction('xPosition', function(window, $document, done) {
 			var transform = $document.find(selector).css('-webkit-transform');
+			if(!transform) {
+				var reason = ($document.find(selector).length == 0) ? ' because there are no selector matches' : '';
+				done('Selector ' + selector + ' got no -webkit-transform value. ' + reason);
+				return;
+			}
 			var splitTransform = transform.split(',');
 			done(null, parseInt(splitTransform[TRANSFORM_XPOS]));
 		});
@@ -12,7 +17,7 @@ angular.scenario.dsl('xPosition', function() {
 });
 
 describe('Transitions', function() {
-	var WAIT_TIME = 0.4; // The example uses a special version of the Lungo CSS that delays transitions by 3.5s
+	var WAIT_TIME = 0.35; // The example uses a special version of the Lungo CSS that delays transitions by 3.5s
 
 	beforeEach(function() {
 		browser().navigateTo('../test/cases/transition-tests.html'); 
@@ -40,7 +45,6 @@ describe('Transitions', function() {
 
 		it('should animate forwards when moving forwards', function() {
 			element('a[href="#/screen2"]').click();
-			expect(xPosition('#screen2')).toBeGreaterThan(0);
 			sleep(WAIT_TIME); 	
 			expect(xPosition('#screen2')).toBe(0);
 		});
@@ -52,8 +56,9 @@ describe('Transitions', function() {
 				element('a[href="#/screen3"]').click();
 			});
 
-			it('should still have screen 2 in the DOM', function() {
-				expect(element('#screen2').count()).toBe(1);
+			it('should not still have screen 2 in the DOM', function() {
+				sleep(WAIT_TIME);
+				expect(element('#screen2').count()).toBe(0);
 			});
 
 			it('should not have screen 1 in the DOM', function() {
