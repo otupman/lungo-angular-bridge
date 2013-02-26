@@ -62,10 +62,14 @@ var AppRouter = function(Lungo, $location, $scope) {
     Lungo.dom('section[class*="aside"]').removeClass('aside');
   }
 
+  var _isBack = function($location) {
+    return routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path() && !_hasArticle($location.path());
+  }
   $scope.$on('$routeChangeSuccess', function(next, last) {
     console.log('AppRouter::routeChangeSuccess - route change successful to: ', $location.path(), ' current history is: ', routingHistory);
     _resetAsideStates();
     if(routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path() && !_hasArticle($location.path())) {
+    if(_isBack($location)) {
       console.log('AppRouter::routeChangeSuccess - detected back, and going there...');
       routingHistory.pop();
       try {
