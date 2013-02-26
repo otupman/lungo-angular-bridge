@@ -12,6 +12,7 @@
       <script type="text/ng-template" id="screen1.html">
 		    <section id="screen1" data-transition="slide">
 	      	<header>			
+	      		<nav class="center">{{counter}}</nav>
 				    <nav class="right"><a href="#/" data-icon="home">Home</a></nav>
 				  </header>
 			    <article class="active">
@@ -24,7 +25,8 @@
 
       <script type="text/ng-template" id="screen2.html">
 		    <section id="screen2" data-transition="slide">
-	      	<header>			
+	      	<header>
+	      		<nav class="center">{{counter}}</nav>
 				    <nav class="right"><a href="#/" data-icon="home">Home</a></nav>
 				  </header>
 			    <article class="active">
@@ -41,6 +43,7 @@
       <script type="text/ng-template" id="screen3.html">
 		    <section id="screen3" data-transition="slide">
 	      	<header>			
+	      		<nav class="center">{{counter}}</nav>
 				    <nav class="right"><a href="#/" data-icon="home">Home</a></nav>
 				  </header>
 			    <article class="active">
@@ -55,7 +58,7 @@
 
   </head>
 
-  <body lab-boot>
+  <body lab-boot ng-controller="IncrementalCtrl">
   	<section id="main" data-transition="slide">
   		<article class="active" id="first_article">
   			<strong>Start page</strong>
@@ -81,6 +84,15 @@
 			    $routeProvider.otherwise({redirectTo: '/'});
 			    $locationProvider.html5Mode(false);
 			  }]);
+
+			  function IncrementalCtrl($scope) {
+			  	var scope = $scope;
+			  	$scope.counter = 0;
+
+			  	$scope.$on('$routeChangeSuccess', function() {
+			  		$scope.counter++;
+			  	});
+			  }
     </script>
   </body>
 </html>	
