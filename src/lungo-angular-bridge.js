@@ -9,6 +9,8 @@ var AppRouter = function(Lungo, $location, $scope) {
   var _SECTION_INDEX = 1;
   var _ARTICLE_INDEX = 2;
 
+  var _CONTENT_REMOVAL_TIMEOUTMS = 500;
+
   $location.replace = function() {
     console.log('$location.replace - called!');
     $location.$$replace = true;
@@ -83,7 +85,7 @@ var AppRouter = function(Lungo, $location, $scope) {
     }
     setTimeout(function() {
         Lungo.dom('*[class*="lab-view-old"]').remove()  
-      }, 400); 
+      }, _CONTENT_REMOVAL_TIMEOUTMS); 
     
   });
 
