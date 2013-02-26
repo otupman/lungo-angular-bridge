@@ -68,10 +68,13 @@ var AppRouter = function(Lungo, $location, $scope) {
   $scope.$on('$routeChangeSuccess', function(next, last) {
     console.log('AppRouter::routeChangeSuccess - route change successful to: ', $location.path(), ' current history is: ', routingHistory);
     _resetAsideStates();
-    if(routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path() && !_hasArticle($location.path())) {
     if(_isBack($location)) {
       console.log('AppRouter::routeChangeSuccess - detected back, and going there...');
       routingHistory.pop();
+      var sectionToRemove = Lungo.dom('section[class*="lab-view"]');
+      // setTimeout(function() {
+      //   sectionToRemove.remove();
+      // }, _CONTENT_REMOVAL_TIMEOUTMS);
       try {
         Lungo.Router.back();
       } catch(e) {
@@ -87,13 +90,11 @@ var AppRouter = function(Lungo, $location, $scope) {
         routingHistory.push($location.path()); 
       }
     }
-    setTimeout(function() {
-        Lungo.dom('*[class*="lab-view-old"]').remove()  
-      }, _CONTENT_REMOVAL_TIMEOUTMS); 
+    // setTimeout(function() {
+    //     Lungo.dom('*[class*="lab-view-old"]').remove()  
+    // }, _CONTENT_REMOVAL_TIMEOUTMS); 
     
   });
-
-
 
   var getPrevious = function() {
     if(routingHistory.length < 2) {
@@ -175,21 +176,42 @@ angular.module('Centralway.lungo-angular-bridge', [])
             template = locals && locals.$template;
 
         if (template) {
+
+          scope.$emit('$labViewUpdateStart', null);
           var targetContainer = element.parent();
 
-          Lungo.dom('*[class*="lab-view"]').removeClass('lab-view').addClass('lab-view-old').attr('id', '');
-          scope.$emit('$labViewUpdateStart', null);
+          var previousElement = Lungo.dom('*[class*="lab-view"]').removeClass('lab-view').addClass('lab-old-view');
+          if(previousElement.length > 0) {
+            previousElement
+              .attr('lab-view-old-id', previousElement.attr('id'))
+              .removeAttr('id');
+          }
 
-          targetContainer.append(template);
-          
-          var newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
-          newElement.addClass('lab-view');
+          var newElement = null;
 
-          if(newElement.attr('id')) {
-            $route.current.$route.sectionId = newElement.attr('id');
+          if($route.current.$route.sectionId) {
+            var backedUpElement = Lungo.dom('section[lab-view-old-id="' + $route.current.$route.sectionId + '"]');
+            if(backedUpElement.length == 0) {
+              throw new Error('Cannot find previously stored element with ID ' + $route.current.$route.sectionId);
+            }
+            newElement = angular.element(backedUpElement[0]);
+            backedUpElement
+              .removeClass('lab-old-view')
+              .addClass('lab-view')
+              .attr('id', $route.current.$route.sectionId);
           }
           else {
-            throw new Error('Elements loaded via templates must have an ID attribute');
+            targetContainer.append(template);
+            
+            newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
+            newElement.addClass('lab-view');
+
+            if(newElement.attr('id')) {
+              $route.current.$route.sectionId = newElement.attr('id');
+            }
+            else {
+              throw new Error('Elements loaded via templates must have an ID attribute');
+            }
           }
 
           Lungo.Boot.Data.init('#' + newElement.attr('id'));
