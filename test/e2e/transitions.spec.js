@@ -29,11 +29,20 @@ describe('Transitions', function() {
 			sleep(WAIT_TIME);
 			element('a[href="#/screen2"]').click();
 			sleep(WAIT_TIME);
+			element('a[href="#/screen1"]').click();
+			pause();
+		});
+
+		it('should have the correct route change count displayed in the header nav', function() {
+			expect(element('#screen1 nav[class*="counter"]').text()).toBe('5');
 		});
 
 		it('should bring screen 1 from the left', function() {
-			element('a[href="#/screen1"]').click();
 			expect(xPosition('#screen1')).toBeLessThan(0);
+		});
+
+		it('should only have 1 home icon present', function() {
+			expect(element('#screen1 span[class*="icon home"]').count()).toBe(1);
 		});
 	});
 
@@ -54,7 +63,7 @@ describe('Transitions', function() {
 				element('a[href="#/screen2"]').click();
 				sleep(WAIT_TIME);
 				element('a[href="#/screen3"]').click();
-			});
+			});	
 
 			it('should not still have screen 2 in the DOM', function() {
 				sleep(WAIT_TIME);

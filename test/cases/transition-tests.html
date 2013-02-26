@@ -91,6 +91,8 @@
 
 			  	$scope.$on('$routeChangeSuccess', function() {
 			  		$scope.counter++;
+			  		
+			  		console.log('IncrementalCtrl::$routeChangeSuccess - Counter is now at: ', $scope.counter);
 			  	});
 			  }
     </script>
