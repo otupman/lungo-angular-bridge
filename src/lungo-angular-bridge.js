@@ -178,6 +178,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
           var targetContainer = element.parent();
 
           Lungo.dom('*[class*="lab-view"]').removeClass('lab-view').addClass('lab-view-old').attr('id', '');
+          scope.$emit('$labViewUpdateStart', null);
 
           targetContainer.append(template);
           
@@ -212,6 +213,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
 
           // $anchorScroll might listen on event...
           $anchorScroll();
+          scope.$emit('labViewUpdateFinished', null);
         } else {
           //clearContent();
         }
