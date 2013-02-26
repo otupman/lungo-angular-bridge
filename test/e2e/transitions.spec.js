@@ -69,13 +69,6 @@ describe('Transitions', function() {
 				expect(xPosition('#screen3')).toBeGreaterThan(0);
 				sleep(WAIT_TIME);
 				expect(xPosition('#screen3')).toBe(0);
-			});		
-
-			it('should transition screen TWO to the left', function() {
-				sleep(1);
-				expect(xPosition('#screen3')).toBeLessThan(0);
-				sleep(WAIT_TIME);
-				expect(xPosition('#screen3')).toBe(0);
 			});
 		});
 	});
