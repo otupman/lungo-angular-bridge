@@ -75,10 +75,6 @@ var AppRouter = function(Lungo, $location, $scope) {
     if(_isBack($location)) {
       console.log('AppRouter::routeChangeSuccess - detected back, and going there...');
       routingHistory.pop();
-      var sectionToRemove = Lungo.dom('section[class*="lab-view"]');
-      // setTimeout(function() {
-      //   sectionToRemove.remove();
-      // }, _CONTENT_REMOVAL_TIMEOUTMS);
       try {
         Lungo.Router.back();
       } catch(e) {
@@ -94,10 +90,6 @@ var AppRouter = function(Lungo, $location, $scope) {
         routingHistory.push($location.path()); 
       }
     }
-    // setTimeout(function() {
-    //     Lungo.dom('*[class*="lab-view-old"]').remove()  
-    // }, _CONTENT_REMOVAL_TIMEOUTMS); 
-    
   });
 
   var getPrevious = function() {
