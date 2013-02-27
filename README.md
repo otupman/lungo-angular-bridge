@@ -24,13 +24,7 @@ There are lots of issues in our github project, however issue != bug. We like is
 
 Both Angular and Lungo have the concept of 'routing'. In Lungo, 'routing' is used to provide navigation between sections, articles and asides. In Angular, routing is a much more powerful beast, more like rails.
 
-The Bridge favours Angular's routes; in fact, the majority of the work has been spent on making Angular's routes work well within Lungo. Lungo's "routing" should not be used apart from in **one** case: asides (these are facebook-like side menus that pop out). 
-
-To toggle the display of an aise, please use the following call:
-
-    Lungo.Router.aside([section id], [aside id]);
-    
-We typically choose to bind it in an ng-click attribute.
+The Bridge favours Angular's routes; in fact, the majority of the work has been spent on making Angular's routes work well within Lungo. Lungo's "routing" should not be used.
 
 #### Services
 
@@ -124,6 +118,14 @@ Some examples:
 + /dashboard => section id='dashboard'
 + /dashboard/some_article => section id='dashboard' - article id='some_article'
 + /dashboard/some_article/confirm => section id='dashboard' - article id='some_article'
+
+### Asides 
+
+These are small sidebars that appear from either the left or the right; Lungo styles and animates them; do not use Lungo routing to trigger them, instead use the `lab-aside` attribute, for example:
+
+    <a lab-aside="idOfAside">Show aside</a>
+
+LAB will do the work of showing or hiding that for you.
 
 ## Examples
 
