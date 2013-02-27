@@ -17,6 +17,10 @@ angular.module('BridgeExample',
     // Demo of using IDs within URLs - note the section ID then article ID and **then** the person ID
     $routeProvider.when('/person/view/:personId', { templateUrl: '/examples/simple/partials/person.html', controller: 'PersonCtrl'});
     
+    $routeProvider.when('/navbarissue', {templateUrl: 'examples/simple/partials/navbarissue.html'});
+    $routeProvider.when('/navbarissue/navart1', {templateUrl: 'examples/simple/partials/navbarissue.html'});
+    $routeProvider.when('/navbarissue/navart2', {templateUrl: 'examples/simple/partials/navbarissue.html'});
+    $routeProvider.when('/navbarissue/navart3', {templateUrl: 'examples/simple/partials/navbarissue.html'});
 
     $routeProvider.otherwise({redirectTo: '/'});
     $locationProvider.html5Mode(true);

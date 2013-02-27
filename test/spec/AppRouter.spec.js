@@ -1,16 +1,51 @@
 'use strict';
 
 Lungo.mock = function() {
+  var _oldLungo = Lungo;
+  console.log('whee');
+  var _absoluteHistory = [];
   //TODO: Pretty sure this could be done via a spy rather than a custom mock
+  var section = function(sectionId) {
+    _absoluteHistory.push(sectionId);
+  };
+
+  var article = function(sectionId, articleId) {
+    _absoluteHistory.push(sectionId + '/' + articleId);
+  }
+
+  var back = function() {
+    _absoluteHistory.pop();
+  }
+
+  var getHistory = function() {
+    return _absoluteHistory;
+  }
+
+  var clearHistory = function() {
+    _absoluteHistory = [];
+  }
+
+  var restore = function() {
+    Lungo = _oldLungo;
+  }
+
+  var noop = function() {};
+
   return {
     Router: {
-      section: function(sectionId) {}
-      , article: function(sectionId, articleId) {}
-      , back: function() {}
+      section: section
+      , article: article
+      , back: back
+      , history: {
+        get: getHistory
+        , clear: clearHistory
+      }
     }
-    , init: function() {}
+    , init: noop
+    , restore: restore
+    , dom: noop
   };
-}
+};
 
 Lungo = Lungo.mock();
 
@@ -28,6 +63,48 @@ describe('AppRouter', function() {
   	angular.mock.inject(function($location, $rootScope) {
 			AppRouter.instance = new AppRouter(Lungo, $location, $rootScope);
 		})
+  });
+
+  describe('Moving between articles in a section', function() {
+    beforeEach(function() {
+      spyOn(Lungo.Router, 'section');
+      spyOn(Lungo.Router, 'back');
+      Lungo.Router.history.clear();
+      navigateTo('/section/firstArticle');
+      navigateTo('/section/secondArticle');
+      navigateTo('/section/thirdArticle');
+    });
+
+    it('should move forward first -> second -> third', function() {
+      expect(Lungo.Router.history.get().length).toEqual(3);
+    });
+
+    it('should not call back', function() {
+      expect(Lungo.Router.back.calls.length).toEqual(0);
+    })
+
+    describe('and then to a previous article', function() {
+      beforeEach(function() {
+        navigateTo('/section/secondArticle');
+      });
+
+      it('should not call back if we switch to a previous article', function() {
+        expect(Lungo.Router.back.calls.length).toEqual(0);
+      });
+
+      it('should move in a next fashion', function() {
+        expect(Lungo.Router.history.get().length).toEqual(4);
+        expect(Lungo.Router.history.get()[3]).toEqual('section/secondArticle');
+      })
+    });
+  });
+
+  describe('Moving between articles within different sections', function() {
+    beforeEach(function() {
+      spyOn(Lungo.Router, 'section');
+      spyOn(Lungo.Router, 'back');
+    });
+
   });
 
   describe('Moving forwards then backwards', function() {
