@@ -29,6 +29,13 @@ Lungo.mock = function() {
     Lungo = _oldLungo;
   }
 
+  var dom = function() {
+    return {
+      removeClass: noop
+      , attr: noop
+    };
+  }
+
   var noop = function() {};
 
   return {
@@ -41,8 +48,14 @@ Lungo.mock = function() {
         , clear: clearHistory
       }
     }
+    , View: {
+      Aside: {
+        toggle: noop
+      }
+    }
     , init: noop
     , restore: restore
+    , dom: dom
   };
 };
 

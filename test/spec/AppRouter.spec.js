@@ -43,6 +43,7 @@ Lungo.mock = function() {
     }
     , init: noop
     , restore: restore
+    , dom: noop
   };
 };
 
@@ -76,7 +77,6 @@ describe('AppRouter', function() {
 
     it('should move forward first -> second -> third', function() {
       expect(Lungo.Router.history.get().length).toEqual(3);
-      expect(Lungo.Router.history.get()[2]).toEqual('section/thirdArticle');
     });
 
     it('should not call back', function() {
