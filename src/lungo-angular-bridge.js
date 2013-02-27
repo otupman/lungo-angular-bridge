@@ -113,6 +113,7 @@ var AppRouter = function(Lungo, $location, $scope) {
   return {
     back: back
     , isBack: isBack
+    , isSameSection: _isSameSection
   }
 
 };
@@ -181,7 +182,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
         var locals = $route.current && $route.current.locals,
             template = locals && locals.$template;
 
-        if (template) {
+        if (template && !AppRouter.instance.isSameSection($location.path())) {
 
           scope.$emit('$labViewUpdateStart', null);
           var targetContainer = element.parent();
