@@ -10,7 +10,7 @@
     "lungo": "2.1.0",
     "angular": "1.0.5"
   },
-  "readme": "ERROR: No README.md file found!",
+  "readme": "README.md",
   "repository": {
     "type": "git",
     "url": "git://github.com/centralway/lungo-angular-bridge"
