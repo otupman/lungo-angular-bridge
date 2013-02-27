@@ -24,6 +24,18 @@ function AppCtrl($scope) {
 
 function AsideCtrl($scope) {
   $scope.firstName = "Bob";
+  $scope.counter = 1;
+
+  $scope.changeName = function() {
+    $scope.firstName = $scope.firstName + ' ' + $scope.counter;
+    $scope.counter++;
+  }
+}
+
+function TopLevelCtrl($scope) {
+  $scope.callTopLevel = function() {
+    alert('Top level called!');
+  }
 }
 
 function DynamicCtrl($scope) {

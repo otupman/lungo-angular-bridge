@@ -9,7 +9,7 @@
         <script type="text/javascript" src="../../components/lungo/lungo.js"></script>
     </head>
 
-    <body lab-boot>
+    <body lab-boot ng-controller="TopLevelCtrl">
         <section id="main" data-transition="slide">
             <header ng-controller="AppCtrl" data-title="Simple Application">
                 <nav class="left">
@@ -43,6 +43,9 @@
                 <p>
                     Test of directives using Lungo data-* attributes: <directive-and-lungo-test></directive-and-lungo-test> (currently failing)
                 </p>
+                <p>
+                    <button ng-click="callTopLevel()">Call top level</button>
+                </p>
             </article>
         </section>
 
@@ -66,11 +69,14 @@
 
 
         <aside id="aside1" ng-controller="AsideCtrl">
-            <header data-title="{{firstName}}"></header>
+            <header>
+                <span class="center title">{{firstName}}</span>
+            </header>
             <article class="active list scroll">
                 <ul>
                     <li><a href="/section1"><strong>Section 1</strong></a></li>
                     <li><a href="/dynamic" id="aside1_dynamic"><strong>Dynamic</strong></a></li>
+                    <li><button ng-click='changeName()'>Click meeee</button></li>
                 </ul>
             </article>
         </aside>
