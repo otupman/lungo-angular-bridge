@@ -12,7 +12,6 @@ var AppRouter = function(Lungo, $location, $scope) {
   var _CONTENT_REMOVAL_TIMEOUTMS = 500;
 
   $location.replace = function() {
-    console.log('$location.replace - called!');
     $location.$$replace = true;
     return $location;
   }
@@ -40,7 +39,6 @@ var AppRouter = function(Lungo, $location, $scope) {
       Lungo.Router.article(sectionName, pathParts[_ARTICLE_INDEX]);
     }
     else {
-      console.log('AppRouter::showSection - transitioning to ', sectionName);
       Lungo.Router.section(sectionName);
     }
   };
@@ -70,10 +68,8 @@ var AppRouter = function(Lungo, $location, $scope) {
     return _isBack($location);
   }
   $scope.$on('$routeChangeSuccess', function(next, last) {
-    console.log('AppRouter::routeChangeSuccess - route change successful to: ', $location.path(), ' current history is: ', routingHistory);
     _resetAsideStates();
     if(_isBack($location)) {
-      console.log('AppRouter::routeChangeSuccess - detected back, and going there...');
       routingHistory.pop();
       try {
         Lungo.Router.back();
@@ -83,8 +79,7 @@ var AppRouter = function(Lungo, $location, $scope) {
       }
     }
     else {
-      console.log('AppRouter::routeChangeSuccess - going forward to: ', $location.path(), ' current history is: ', routingHistory);
-
+  
       showSection($location.path());
       if(!_isSameSection($location.path())) {
         routingHistory.push($location.path()); 
@@ -102,11 +97,9 @@ var AppRouter = function(Lungo, $location, $scope) {
   var back = function() {
 
     if(routingHistory.length == 0) {
-      console.log('AppRouter::back() - nothing to go back to :(');
       return;
     }
     var previousLocation = getPrevious();
-    console.log('AppRouter::back() - going back to ', previousLocation);
     $location.path(previousLocation);
   }
 
