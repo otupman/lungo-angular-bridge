@@ -30,7 +30,6 @@ describe('Transitions', function() {
 			element('a[href="#/screen2"]').click();
 			sleep(WAIT_TIME);
 			element('a[href="#/screen1"]').click();
-			pause();
 		});
 
 		it('should have the correct route change count displayed in the header nav', function() {
