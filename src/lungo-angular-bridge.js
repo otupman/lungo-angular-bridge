@@ -57,7 +57,7 @@ var AppRouter = function(Lungo, $location, $scope) {
   var _resetAsideStates = function() {
     var openAsides = Lungo.dom('aside[class*="show"]');
     angular.forEach(openAsides, function(value) {
-      Lungo.View.Aside.toggle('#' + $$(value).attr('id'));
+      Lungo.View.Aside.toggle('#' + Lungo.dom(value).attr('id'));
     });
     Lungo.dom('section[class*="aside"]').removeClass('aside');
   }
