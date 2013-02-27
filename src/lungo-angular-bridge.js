@@ -147,7 +147,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
       AppRouter.instance = AppRouter(Lungo, $location, scope);
     };
   }])
-	.directive('labView', function($http,   $templateCache,   $route,   $anchorScroll,   $compile, $controller) {
+	.directive('labView', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location) {
   return {
     restrict: 'ECA',
     terminal: true,
@@ -198,29 +198,20 @@ angular.module('Centralway.lungo-angular-bridge', [])
 
           var newElement = null;
 
-          if($route.current.$route.sectionId) {
-            var backedUpElement = Lungo.dom('section[lab-view-old-id="' + $route.current.$route.sectionId + '"]');
-            if(backedUpElement.length == 0) {
-              throw new Error('Cannot find previously stored element with ID ' + $route.current.$route.sectionId);
-            }
-            newElement = angular.element(backedUpElement[0]);
-            backedUpElement
-              .removeClass('lab-old-view')
-              .addClass('lab-view')
-              .attr('id', $route.current.$route.sectionId);
+          targetContainer.append(template);
+          
+          newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
+          newElement.addClass('lab-view');
+
+          if(newElement.attr('id')) {
+            $route.current.$route.sectionId = newElement.attr('id');
           }
           else {
-            targetContainer.append(template);
-            
-            newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
-            newElement.addClass('lab-view');
-
-            if(newElement.attr('id')) {
-              $route.current.$route.sectionId = newElement.attr('id');
-            }
-            else {
-              throw new Error('Elements loaded via templates must have an ID attribute');
-            }
+            throw new Error('Elements loaded via templates must have an ID attribute');
+          }
+          
+          if(AppRouter.instance.isBack($location)) {
+            newElement.addClass('hide');
           }
 
           Lungo.Boot.Data.init('#' + newElement.attr('id'));
