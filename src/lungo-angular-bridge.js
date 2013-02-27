@@ -5,19 +5,39 @@ var AppRouter = function(Lungo, $location, $scope) {
 
   var oldReplace = $location.replace;
 
+  var _SECTION_PATH_LENGTH = 2;
+  var _SECTION_INDEX = 1;
+  var _ARTICLE_INDEX = 2;
+
+  var _CONTENT_REMOVAL_TIMEOUTMS = 500;
+
   $location.replace = function() {
     console.log('$location.replace - called!');
     $location.$$replace = true;
     return $location;
   }
 
+  var _hasArticle = function(path) {
+    var splitPath = angular.isArray(path) ? path : path.split('/');
+    return splitPath.length > _SECTION_PATH_LENGTH;
+  }
+
+  var _assertElementExists = function(id) {
+    if(id.indexOf('#') == -1) {
+      id = '#' + id;
+    }
+    if(Lungo.dom(id).length == 0) {
+      throw new Error('No such element with ID [' + id + ']');
+    }
+  }
+
   var showSection = function(path) {
     var pathParts = path.split('/');
-    var sectionPathLength = 2;
-    var sectionName = pathParts[1] !== '' ? pathParts[1] : 'main';
-
-    if(pathParts.length > sectionPathLength) {
-      Lungo.Router.article(sectionName, pathParts[2]);
+    var sectionName = pathParts[_SECTION_INDEX] !== '' ? pathParts[_SECTION_INDEX] : 'main';
+    _assertElementExists(sectionName);
+    if(pathParts.length > _SECTION_PATH_LENGTH) {
+      _assertElementExists(pathParts[_ARTICLE_INDEX]);
+      Lungo.Router.article(sectionName, pathParts[_ARTICLE_INDEX]);
     }
     else {
       console.log('AppRouter::showSection - transitioning to ', sectionName);
@@ -25,35 +45,50 @@ var AppRouter = function(Lungo, $location, $scope) {
     }
   };
 
-  $scope.$on('$routeChangeStart', function() {
-    console.log('AppRouter::routeChangeStart - route change beginning');
-  });
+  var _isSameSection = function(path) {
+    if(routingHistory.length == 0) {
+      return false;
+    }
+    var currentPathParts = routingHistory[routingHistory.length-1].split('/');
+    var pathParts = path.split('/');
+    return currentPathParts[_SECTION_INDEX] === pathParts[_SECTION_INDEX];
+  }
 
   var _resetAsideStates = function() {
     var openAsides = Lungo.dom('aside[class*="show"]');
     angular.forEach(openAsides, function(value) {
-      Lungo.View.Aside.toggle('#' + $$(value).attr('id'));
+      Lungo.View.Aside.toggle('#' + Lungo.dom(value).attr('id'));
     });
     Lungo.dom('section[class*="aside"]').removeClass('aside');
   }
 
+  var _isBack = function($location) {
+    return routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path() && !_hasArticle($location.path());
+  }
+
+  var isBack = function() {
+    return _isBack($location);
+  }
   $scope.$on('$routeChangeSuccess', function(next, last) {
     console.log('AppRouter::routeChangeSuccess - route change successful to: ', $location.path(), ' current history is: ', routingHistory);
     _resetAsideStates();
-
-    if(routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path()) {
+    if(_isBack($location)) {
       console.log('AppRouter::routeChangeSuccess - detected back, and going there...');
       routingHistory.pop();
       try {
         Lungo.Router.back();
       } catch(e) {
-        console.log('AppRouter::$routeChangeSuccess - caught exception while navigating to ', $location.path(), ' : ', e);
+        console.log('AppRouter::$routeChangeSuccess - caught exception while navigating back to ', $location.path(), ' : ', e);
         throw e;
       }
     }
     else {
+      console.log('AppRouter::routeChangeSuccess - going forward to: ', $location.path(), ' current history is: ', routingHistory);
+
       showSection($location.path());
-      routingHistory.push($location.path());
+      if(!_isSameSection($location.path())) {
+        routingHistory.push($location.path()); 
+      }
     }
   });
 
@@ -77,6 +112,8 @@ var AppRouter = function(Lungo, $location, $scope) {
 
   return {
     back: back
+    , isBack: isBack
+    , isSameSection: _isSameSection
   }
 
 };
@@ -103,7 +140,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
       AppRouter.instance = AppRouter(Lungo, $location, scope);
     };
   }])
-	.directive('labView', function($http,   $templateCache,   $route,   $anchorScroll,   $compile, $controller) {
+	.directive('labView', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location) {
   return {
     restrict: 'ECA',
     terminal: true,
@@ -132,26 +169,44 @@ angular.module('Centralway.lungo-angular-bridge', [])
         existingElement.remove();
       }
 
+      function _archiveOldContent() {
+         var previousElement = Lungo.dom('*[class*="lab-view"]').removeClass('lab-view').addClass('lab-old-view');
+          if(previousElement.length > 0) {
+            previousElement
+              .attr('lab-view-old-id', previousElement.attr('id'))
+              .removeAttr('id');
+          }
+      }
+
       function update() {
-      	console.log('lab-view::update() - Performing content update');
         var locals = $route.current && $route.current.locals,
             template = locals && locals.$template;
 
-        if (template) {
+        if (template && !AppRouter.instance.isSameSection($location.path())) {
+
+          scope.$emit('$labViewUpdateStart', null);
           var targetContainer = element.parent();
 
-          if($route.current.$route.sectionId) {
-            removePreviouslyLoadedContent($route.current.$route.sectionId);
-          }
+          _archiveOldContent();
+
+          var newElement = null;
 
           targetContainer.append(template);
-          var newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
+          
+          newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
+          newElement.addClass('lab-view');
+
           if(newElement.attr('id')) {
             $route.current.$route.sectionId = newElement.attr('id');
           }
           else {
             throw new Error('Elements loaded via templates must have an ID attribute');
           }
+          
+          if(AppRouter.instance.isBack($location)) {
+            newElement.addClass('hide');
+          }
+
           Lungo.Boot.Data.init('#' + newElement.attr('id'));
 
           destroyLastScope();
@@ -173,6 +228,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
 
           // $anchorScroll might listen on event...
           $anchorScroll();
+          scope.$emit('labViewUpdateFinished', null);
         } else {
           //clearContent();
         }

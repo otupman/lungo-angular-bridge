@@ -199,7 +199,7 @@ Your friend is:
 Copyright (c) 2013 by Centralway Factory AG.
 
 ## Licensing Options
-Lungo is licensed under free commercial and open source licenses for
+The Lungo-Angular-Bridge (LAB) is licensed under free commercial and open source licenses for
 application development, and a paid commercial license for OEM uses.
 
 See LICENSE.txt for license.
