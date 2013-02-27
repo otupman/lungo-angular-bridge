@@ -22,6 +22,10 @@ function AppCtrl($scope) {
     $scope.triggerRightAside = toggleRightAside;
 }
 
+function AsideCtrl($scope) {
+  $scope.firstName = "Bob";
+}
+
 function DynamicCtrl($scope) {
 	$scope.items = [
     {"name": "Dynamically Loaded",
