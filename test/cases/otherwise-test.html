@@ -16,7 +16,9 @@
           </header>
           <article class="active">
             <strong>Splash screen</strong>
-            <p>This should auto-redirect you to login after 3 second; so far: {{timeToRedirect}}ms has passed</p>
+            <p>This should auto-redirect you to login after {{redirectTimeout/1000}} seconds; so far: {{timeToRedirect}}ms has passed</p>
+            <p>If you're bored, click this browser-handled link: <a href="#/login">go to login</a></p>
+            <p>If you're bored click this Angular-handled link: <a ng-click="goToLogin()">go to login</a></p>
           </active>
         </section>
       </script>
@@ -76,20 +78,35 @@
         }]);
 
       function SplashCtrl($scope, $location) {
+        console.log('SplashCtrl - Instantiated');
+
+        var timeoutId = null;
+
+        $scope.goToLogin = function() {
+          clearTimeout(timeoutId);
+          $location.path('/login');
+        }
+
         $scope.timeToRedirect = 0;
+        $scope.redirectIncrement = 500;
+        $scope.redirectTimeout = 3000;
 
         var countDown = function() {
-          $scope.timeToRedirect+= 100;
+          $scope.$apply(function() {
 
-          if($scope.timeToRedirect > 3000) {
-            $location.path('/login');
-          }
-          else {
-            setTimeout(countDown, 100);
-          }
+            if($scope.timeToRedirect >= $scope.redirectTimeout) {
+              console.log('SplashCtrl::countDown() - Redirecting to login!');
+              $location.path('/login');
+            }
+            else {
+              console.log('SplashCtrl::countDown() - countdown at ', $scope.timeToRedirect);
+              $scope.timeToRedirect+= $scope.redirectIncrement;
+              timeoutId = setTimeout(countDown, $scope.redirectIncrement);
+            }
+          });
         };
 
-        countDown();
+        timeoutId = setTimeout(countDown, $scope.redirectIncrement);
       }
     </script>
   </body>
