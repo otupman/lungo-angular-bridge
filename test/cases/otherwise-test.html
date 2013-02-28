@@ -1,0 +1,107 @@
+<html ng-app="OtherwiseTest">
+  <head>
+      <title>Otherwise Testcase - LAB e2e tests</title>
+
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.css"/>
+      <!-- <link rel="stylesheet" type="text/css" href="../../test/lib/lungo.slow-transitions.css"/> -->
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.icon.css"/>
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/theme.lungo.css">
+      <script type="text/javascript" src="../../components/quojs/quo.debug.js"></script>
+      <script type="text/javascript" src="../../lib/lungo.debug.js"></script>
+
+      <script type="text/ng-template" id="splash.html">
+        <section id="splash" data-transition="slide">
+          <header>
+            <span class="title center">Splash!</span>
+          </header>
+          <article class="active">
+            <strong>Splash screen</strong>
+            <p>This should auto-redirect you to login after 3 second; so far: {{timeToRedirect}}ms has passed</p>
+          </active>
+        </section>
+      </script>
+
+      <script type="text/ng-template" id="login.html">
+        <section id="login" data-transition="slide">
+          <header>
+            <span class="title center">Login!</span>
+          </header>
+          <article class="active">
+            <strong>Please login</strong>
+            <button>Magic login button</button>
+          </active>
+        </section>
+      </script>
+
+      <script type="text/ng-template" id="app.html">
+        <section id="app" data-transition="slide">
+          <header>
+            <span class="title center">The app</span>
+          </header>
+          <article class="active">
+            <strong>You are logged in!</strong>
+            <p><a href="#/">Now log out, ok?</a></p>
+          </active>
+        </section>
+      </script>
+
+
+  </head>
+
+  <body lab-boot>
+    <section id="main" data-transition="slide">
+      <article class="active" id="first_article">
+        <strong>Start page</strong>
+        <p>This should never be displayed</p>
+      </article>
+    </section>
+
+    <lab-view></lab-view>
+
+    <script type="text/javascript" src="../../components/angular/angular.js"></script>
+    <script type="text/javascript" src="../../src/lungo-angular-bridge.js"></script>
+
+    <script>
+      // Declare app level module which depends on filters, and services
+      angular.module('OtherwiseTest', 
+        ['Centralway.lungo-angular-bridge']).
+        config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+
+          $routeProvider.when('/splash', {templateUrl: 'splash.html', controller: SplashCtrl});
+          $routeProvider.when('/login', {templateUrl: 'login.html'});
+          $routeProvider.when('/app', {templateUrl: 'app.html'});
+
+          $routeProvider.otherwise({redirectTo: '/splash'});
+          $locationProvider.html5Mode(false);
+        }]);
+
+      function SplashCtrl($scope, $location) {
+        $scope.timeToRedirect = 0;
+
+        var countDown = function() {
+          $scope.timeToRedirect+= 100;
+
+          if($scope.timeToRedirect > 3000) {
+            $location.path('/login');
+          }
+          else {
+            setTimeout(countDown, 100);
+          }
+        };
+
+        countDown();
+      }
+    </script>
+  </body>
+</html> 
+
+
+
+
+
+
+
+
+
+
+
