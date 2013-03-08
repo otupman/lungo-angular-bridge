@@ -14,4 +14,11 @@ angular.module('BridgeExample.directives', []).
             template: '<a data-icon="home">Has home icon?</a>'
 
         }
+  })
+  .directive('dynamicDirectiveAndLungoTest', function() {
+    return {
+            restrict: 'E',
+            template: '<a data-icon="menu">Has menu icon?</a>'
+
+        }
   });
