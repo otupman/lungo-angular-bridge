@@ -133,7 +133,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
       AppRouter.instance = AppRouter(Lungo, $location, scope);
     };
   }])
-	.directive('labView', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location) {
+	.directive('labView', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location, $log) {
   return {
     restrict: 'ECA',
     terminal: true,
@@ -144,6 +144,17 @@ angular.module('Centralway.lungo-angular-bridge', [])
       scope.$on('$routeChangeSuccess', update);
       update();
 
+
+      scope.$on('$viewContentLoaded', 
+        function initialiseLoadedContent() {
+          var loadedContent = Lungo.dom('*[class="lab-view"]');
+          if(loadedContent && !loadedContent.hasClass('lab-view-inited')) {
+            $log.info('labView::viewContentLoaded - booting content');
+            Lungo.Boot.Data.init('#' + loadedContent.attr('id'));
+            loadedContent.addClass('lab-view-inited');
+          }
+        }
+      );
 
       function destroyLastScope() {
         if (lastScope) {
@@ -199,8 +210,6 @@ angular.module('Centralway.lungo-angular-bridge', [])
           if(AppRouter.instance.isBack($location)) {
             newElement.addClass('hide');
           }
-
-          Lungo.Boot.Data.init('#' + newElement.attr('id'));
 
           destroyLastScope();
 
