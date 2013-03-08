@@ -147,11 +147,18 @@ angular.module('Centralway.lungo-angular-bridge', [])
 
       scope.$on('$viewContentLoaded', 
         function initialiseLoadedContent() {
-          var loadedContent = Lungo.dom('*[class="lab-view"]');
-          if(loadedContent && !loadedContent.hasClass('lab-view-inited')) {
+          var loadedContent = Lungo.dom('*[class*="lab-view"]');
+          if(loadedContent.length == 0) {
+            $log.error('labView::initialiseLoadedContent() - could not find class with lab-view to do a Lungo boot on');
+            return;
+          }
+          if(!loadedContent.hasClass('lab-inited-view')) {
             $log.info('labView::viewContentLoaded - booting content');
             Lungo.Boot.Data.init('#' + loadedContent.attr('id'));
-            loadedContent.addClass('lab-view-inited');
+            loadedContent.addClass('lab-inited-view');
+          }
+          else {
+            $log.warn('labView::initialiseLoadedContent() - lab-view-inited element already exists');
           }
         }
       );
