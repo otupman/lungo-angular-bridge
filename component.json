@@ -1,7 +1,7 @@
 {
   "name": "lungo-angular-bridge",
   "description": "Bridge between LungoJS and AngularJS",
-  "version": "0.0.2",
+  "version": "0.0.2a",
   "main": "./src/lungo-angular-bridge.js",
   "author": {
     "name": "Centralway Factory"
@@ -14,5 +14,12 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/centralway/lungo-angular-bridge"
-  }
+  },
+  ignore: [
+      "config",
+      "examples",
+      "lib",
+      "scripts",
+      "test"
+  ]
 }
