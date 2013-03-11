@@ -18,6 +18,7 @@
   "ignore": [
       "config",
       "examples",
+      "Gruntfile.js",
       "lib",
       "scripts",
       "test"
