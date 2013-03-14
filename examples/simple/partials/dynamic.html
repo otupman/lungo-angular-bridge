@@ -17,5 +17,15 @@
 		<p>
         Test of directives using Lungo data-* attributes: <dynamic-directive-and-lungo-test></dynamic-directive-and-lungo-test> (currently failing)
     </p>
+
+    <p>
+        <a lab-window="popup-test.html" transition='cover'>Click here to display a popup window</a>
+    </p>
 	</article>
+  <script type="text/ng-template" id="popup-test.html">
+      <article class="active">
+          <strong>Pop up!</strong>
+          <button ng-click="closeWindow()" class="closeWindow">Close window</button>
+      </article>
+  </script>
 </section>

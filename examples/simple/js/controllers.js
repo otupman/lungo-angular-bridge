@@ -38,7 +38,7 @@ function TopLevelCtrl($scope) {
   }
 }
 
-function DynamicCtrl($scope) {
+function DynamicCtrl($scope, popupService) {
 	$scope.items = [
     {"name": "Dynamically Loaded",
      "description": "This particular template has been loaded via Angular's dynamic loading."},
@@ -49,6 +49,10 @@ function DynamicCtrl($scope) {
   	];
 
   $scope.triggerRightAside = toggleRightAside;
+
+    $scope.closeWindow = function() {
+      popupService.close();
+    }
 }
 
 angular.module('BridgeExample.controllers', []).

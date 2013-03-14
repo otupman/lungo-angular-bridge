@@ -244,4 +244,112 @@ angular.module('Centralway.lungo-angular-bridge', [])
       }
     }
   };
-});
+})
+  .directive('labPopup', function (popupService) {
+    return {
+        restrict: 'A',
+        link: function postLink(scope, element, attrs) {
+            var templateUrl = attrs['labPopup'];
+            var popupOptions = {};
+            element.bind("click", function () {
+                popupService.load(templateUrl, scope, popupOptions);
+            });
+        }
+    };
+  })
+  .directive('labWindow', function (popupService) {
+    return {
+        restrict: 'A',
+        link: function postLink(scope, element, attrs) {
+            var templateUrl = attrs['labWindow'];
+            var options = {};
+            if(attrs['transition']) {
+                options.transition = attrs['transition'];
+            }
+            element.bind("click", function () {
+                popupService.showWindow(templateUrl, scope, options);
+            });
+        }
+    };
+  })
+  .factory('popupService', function ($http, $compile, $timeout) {
+    var popupService = {};
+
+    // Get the popup
+    popupService.getPopup = function (create) {
+        if (!popupService.popupElement && create) {
+            popupService.popupElement = $$('<div class="notification"><div class="window show"></div></div>');
+            $$(window.document.body).append(popupService.popupElement);
+        }
+
+        return popupService.popupElement;
+    }
+
+    popupService.compileAndRunPopup = function (popup, scope, options) {
+        
+        var ngPopup = angular.element(popup[0]);
+        $compile(ngPopup)(scope);
+        popup.show();
+    }
+
+    // Loads the popup
+    popupService.load = function (url, scope, options) {
+        var htmlPage = '<div ng-include="\'' + url + '\'"></div>';
+
+       $http.get(undefined).success(function (data) { // Uhh, why does this need to be here?!?!?!
+            var autoPopup = popupService.getPopup(true);
+            var popup = autoPopup;
+            popup.find('div').html(htmlPage);
+            popupService.compileAndRunPopup(popup, scope, options);
+        });
+    }
+    
+    popupService.getWindow = function(create) {
+        if(!popupService.windowElement && create) {
+            var randomNumber = Math.floor(Math.random() * (999999 + 1));
+            var id = randomNumber + new Date().getTime();
+            var section = $$('<section id="section_' + id + '" ng-include=""></section>');
+            $$(window.document.body).append(section);
+            popupService.windowElement = section;
+        }
+        return popupService.windowElement;
+    }
+    
+    // Loads the popup
+    popupService.showWindow = function (url, scope, options) {
+        var transition = options.transition || '';
+        
+       //$http.get(undefined).success(function (data) { // Uhh, why does this need to be here?!?!?!
+            var popup = popupService.getWindow(true);
+           popup.attr('ng-include', "'" + url + "'");
+            popup.attr('data-transition', transition);
+           var ngPopup = angular.element(popup[0]);
+           $compile(ngPopup)(scope);
+           $timeout(function() {
+               Lungo.Router.section(popup.attr('id'));
+           }, 1);
+        //});
+    }    
+
+
+    popupService.close = function () {
+        var popup = popupService.getPopup()
+        var section = popupService.getWindow();
+        if (popup) {
+            popup.hide();
+            popup.remove();
+            delete popupService.popupElement;
+        }
+        if(section) {
+            Lungo.Router.back();
+            $timeout(function() {
+                section.remove();
+                delete popupService.windowElement;
+            }, 400);
+        }
+        
+    }
+
+    return popupService;
+
+});;
