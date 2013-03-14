@@ -19,13 +19,13 @@
     </p>
 
     <p>
-        <a lab-window="popup-test.html" transition='cover'>Click here to display a popup window</a>
+        <a lab-window="popup-test.html" transition='cover' id='popupLink'>Click here to display a popup window</a>
     </p>
 	</article>
   <script type="text/ng-template" id="popup-test.html">
-      <article class="active">
+      <article class="active" id="popup-article">
           <strong>Pop up!</strong>
-          <button ng-click="closeWindow()" class="closeWindow">Close window</button>
+          <button ng-click="closeWindow()" id="closeWindowButton">Close window</button>
       </article>
   </script>
 </section>
