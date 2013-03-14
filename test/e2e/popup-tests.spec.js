@@ -17,6 +17,10 @@ describe('Testing popup windows', function() {
             expect(element('#popup-article').count()).toBe(1);
         });
 
+        it('should convert Lungo attributes correctly', function() {
+            expect(false).toBe(true); //TODO:
+        })
+
         it('should close the window afterwards', function() {
             element('#closeWindowButton').click();
             sleep(0.5);
