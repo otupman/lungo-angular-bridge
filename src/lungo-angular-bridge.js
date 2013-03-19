@@ -133,7 +133,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
       AppRouter.instance = AppRouter(Lungo, $location, scope);
     };
   }])
-	.directive('labView', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location, $log) {
+  .directive('labView', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location, $log) {
   return {
     restrict: 'ECA',
     terminal: true,
@@ -251,6 +251,9 @@ angular.module('Centralway.lungo-angular-bridge', [])
         link: function postLink(scope, element, attrs) {
             var templateUrl = attrs['labPopup'];
             var popupOptions = {};
+            if(attrs['controller']) {
+              popupOptions.controller = attrs['controller'];
+            }
             element.bind("click", function () {
                 popupService.load(templateUrl, scope, popupOptions);
             });
@@ -265,6 +268,9 @@ angular.module('Centralway.lungo-angular-bridge', [])
             var options = {};
             if(attrs['transition']) {
                 options.transition = attrs['transition'];
+            }
+            if(attrs['controller']) {
+              options.controller = attrs['controller'];
             }
             element.bind("click", function () {
                 popupService.showWindow(templateUrl, scope, options);
@@ -317,18 +323,19 @@ angular.module('Centralway.lungo-angular-bridge', [])
     
     // Loads the popup
     popupService.showWindow = function (url, scope, options) {
-        var transition = options.transition || '';
-        
-       //$http.get(undefined).success(function (data) { // Uhh, why does this need to be here?!?!?!
-            var popup = popupService.getWindow(true);
-           popup.attr('ng-include', "'" + url + "'");
-            popup.attr('data-transition', transition);
-           var ngPopup = angular.element(popup[0]);
-           $compile(ngPopup)(scope);
-           $timeout(function() {
-               Lungo.Router.section(popup.attr('id'));
-           }, 1);
-        //});
+      var transition = options.transition || '';
+      
+      var popup = popupService.getWindow(true);
+      popup.attr('ng-include', "'" + url + "'");
+      popup.attr('data-transition', transition);
+      if(options.controller) {
+        popup.attr('ng-controller', options.controller);
+      }
+      var ngPopup = angular.element(popup[0]);
+      $compile(ngPopup)(scope);
+      $timeout(function() {
+        Lungo.Router.section(popup.attr('id'));
+      }, 1);
     }    
 
 
