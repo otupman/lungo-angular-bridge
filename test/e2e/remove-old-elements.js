@@ -27,7 +27,4 @@ describe('Remove old Elements', function() {
   });
 
 
-
-
-
 });
