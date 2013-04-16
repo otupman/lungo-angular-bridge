@@ -79,10 +79,10 @@ var AppRouter = function(Lungo, $location, $scope) {
       }
     }
     else {
-  
+
       showSection($location.path());
       if(!_isSameSection($location.path())) {
-        routingHistory.push($location.path()); 
+        routingHistory.push($location.path());
       }
     }
   });
@@ -163,6 +163,10 @@ angular.module('Centralway.lungo-angular-bridge', [])
       }
 
       function _archiveOldContent() {
+         var oldElement = Lungo.dom('*[class*="lab-old-view"]')
+         if (oldElement.length > 0) {
+          oldElement.remove();
+         }
          var previousElement = Lungo.dom('*[class*="lab-view"]').removeClass('lab-view').addClass('lab-old-view');
           if(previousElement.length > 0) {
             previousElement
@@ -185,7 +189,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
           var newElement = null;
 
           targetContainer.append(template);
-          
+
           newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
           newElement.addClass('lab-view');
 
@@ -195,7 +199,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
           else {
             throw new Error('Elements loaded via templates must have an ID attribute');
           }
-          
+
           if(AppRouter.instance.isBack($location)) {
             newElement.addClass('hide');
           }
