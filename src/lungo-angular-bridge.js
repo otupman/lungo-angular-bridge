@@ -133,7 +133,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
       AppRouter.instance = AppRouter(Lungo, $location, scope);
     };
   }])
-	.directive('labView', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location) {
+	.directive('labView', ['$http', '$templateCache', '$route', '$anchorScroll', '$compile', '$controller', '$location', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location) {
   return {
     restrict: 'ECA',
     terminal: true,
@@ -220,4 +220,4 @@ angular.module('Centralway.lungo-angular-bridge', [])
       }
     }
   };
-});
+}]);
