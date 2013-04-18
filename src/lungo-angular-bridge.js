@@ -152,16 +152,6 @@ angular.module('Centralway.lungo-angular-bridge', [])
         }
       }
 
-      function clearContent() {
-        element.html('');
-        destroyLastScope();
-      }
-
-      function removePreviouslyLoadedContent(contentId) {
-        var existingElement = angular.element(Lungo.dom('#' + contentId)[0]);
-        existingElement.remove();
-      }
-
       function _archiveOldContent() {
          var oldElement = Lungo.dom('*[class*="lab-old-view"]')
          if (oldElement.length > 0) {
@@ -226,8 +216,6 @@ angular.module('Centralway.lungo-angular-bridge', [])
           // $anchorScroll might listen on event...
           $anchorScroll();
           scope.$emit('labViewUpdateFinished', null);
-        } else {
-          //clearContent();
         }
       }
     }
