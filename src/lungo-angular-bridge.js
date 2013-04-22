@@ -234,7 +234,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
     }
   };
 }])
-  .directive('labPopup', function (popupService) {
+  .directive('labPopup', ['popupService', function (popupService) {
     return {
         restrict: 'A',
         link: function postLink(scope, element, attrs) {
@@ -248,8 +248,8 @@ angular.module('Centralway.lungo-angular-bridge', [])
             });
         }
     };
-  })
-  .directive('labWindow', function (popupService) {
+  }])
+  .directive('labWindow', ['popupService', function(popupService) {
     return {
         restrict: 'A',
         link: function postLink(scope, element, attrs) {
@@ -266,8 +266,8 @@ angular.module('Centralway.lungo-angular-bridge', [])
             });
         }
     };
-  })
-  .factory('popupService', function ($http, $compile, $timeout) {
+  }])
+  .factory('popupService', ['$http', '$compile', '$timeout', function ($http, $compile, $timeout) {
     var popupService = {};
 
     // Get the popup
@@ -348,4 +348,4 @@ angular.module('Centralway.lungo-angular-bridge', [])
 
     return popupService;
 
-});
+}]);
