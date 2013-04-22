@@ -291,7 +291,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
     popupService.load = function (url, scope, options) {
         var htmlPage = '<div ng-include="\'' + url + '\'"></div>';
 
-       $http.get(undefined).success(function (data) { // Uhh, why does this need to be here?!?!?!
+       $http.get(undefined).success(function (data) { // TODO: Uhh, why does this need to be here?!?!?!
             var autoPopup = popupService.getPopup(true);
             var popup = autoPopup;
             popup.find('div').html(htmlPage);
@@ -322,9 +322,10 @@ angular.module('Centralway.lungo-angular-bridge', [])
       }
       var ngPopup = angular.element(popup[0]);
       $compile(ngPopup)(scope);
-      $timeout(function() {
+        scope.$on('$includeContentLoaded', function() {
+            Lungo.Boot.Data.init('#' + popup.attr('id'));
         Lungo.Router.section(popup.attr('id'));
-      }, 1);
+        });
     }    
 
 
