@@ -79,10 +79,10 @@ var AppRouter = function(Lungo, $location, $scope) {
       }
     }
     else {
-  
+
       showSection($location.path());
       if(!_isSameSection($location.path())) {
-        routingHistory.push($location.path()); 
+        routingHistory.push($location.path());
       }
     }
   });
@@ -133,7 +133,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
       AppRouter.instance = AppRouter(Lungo, $location, scope);
     };
   }])
-  .directive('labView', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location, $log) {
+	.directive('labView', ['$http', '$templateCache', '$route', '$anchorScroll', '$compile', '$controller', '$location', '$log', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location, $log) {
   return {
     restrict: 'ECA',
     terminal: true,
@@ -170,17 +170,11 @@ angular.module('Centralway.lungo-angular-bridge', [])
         }
       }
 
-      function clearContent() {
-        element.html('');
-        destroyLastScope();
-      }
-
-      function removePreviouslyLoadedContent(contentId) {
-        var existingElement = angular.element(Lungo.dom('#' + contentId)[0]);
-        existingElement.remove();
-      }
-
       function _archiveOldContent() {
+         var oldElement = Lungo.dom('*[class*="lab-old-view"]')
+         if (oldElement.length > 0) {
+          oldElement.remove();
+         }
          var previousElement = Lungo.dom('*[class*="lab-view"]').removeClass('lab-view').addClass('lab-old-view');
           if(previousElement.length > 0) {
             previousElement
@@ -203,17 +197,14 @@ angular.module('Centralway.lungo-angular-bridge', [])
           var newElement = null;
 
           targetContainer.append(template);
-          
+
           newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
           newElement.addClass('lab-view');
 
-          if(newElement.attr('id')) {
-            $route.current.$route.sectionId = newElement.attr('id');
-          }
-          else {
+          if(!newElement.attr('id')){
             throw new Error('Elements loaded via templates must have an ID attribute');
           }
-          
+
           if(AppRouter.instance.isBack($location)) {
             newElement.addClass('hide');
           }
@@ -238,13 +229,11 @@ angular.module('Centralway.lungo-angular-bridge', [])
           // $anchorScroll might listen on event...
           $anchorScroll();
           scope.$emit('labViewUpdateFinished', null);
-        } else {
-          //clearContent();
         }
       }
     }
   };
-})
+}])
   .directive('labPopup', function (popupService) {
     return {
         restrict: 'A',
@@ -359,4 +348,4 @@ angular.module('Centralway.lungo-angular-bridge', [])
 
     return popupService;
 
-});;
+});
