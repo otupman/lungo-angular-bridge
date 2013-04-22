@@ -8,7 +8,7 @@ describe('Testing popup windows', function() {
       sleep(0.5);
     });
 
-    describe('clicking on the link', function() {
+    ddescribe('clicking on the link', function() {
         beforeEach(function() {
             element('#popupLink').click();
             sleep(0.5);
@@ -16,10 +16,14 @@ describe('Testing popup windows', function() {
         it('should display the window', function() {
             expect(element('#popup-article').count()).toBe(1);
         });
-
-        it('should convert Lungo attributes correctly', function() {
-            expect(false).toBe(true); //TODO:
-        })
+        
+        it('should have the data-icon set to "home"', function() {
+            expect(element('#popupDirectiveTest a').attr('data-icon')).toBe('home');
+        });
+        
+        it('should have the data-icon rendered to the DOM', function() {
+            expect(element('#popupDirectiveTest a span.icon').attr('class')).toBe('icon home');
+        });
 
         it('should close the window afterwards', function() {
             element('#closeWindowButton').click();
