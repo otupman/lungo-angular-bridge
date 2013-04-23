@@ -107,7 +107,7 @@ describe('directives', function() {
 });
 
 describe('directives.popupWindow', function() {
-  it('should be tested', function() {
+  xit('should be tested', function() {
     expect(false).toBeTruthy();
   })
 });
