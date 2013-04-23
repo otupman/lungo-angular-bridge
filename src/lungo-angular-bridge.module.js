@@ -1,0 +1,1 @@
+angular.module('Centralway.lungo-angular-bridge', []); 

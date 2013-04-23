@@ -8,7 +8,7 @@ module.exports = function(grunt) {
         separator: ';'
       },
       dist: {
-        src: ['src/**/*.js'],
+        src: ['src/lungo-angular-bridge.module.js', 'src/**/*.js'],
         dest: 'dist/<%= pkg.name %>.js'
       }
     },
