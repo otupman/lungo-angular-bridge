@@ -59,7 +59,7 @@ angular.module('BridgeExample.controllers', []).
 		$scope.term = $location.search('term');
 	})
 	.controller('PersonCtrl', function($scope, $routeParams) {
-		$scope.personId = $routeParams.personId;
+		$scope.personId = $routeParams.personId; //NOTE: here's where the route params are grabbed
 	})
 	.controller('DynamicPersonCtrl', function($scope) {
 		$scope.personId = "2";
