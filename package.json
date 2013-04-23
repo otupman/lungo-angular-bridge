@@ -1,0 +1,13 @@
+{
+  "name": "lungo-angular-bridge",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "~0.4.1"
+    , "grunt-testacular": ""
+    , "grunt-contrib-uglify": ""
+    , "grunt-contrib-jshint": ""
+    , "grunt-contrib-watch": ""
+    , "grunt-contrib-concat": ""
+
+  }
+}
