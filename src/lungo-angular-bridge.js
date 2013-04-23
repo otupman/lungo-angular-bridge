@@ -326,6 +326,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
       scope.$on('$includeContentLoaded', function() {
 		Lungo.Boot.Data.init('#' + popup.attr('id'));
       });
+      //TODO: Determine why this timeout makes everything magically work - my guess is it's a digest issue and this should be hooking into an event from Angular
       $timeout(function() {
         Lungo.Router.section(popup.attr('id'));
       }, 1);      
