@@ -87,7 +87,7 @@ Having done that, your next step is
 
 Next, reference the Bridge source file after Lungo & Angular has been referenced:
 
-    <script type="text/javascript" src="../src/lungo-angular-bridge.js"></script>
+    <script type="text/javascript" src="../dist/lungo-angular-bridge.min.js"></script>
 
 To get any of the bridge functionality we'll need to list the Bridge as a dependency:
 
@@ -173,6 +173,14 @@ This takes the simple todo example from Angular's front page and puts it into a 
 
 This example demonstrates accessing aspects of a mobile device to provide a native experience using mapping, geolocation and accessing the device's camera.
 
+# Development
+
+We're using grunt as our build system; all the tests depend on it's output, so this command:
+
+    grunt watch
+    
+is your friend as it'll watch for file system changes and automatically rebuild the `dist/lungo-angular-bridge.min.js` file. If you hit bugs, there's a non-minified version in the `dist` directory as well.
+
 ## Tests
 
 In order to run the tests, we are using [Testacular](http://vojtajina.github.com/testacular/). We have two kind of tests, [unit tests](http://docs.angularjs.org/guide/dev_guide.unit-testing) and [end-2-end](http://docs.angularjs.org/guide/dev_guide.e2e-testing) tests.
@@ -220,11 +228,11 @@ Your friend is:
     ./scripts/unit-test.sh
 
 
-## Credits
+# Credits
 
 Copyright (c) 2013 by Centralway Factory AG.
 
-## Licensing Options
+# Licensing Options
 The Lungo-Angular-Bridge (LAB) is licensed under free commercial and open source licenses for
 application development, and a paid commercial license for OEM uses.
 
