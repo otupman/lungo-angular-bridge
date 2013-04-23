@@ -1,7 +1,7 @@
 angular.module('Centralway.lungo-angular-bridge')
   .directive('labBoot', ['$location', function($location) {
       function _parseResourceParam(param) {
-        return param.indexOf(',') == -1 ? param : param.split(',');
+        return param.indexOf(',') === -1 ? param : param.split(',');
       }
       return function(scope, elm, attrs) {
         Lungo.init({
