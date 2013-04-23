@@ -8,7 +8,7 @@ describe('Testing popup windows', function() {
       sleep(0.5);
     });
 
-    ddescribe('clicking on the link', function() {
+    describe('clicking on the link', function() {
         beforeEach(function() {
             element('#popupLink').click();
             sleep(0.5);
