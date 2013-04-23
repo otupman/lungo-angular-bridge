@@ -183,10 +183,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
           newElement = angular.element(targetContainer.children()[targetContainer.children().length - 1]);
           newElement.addClass('lab-view');
 
-          if(newElement.attr('id')) {
-            $route.current.$route.sectionId = newElement.attr('id');
-          }
-          else {
+          if(!newElement.attr('id')){
             throw new Error('Elements loaded via templates must have an ID attribute');
           }
 
