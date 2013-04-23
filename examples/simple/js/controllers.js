@@ -33,6 +33,9 @@ function AsideCtrl($scope) {
 }
 
 function TopLevelCtrl($scope) {
+   $scope.name = "Some name";
+  $scope.personId = 4;
+  
   $scope.callTopLevel = function() {
     alert('Top level called!');
   }
