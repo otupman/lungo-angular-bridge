@@ -127,6 +127,30 @@ These are small sidebars that appear from either the left or the right; Lungo st
 
 LAB will do the work of showing or hiding that for you.
 
+# LAB Magic
+
+With the LAB we aim to bring you extra magic that is not available in Lungo itself.
+
+## Notifications
+
+In Lungo, notifications break Angular because they use anchor tags which kick the Angular routing in. We solve this by providing our own awesome notification interface.
+
+### Prototyping? Here's how to access it in HTML:
+
+    <a lab-window="popup-test.html" transition='cover' id='popupLink'>Show the popup!</a>
+    
+This simple piece of code will display the Angular template of your choice with the Lungo transition of your choice. The code for the popup can even be embedded in the "calling" template by wrapping the template in a `script` tag, like so:
+
+    <script type="text/ng-template" id="popup-test.html">
+      <article class="active" id="popup-article">
+          <strong>Pop up!</strong>
+          <button ng-click="closeWindow()" id="closeWindowButton">Close window</button>
+          <p>
+            Test of directives using Lungo data-* attributes: <directive-and-lungo-test id="popupDirectiveTest"></directive-and-lungo-test> (currently failing)
+          </p>
+      </article>
+  </script>
+
 ## Examples
 
 For the moment, run python -m SimpleHTTPServer from within the root of the repository.
