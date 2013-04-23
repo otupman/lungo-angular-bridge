@@ -15,6 +15,7 @@ files = [
   'components/quojs/quo.debug.js',
   'lib/lungo.debug.js',
   'test/lib/lungo-mocks.js',
+  'src/lungo-angular-bridge.module.js',
   'src/**/*.js',
   'test/spec/**/*.js'
 ];
