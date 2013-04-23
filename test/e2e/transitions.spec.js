@@ -75,7 +75,7 @@ describe('Transitions', function() {
 
 			it('should transition screen THREE from the right', function() {
 				expect(xPosition('#screen3')).toBeGreaterThan(0);
-				sleep(WAIT_TIME);
+				sleep(WAIT_TIME+1);
 				expect(xPosition('#screen3')).toBe(0);
 			});
 		});
