@@ -17,7 +17,7 @@
                  </nav>
             </header>
             <article class="active list indented scroll" ng-controller="TodoCtrl" id="main">
-                 <span>{{remaining()}} of {{todos.length}} remaining</span>
+                 <span class="remainingLabel">{{remaining()}} of {{todos.length}} remaining</span>
                 [ <a href="" ng-click="archive()">archive</a> ]
                 <ul>
                     <li ng-repeat="todo in todos">
