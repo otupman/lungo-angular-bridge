@@ -5,6 +5,40 @@ describe('directives', function() {
     angular.mock.module('Centralway.lungo-angular-bridge');
     spyOn(Lungo, 'init');
   });
+  
+  describe('lab-aside', function() {
+    var domResponse = null;
+    
+    beforeEach(function() {
+      domResponse = [''];
+      domResponse.each = $$.fn.each;
+      domResponse.swiping = jasmine.createSpy('swiping');
+      domResponse.swipe = jasmine.createSpy('swipe');
+      domResponse.closest = jasmine.createSpy('closest').andCallFake(function() {
+        return domResponse;
+      });
+      domResponse.attr = jasmine.createSpy('attr');
+      
+      spyOn(Lungo, 'dom').andCallFake(function(selector) {
+        return domResponse;
+      });
+      
+      inject(function($compile, $rootScope) {
+        var element = $compile(
+         '<aside id="testAside"></aside>'
+        +'<section><header>'
+        +'<nav><a lab-aside="testAside">Test aside</a></nav>'
+        +'</header><article class="active"></article></section>'
+        )($rootScope);
+      });
+    });
+    
+    it('should have registered the swiping handlers', function() {
+      expect(domResponse.swiping).toHaveBeenCalled();
+      expect(domResponse.swipe).toHaveBeenCalled();
+    });
+  });
+  
   describe('lab-boot', function() {
     it('should call Lungo init', function() {
       inject(function($compile, $rootScope) {
