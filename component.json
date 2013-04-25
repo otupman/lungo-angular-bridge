@@ -1,7 +1,7 @@
 {
   "name": "lungo-angular-bridge",
   "description": "Bridge between LungoJS and AngularJS",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "./src/lungo-angular-bridge.js",
   "author": {
     "name": "Centralway Factory"
