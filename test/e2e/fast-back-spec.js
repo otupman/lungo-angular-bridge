@@ -5,7 +5,7 @@ describe('Fast back', function() {
   });
 
 
-  ddescribe('Going back 3 times realy fast', function() {
+  describe('Going back 3 times realy fast', function() {
     beforeEach(function() {
       element('#go-to-screen-2').click();
       element('#go-to-screen-3').click();

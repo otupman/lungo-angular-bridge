@@ -152,16 +152,21 @@ angular.module('Centralway.lungo-angular-bridge', [])
         }
       }
 
-      function _archiveOldContent() {
+      function retrieveCurrentLabView() {
+        return Lungo.dom('*[class*="lab-view"]');
+      }
+
+      function _archiveOldContent(currentLabView) {
          var oldElement = Lungo.dom('*[class*="lab-old-view"]')
          if (oldElement.length > 0) {
           oldElement.remove();
          }
-         var previousElement = Lungo.dom('*[class*="lab-view"]').removeClass('lab-view').addClass('lab-old-view');
 
-          if(previousElement.length > 0) {
-            previousElement
-              .attr('lab-view-old-id', previousElement.attr('id'))
+         currentLabView.removeClass('lab-view').addClass('lab-old-view');
+
+          if(currentLabView.length > 0) {
+            currentLabView
+              .attr('lab-view-old-id', currentLabView.attr('id'))
               .removeAttr('id');
           }
       }
@@ -174,8 +179,9 @@ angular.module('Centralway.lungo-angular-bridge', [])
 
           scope.$emit('$labViewUpdateStart', null);
           var targetContainer = element.parent();
+          var currentLabView = retrieveCurrentLabView();
 
-          _archiveOldContent();
+          _archiveOldContent(currentLabView);
 
           var newElement = null;
 
@@ -189,8 +195,8 @@ angular.module('Centralway.lungo-angular-bridge', [])
           }
 
           if(AppRouter.instance.isBack($location)) {
-            var previousElementTransition = Lungo.dom('*[class*="lab-view"]').data('transition');
-            newElement.attr('data-transition-origin', previousElementTransition);
+            var currentLabViewTransition = currentLabView.data('transition');
+            newElement.attr('data-transition-origin', currentLabViewTransition);
 
             newElement.addClass('hide');
           }
