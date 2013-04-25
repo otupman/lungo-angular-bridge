@@ -20,8 +20,6 @@ describe('Fast back', function() {
 
       //opening pandora box (aside)
       element('#screen1 nav.left a').click();
-      //there you go
-      pause();
 
       expect(element('#screen1[data-transition="null"]').count()).toBe(0);
     });

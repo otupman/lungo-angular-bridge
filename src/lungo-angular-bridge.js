@@ -192,7 +192,6 @@ angular.module('Centralway.lungo-angular-bridge', [])
             var previousElementTransition = Lungo.dom('*[class*="lab-view"]').data('transition');
             newElement.attr('data-transition-origin', previousElementTransition);
 
-            //newElement.data('transition-origin', previousElementTransition);
             newElement.addClass('hide');
           }
 
