@@ -119,7 +119,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
       };
       var show = Lungo.View.Aside.show;
       var hide = Lungo.View.Aside.hide;
-      
+      // The following probably sets the minimum distance the user's finger must swipe before the triggering of the aside kicks in
       var MIN_XDIFF = parseInt(document.body.getBoundingClientRect().width / 3, 10);
       hrefs.each(function() {
         var STARTED = false;
