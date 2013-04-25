@@ -23,7 +23,7 @@ describe('Fast back', function() {
       //there you go
       pause();
 
-      expect(element('section.lab-old-view[data-transition="slide"]').count()).toBe(1);
+      expect(element('#screen1[data-transition="null"]').count()).toBe(0);
     });
   });
 });

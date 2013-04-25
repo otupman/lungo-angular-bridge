@@ -158,7 +158,12 @@ angular.module('Centralway.lungo-angular-bridge', [])
           oldElement.remove();
          }
          var previousElement = Lungo.dom('*[class*="lab-view"]').removeClass('lab-view').addClass('lab-old-view');
+
           if(previousElement.length > 0) {
+            // var previousElementTransition = previousElement.data('transition');
+            // previousElement.removeAttr('data-transition');
+            // previousElement.attr('data-old-transition', previousElementTransition);
+
             previousElement
               .attr('lab-view-old-id', previousElement.attr('id'))
               .removeAttr('id');
@@ -188,6 +193,10 @@ angular.module('Centralway.lungo-angular-bridge', [])
           }
 
           if(AppRouter.instance.isBack($location)) {
+            // var previousElementTransition = Lungo.dom('*[class*="lab-view"]').data('transition');
+            // newElement.attr('data-transition-origin', previousElementTransition);
+
+            //newElement.data('transition-origin', previousElementTransition);
             newElement.addClass('hide');
           }
 
