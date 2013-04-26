@@ -1,4 +1,4 @@
-Lungo Angular Bridge
+Lungo Angular Bridge ![](https://travis-ci.org/centralway/lungo-angular-bridge.png)
 ====
 Linking [Lungo](http://lungo.tapquo.com) to [Angular](http://angularjs.org) to bring you mobile awesomeness
 
