@@ -2,9 +2,38 @@
 
 angular.scenario.dsl('xPosition', function() {
 	var TRANSFORM_XPOS = 4;
+  
+    function testCSS(prop) {
+        return prop in document.documentElement.style;
+    }
+  
+    var isOpera = !!(window.opera && window.opera.version);  // Opera 8.0+
+    var isFirefox = testCSS('MozBoxSizing');                 // FF 0.8+
+    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+        // At least Safari 3+: "[object HTMLElementConstructor]"
+    var isChrome = !isSafari && testCSS('WebkitTransform');  // Chrome 1+
+    var isIE = /*@cc_on!@*/false || testCSS('msTransform');  // At least IE6
+  
+    var getTransformCssSelector = function() {
+      if(isChrome || isSafari) {
+        return '-webkit-transform';
+      }
+      else if(isFirefox) {
+        return 'transform';
+      }
+      else {
+        return null;
+      }
+    };
+      
 	return function(selector) {
 		return this.addFutureAction('xPosition', function(window, $document, done) {
-			var transform = $document.find(selector).css('-webkit-transform');
+            var cssTransformSelector = getTransformCssSelector();
+            if(cssTransformSelector === null) {
+              done('Browser not supported');
+              return;
+            }
+			var transform = $document.find(selector).css(cssTransformSelector);
 			if(!transform) {
 				var reason = ($document.find(selector).length == 0) ? ' because there are no selector matches' : '';
 				done('Selector ' + selector + ' got no -webkit-transform value. ' + reason);
