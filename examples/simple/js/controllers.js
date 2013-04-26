@@ -70,7 +70,10 @@ function TimingsCtrl($scope) {
   
   $scope.labTapped = function(message) {
     _logTime('lab tapped - ' + message);
-    console.log(event);
+  };
+  
+  $scope.submitted = function() {
+    _logTime('submitted');
   };
   
 }

@@ -49,7 +49,7 @@ describe('Todo Demo App', function() {
   
   describe('modifying the list', function() {
     it('should archive all un-done items', function() {
-      element('a[ng-click="archive()"]').click();
+      element('a[lab-tap="archive()"]').click();
       expect(element(Todo.SELECTORS.LIST_ITEMS + ' input:checked').count()).toBe(0);
     });
     
