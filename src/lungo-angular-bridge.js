@@ -164,7 +164,7 @@ angular.module('Centralway.lungo-angular-bridge', [])
       restrict: 'A'
       , link: function(scope, element, attr) {
         var asideId = element.attr('lab-aside');
-        element.bind('click', function() {
+        Lungo.dom(element[0]).bind('tap', function() {
           Lungo.View.Aside.toggle('#' + asideId);
         });
         subscribeEvents(Lungo.dom(element[0]));
