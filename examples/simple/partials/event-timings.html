@@ -1,0 +1,16 @@
+<section id="eventtimings" data-transition="slide">
+  <header>
+    <nav>
+      <a href="/" data-icon="home"></a>
+    </nav>
+  </header>
+  <article class="active">
+    <ol>
+      <li ng-repeat="msg in messages">
+        {{msg}}
+      </li>
+    </ol>
+    <button ng-click="clearMessages()">Clear</button>
+    <a simple-tap="tapped()" ng-click="clicked()">tap me!</a>    
+  </article>
+</section>
