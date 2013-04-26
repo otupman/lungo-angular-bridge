@@ -14,6 +14,4 @@ before_script:
   - sleep 1 # give server time to start
 
 script:
-  #- karma start config/testacular-unit.conf.js --no-auto-watch --single-run --reporters=dots --browsers=Firefox
-  #- karma start config/testacular-e2e.conf.js --reporters=dots --browsers=Firefox
   grunt
