@@ -303,4 +303,21 @@ angular.module('Centralway.lungo-angular-bridge', [])
       }]); 
       
     });
+  lab.directive('href', ['$location', function($location) {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attr) {
+        if(element[0].tagName.toUpperCase() !== 'A') {
+          return;
+        }
+        if(attr['noHref'] !== undefined) {
+          console.log('directive:href - explicit unbind, not handling taps');
+          return;
+        }
+        var url = attr['href'];
+        Lungo.dom(element[0]).on('tap', function(event) {
+          $location.path(url);
+        });
+      }
+  }}])
 }(angular.module('Centralway.lungo-angular-bridge')));
