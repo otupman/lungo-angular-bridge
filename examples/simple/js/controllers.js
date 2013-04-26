@@ -63,14 +63,16 @@ function TimingsCtrl($scope) {
     $scope.messages.length = 0;
   };  
   
-  $scope.tapped = function() {
+  $scope.tapped = function(event) {
     $scope.startTime = Date.now();
     _logTime('tapped');
   }
   
-  $scope.clicked = function() {
-    _logTime('clicked');
-  }
+  $scope.labTapped = function(message) {
+    _logTime('lab tapped - ' + message);
+    console.log(event);
+  };
+  
 }
 
 angular.module('BridgeExample.controllers', []).

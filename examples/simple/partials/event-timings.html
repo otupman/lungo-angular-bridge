@@ -10,7 +10,10 @@
         {{msg}}
       </li>
     </ol>
-    <button ng-click="clearMessages()">Clear</button>
-    <a simple-tap="tapped()" ng-click="clicked()">tap me!</a>    
+    <button lab-tap="clearMessages()">Clear</button>
+    <a class="button" simple-tap="tapped()" lab-tap="labTapped('first button')">tap me! (via quojss)</a>
+    <br>
+    <br>
+    <a class="button" simple-tap="tapped()" lab-tap="labTapped('second button')">tap me! (via quojss)</a>
   </article>
 </section>
