@@ -14,4 +14,17 @@ angular.module('BridgeExample.directives', []).
             template: '<a data-icon="home">Has home icon?</a>'
 
         }
-  });
+  })
+  .directive('simpleTap', function($parse) {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attr) {
+        var fn = $parse(attr['simpleTap']);
+        Lungo.dom(element[0]).tap(function() {
+          scope.$apply(function() {
+            fn(scope, {$event:event});
+          });
+        });
+      }
+  }})
+;

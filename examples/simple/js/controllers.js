@@ -51,6 +51,28 @@ function DynamicCtrl($scope) {
   $scope.triggerRightAside = toggleRightAside;
 }
 
+function TimingsCtrl($scope) {
+  $scope.messages = [];
+  var startTime = Date.now();
+  var _logTime = function(message) {
+    $scope.messages.push((Date.now() - startTime) + ':' + message);
+    console.log($scope.messages[$scope.messages.length-1]);
+  }  
+  
+  $scope.clearMessages = function() {
+    $scope.messages.length = 0;
+  };  
+  
+  $scope.tapped = function() {
+    $scope.startTime = Date.now();
+    _logTime('tapped');
+  }
+  
+  $scope.clicked = function() {
+    _logTime('clicked');
+  }
+}
+
 angular.module('BridgeExample.controllers', []).
 	controller('SearchCtrl', function($scope) {
 		$scope.term = $location.search('term');
