@@ -1,0 +1,100 @@
+<html ng-app="TransitionTest">
+  <head>
+      <title>Lungo Angular Bridge Example</title>
+
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.css"/>
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.icon.css"/>
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/theme.lungo.css">
+      <script type="text/javascript" src="../../components/quojs/quo.debug.js"></script>
+      <script type="text/javascript" src="../../lib/lungo.debug.js"></script>
+
+      <script type="text/ng-template" id="screen1.html">
+        <section id="screen1" data-transition="slide">
+          <header>
+            <nav class="left"><a lab-aside="leftaside" data-icon="menu"></a></nav>
+          </header>
+          <article class="active">
+            <a id="go-to-screen-2" href="#/screen2">Go to Screen 2</a>
+          </active>
+        </section>
+      </script>
+
+      <script type="text/ng-template" id="screen2.html">
+        <section id="screen2" data-transition="slide">
+          <header>
+            <nav class="left"><a id="screen2-back" href="#/screen1"  data-icon="left"></a></nav>
+          </header>
+          <article class="active">
+            <a id="go-to-screen-3" href="#/screen3">Go to Screen 3</a>
+          </active>
+        </section>
+      </script>
+
+      <script type="text/ng-template" id="screen3.html">
+        <section id="screen3" data-transition="slide">
+          <header>
+            <nav class="left"><a href="#/screen2"  data-icon="left"></a></nav>
+          </header>
+          <article class="active">
+            <a id="go-to-screen-4" href="#/screen4">Go to Screen 4</a>
+          </active>
+        </section>
+      </script>
+
+      <script type="text/ng-template" id="screen4.html">
+        <section id="screen4" data-transition="slide">
+          <header>
+            <nav class="left"><a href="#/screen3"  data-icon="left"></a></nav>
+          </header>
+          <article class="active">
+            Here we are
+          </active>
+        </section>
+      </script>
+
+  </head>
+
+  <body lab-boot>
+    <section id="main" data-transition="slide">
+      <article class="active" id="first_article">
+        <strong>Start page</strong>
+        <a href="#/screen1">Go to Screen 1</a>
+      </article>
+    </section>
+
+    <aside id="leftaside">
+      <header>
+        <span class="title center">Left aside</span>
+      </header>
+      <article class="active">
+        <ul>
+          <li><a href="#/">Home</a></li>
+          <li><a href="#/screen1">Screen 1</a></li>
+          <li><a href="#/screen2">Screen 2</a></li>
+          <li><a href="#/screen3">Screen 3</a></li>
+          <li><a href="#/screen4">Screen 4</a></li>
+        </ul>
+      </article>
+    </aside>
+    <lab-view></lab-view>
+
+    <script type="text/javascript" src="../../components/angular/angular.js"></script>
+    <script type="text/javascript" src="../../src/lungo-angular-bridge.js"></script>
+
+    <script>
+      // Declare app level module which depends on filters, and services
+      angular.module('TransitionTest',
+        ['Centralway.lungo-angular-bridge']).
+        config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+
+          $routeProvider.when('/screen1', {templateUrl: 'screen1.html'});
+          $routeProvider.when('/screen2', {templateUrl: 'screen2.html'});
+          $routeProvider.when('/screen3', {templateUrl: 'screen3.html'});
+          $routeProvider.when('/screen4', {templateUrl: 'screen4.html'});
+
+          $routeProvider.otherwise({redirectTo: '/'});
+          $locationProvider.html5Mode(false);
+        }]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - 0.8
+
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - npm install --quiet karma
+  - npm install --quiet -g bower@0.8.6
+  - npm install --quiet grunt
+  - npm install --quiet grunt-cli
+  - bower install
+  - ./scripts/web-server.sh > /dev/null &
+  - sleep 1 # give server time to start
+
+script:
+  grunt

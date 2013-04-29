@@ -5,6 +5,7 @@
 // Base path, that will be used to resolve files and exclude
 basePath = '../';
 
+urlRoot = '/__testacular/';
 
 // list of files / patterns to load in the browser
 files = [
@@ -26,7 +27,7 @@ reporters = ['progress'];
 
 
 // web server port
-port = 8000;
+port = 8080;
 
 
 // cli runner port
@@ -54,7 +55,7 @@ autoWatch = true;
 // - Safari (only Mac)
 // - PhantomJS
 // - IE (only Windows)
-browsers = ['Chrome'];
+browsers = ['Firefox'];
 
 
 proxies = {
