@@ -23,7 +23,7 @@ describe('directives', function() {
     
   });
   
-  ddescribe('lab-*quojs touch events*', function() {
+  describe('lab-*quojs touch events*', function() {
     var quoEvents = 'swipe swiping swipeLeft swipeRight swipeDown swipeUp'
     + ' tap hold singleTap doubleTap'
     + ' pinch pinching pinchIn pinchOut'
@@ -50,18 +50,20 @@ describe('directives', function() {
   });
   
   describe('Anchor href binding', function() {
-    xit('should bind a tap handler on anchor tags', function() { 
+    var element = null;
+    beforeEach(function() {
       inject(function($compile, $rootScope) {
-        
+        element = $compile(
+          '<a ng-click="someClick()">Ignore me</a>'
+          + '<a href="http://www.google.com">Bindable</a>'
+          + '<a href="http://www.somewhere.com" no-href>No bind requested</a>'
+          + '<link href="http://www.example.org/style.css">'
+        )($rootScope);
       });
     });
     
-    xit('should ignore any tags marked with no-href', function() {
-      
-    });
-    
-    xit('should not apply the handler to any other tag that can have an href', function() {
-      
+    it('should bind a tap handler on anchor tags (and none of the others)', function() { 
+      expect(Lungo.dom.calls.length).toBe(1);  
     });
   });
   
