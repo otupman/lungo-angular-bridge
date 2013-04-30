@@ -1,8 +1,8 @@
 'use strict';
 
 describe('Testing rendering of data-* attributes of directives', function() {    
-	ddescribe('on the dynamic page', function() {
-		beforeEach(function() {
+	describe('on the dynamic page', function() {
+      beforeEach(function() {
       browser().navigateTo('../../examples/simple/index.html');
       element('a[href="dynamic"]').click();
       sleep(0.5);
@@ -17,7 +17,6 @@ describe('Testing rendering of data-* attributes of directives', function() {
     });
     
     it('should have the data-icon rendered to the DOM', function() {
-      pause();
         expect(element('dynamic-directive-and-lungo-test a span.icon').attr('class')).toBe('icon menu');
     });
 	});
