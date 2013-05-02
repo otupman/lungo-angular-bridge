@@ -1,0 +1,62 @@
+<html ng-app="TransitionTest">
+  <head>
+      <title>Lungo Angular Bridge Example</title>
+
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.css"/>
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.icon.css"/>
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/theme.lungo.css">
+      <script type="text/javascript" src="../../components/quojs/quo.debug.js"></script>
+      <script type="text/javascript" src="../../lib/lungo.debug.js"></script>
+  </head>
+
+  <body lab-boot ng-controller="IncrementalCtrl">
+  	<section id="main" data-transition="slide">
+  		<article class="active" id="first_article">
+  			<strong>Start page</strong>
+  			<button lab-tap="tapped()" id="tapButton">Tap button</button>
+            <br/>
+            <button lab-swipe="swiped()" id="swipeButton">Swipe me!</button>
+            <br/>
+            <span id="lastEvent">{{lastEvent}}</span>
+  		</article>
+  	</section>
+
+	<script type="text/javascript" src="../../components/angular/angular.js"></script>
+    <script type="text/javascript" src="../../src/lungo-angular-bridge.js"></script>
+
+    <script>
+      // Declare app level module which depends on filters, and services
+      angular.module('TransitionTest', 
+          ['Centralway.lungo-angular-bridge']).
+        config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+
+          $routeProvider.when('/', {templateUrl: 'screen1.html'});
+
+          $routeProvider.otherwise({redirectTo: '/'});
+          $locationProvider.html5Mode(false);
+        }]);
+
+        function IncrementalCtrl($scope) {
+          $scope.lastEvent = "none yet";
+          
+          $scope.tapped = function() {
+            $scope.lastEvent = "tapped";
+          };
+          
+          $scope.swiped = function() {
+            $scope.lastEvent = "swiped";
+          };
+        }
+    </script>
+  </body>
+</html>	
+
+
+
+
+
+
+
+
+
+

@@ -18,7 +18,7 @@
             </header>
             <article class="active list indented scroll" ng-controller="TodoCtrl" id="main">
                  <span class="remainingLabel">{{remaining()}} of {{todos.length}} remaining</span>
-                [ <a href="" ng-click="archive()">archive</a> ]
+                [ <a lab-tap="archive()" class="button archiveButton">archive</a> ]
                 <ul>
                     <li ng-repeat="todo in todos">
                         <input type="checkbox" ng-model="todo.done">

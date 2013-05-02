@@ -1,0 +1,24 @@
+<section id="eventtimings" data-transition="slide">
+  <header>
+    <nav>
+      <a href="/" data-icon="home"></a>
+    </nav>
+  </header>
+  <article class="active">
+    <ol>
+      <li ng-repeat="msg in messages">
+        {{msg}}
+      </li>
+    </ol>
+    <button lab-tap="clearMessages()">Clear</button>
+    <a class="button" simple-tap="tapped()" lab-tap="labTapped('first button')">tap me! (via quojss)</a>
+    <br>
+    <br>
+    <a class="button" simple-tap="tapped()" lab-tap="labTapped('second button')">tap me! (via quojss)</a>
+    
+    
+    <form ng-submit="submitted()">
+      <input type="submit" value="Submit" simple-tap='tapped()'/>
+    </form>
+  </article>
+</section>

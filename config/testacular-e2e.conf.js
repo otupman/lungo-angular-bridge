@@ -11,6 +11,7 @@ urlRoot = '/__testacular/';
 files = [
   ANGULAR_SCENARIO,
   ANGULAR_SCENARIO_ADAPTER,
+  'src/lab-scenario.js',
   'test/e2e/**/*.js'
 ];
 

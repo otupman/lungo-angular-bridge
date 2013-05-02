@@ -107,7 +107,7 @@ Then, you'll need to add references to the Bridge directives lab-boot (that init
     <body>
         <lab-view></lab-view>
 
-### Usage
+## Usage
 
 Lungo imposes a section/article constraint on URLs. It expects all URLs to be in the following format:
 
@@ -150,6 +150,14 @@ This simple piece of code will display the Angular template of your choice with 
           </p>
       </article>
   </script>
+
+### Use lab-tap, not ng-click
+
+Don't use ng-click. Mobile browsers wait around 300ms before firing a click, leading to your application feeling laggy and "not native-like". The bridge provides `lab-tap` to mitigate this; it's just like ng-click, but it listens to the quojs `tap` event.
+
+### anchor hrefs listen for taps (you can turn this off)
+
+A standard anchor link using an `href` attribute will be handled by a browser-click; the Bridge defines a `href` directive that binds magically to links to trigger the URL change via a tap. If you *don't* want this to happen, add the `no-href` attribute to the anchor - this will tell the Bridge *not* to bind it's handler on the link. You might want to do this if you want to bind your own tap handler to the anchor tag.
 
 ## Examples
 

@@ -1,6 +1,12 @@
 <html ng-app="BridgeExample">
     <head>
         <title>Lungo Angular Bridge Example</title>
+        <meta name="HandheldFriendly" content="True">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <meta http-equiv="cleartype" content="on">
 
         <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.css"/>
         <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.icon.css"/>
@@ -14,13 +20,13 @@
             <header ng-controller="AppCtrl" data-title="Simple Application">
                 <nav class="left">
                     <a data-icon="menu" lab-aside='aside1' id="triggerLeftAsideLink"></a>
-                    <a ng-click='refreshApplication()' data-icon="refresh"></a>
+                    <a lab-tap='refreshApplication()' data-icon="refresh"></a>
                     Hello, {{name}}
                 </nav>
                 <nav class="right">
 
                     <a href="section1">Section 1</a>
-                    <a ng-click="triggerRightAside()">Right aside</a>
+                    <a lab-tap="triggerRightAside()">Right aside</a>
                 </nav>
             </header>
             <article id="something" class="active">
@@ -31,7 +37,7 @@
                     This article has to be here, it's not (yet) clear why.
                 </p>
                 <p>
-                    <a href="dynamic">Click here to go to the dynamically loaded section</a>
+                    <a href="dynamic" no-href>Click here to go to the dynamically loaded section</a>
                 </p>
                 <p>
                     <a href="search?term=centralway">Click here to perform a simple search with parameter 'centralway'</a> (this one fails, too)
@@ -42,14 +48,17 @@
                 </p>
                 <p>
                     Test of directives using Lungo data-* attributes: <directive-and-lungo-test></directive-and-lungo-test> (currently failing)
-                </p>
+                </p> 
                 <p>
-                    <button ng-click="callTopLevel()">Call top level</button>
+                    <button lab-tap="callTopLevel()">Call top level</button>
                 </p>
                 <p>
                     <a href="navbarissue">Go to navbar issue testcase</a>
-                </p> 
-            </article>
+                </p>            
+                <p>
+                  <a href="/eventtimings">Event timing</a>
+                </p>            
+	    </article>
         </section>
 
         <section id="section1" data-transition="slide">
@@ -79,7 +88,7 @@
                 <ul>
                     <li><a href="/section1"><strong>Section 1</strong></a></li>
                     <li><a href="/dynamic" id="aside1_dynamic"><strong>Dynamic</strong></a></li>
-                    <li><button ng-click='changeName()'>Click meeee</button></li>
+                    <li><button lab-tap='changeName()'>Click meeee</button></li>
                 </ul>
             </article>
         </aside>
