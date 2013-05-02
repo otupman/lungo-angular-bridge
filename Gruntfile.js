@@ -1,7 +1,14 @@
 var testacular = require('karma');
 var spawn = require('child_process').spawn;
+var path = require('path');
+
 module.exports = function(grunt) {
   'use strict';
+  
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-express');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -28,14 +35,23 @@ module.exports = function(grunt) {
       files: ['<%= concat.dist.src %>'],
       tasks: ['default']
     }
+    , express: {
+      server: {
+        options: {
+          bases: ['', 'docs/www-root']
+          
+          , server: path.resolve('./docs/www-root/server')
+          , debug: true
+        }
+      }
+    }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.registerTask('dist', ['concat', 'uglify']);
+  
+  grunt.registerTask('default', ['dist', 'test']);
 
-  grunt.registerTask('default', ['concat', 'uglify', 'test']);
-
+  grunt.registerTask('demoServer', ['dist', 'express', 'express-keepalive']);
 
 
   // Default task
@@ -46,7 +62,9 @@ module.exports = function(grunt) {
     testacular.server.start({configFile:'config/testacular-e2e.conf.js'});
   });
   
-  grunt.registerTask('test', ['karma:config/testacular-unit.conf.js', 'karma:config/testacular-e2e.conf.js']);
+  grunt.registerTask('test', [
+    'karma:config/testacular-unit.conf.js', 'karma:config/testacular-e2e.conf.js']
+  );
 
   grunt.registerTask('karma', 'run tests', function () {
     if(arguments.length === 0) {

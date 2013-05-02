@@ -77,7 +77,7 @@ To play around with Lungo concepts, you can use their excellent [prototyping](ht
 
 ### Installation
 
-The Bridge is a Bower package, so you just need to install Bower -
+The Bridge is a Bower package (which is in turn a [Node.js](http://nodejs.org/) package - you'll need that first), so you just need to install Bower -
 
     npm install bower -g
 
