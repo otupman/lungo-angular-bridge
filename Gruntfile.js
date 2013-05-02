@@ -39,7 +39,7 @@ module.exports = function(grunt) {
       server: {
         options: {
           bases: ['', 'docs/www-root']
-          
+          , port: 8000
           , server: path.resolve('./docs/www-root/server')
           , debug: true
         }
