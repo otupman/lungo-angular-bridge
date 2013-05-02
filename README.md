@@ -42,7 +42,7 @@ Lungo is built upon Quo.js, a mobile-focussed DOM manipulation API (also built b
 
 We would try to favour Quo.js to keep things consisent, however we are not consistentin this. We do have an open issue to create a jQuery-like wrapper for Quo.js and make Angular use that - but we're not there yet.
 
-## Getting Started
+# Getting Started
 
 ## A few Lungo concepts
 
@@ -83,11 +83,13 @@ To get you started as quickly as possible we've created our snappily-named grunt
 - Git repo ready
 - build.phonegap.com deployment out-of-the-box!
 
-     npm install -g grunt-init
-     git clone git@github.com:centralway/grunt-init-lungo-angular.git ~/.grunt-init/lungo-angular
-     mkdir demo && cd demo
-     grunt-init lungo-angular
-     
+
+      npm install -g grunt-init
+      git clone git@github.com:centralway/grunt-init-lungo-angular.git ~/.grunt-init/lungo-angular
+      mkdir demo && cd demo
+      grunt-init lungo-angular
+    
+    
 At this stage you'll be asked a bunch of questions to configure some aspects of your project. If you don't know the answers, don't worry about it as `blank` is a valid option and you can modify the relevant config files afterwards.
 
 Continuing:
@@ -95,7 +97,8 @@ Continuing:
      npm install
      bower install
      python -m SimpleHTTPServer
-     
+    
+    
 Access your app via `http://localhost:8000`
 
 If you've a build.phonegap.com account (fyi, it's free for 1 private account) then you can make use of the supplied grunt config to have your app uploaded to build.phonegap.com and build it! Just enter `grunt` and it'll run. You'll need to have configured it via the `grunt-init` command; if not, you'll need to modify the relevant config files.
