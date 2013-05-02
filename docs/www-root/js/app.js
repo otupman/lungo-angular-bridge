@@ -5,6 +5,7 @@
       
       $routeProvider.when('/examples', {templateUrl: 'partials/examples.html', controller: 'DemoCtrl'});
       $routeProvider.when('/', {templateUrl: 'partials/root.html', controller: 'RootCtrl'});
+      $routeProvider.when('/docs/api', {templateUrl: 'partials/api.html'});
       
       $routeProvider.otherwise({redirectTo: '/'});
       $locationProvider.html5Mode(true);
