@@ -38,4 +38,11 @@ describe('Testing rendering of data-* attributes of directives', function() {
         expect(element('directive-and-lungo-test a span.icon').attr('class')).toBe('icon home');
     });
   });
+    
+  describe('on dynamic page with title', function() {
+    it('should enable binding on the title', function() {
+        element('a[href="person/view/3"]').click();
+        expect(element('#person span.title.centered').text()).toEqual('Person 3');
+    });
+  });
 });
