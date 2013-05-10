@@ -13,7 +13,7 @@ describe('Testing rendering of data-* attributes of directives', function() {
     });
     
     it('should have the data-icon set to "home"', function() {
-        expect(element('dynamic-directive-and-lungo-test a').attr('data-icon')).toBe('menu');
+        expect(element('#dynamic dynamic-directive-and-lungo-test span').attr('class')).toBe('icon menu');
     });
     
     it('should have the data-icon rendered to the DOM', function() {
