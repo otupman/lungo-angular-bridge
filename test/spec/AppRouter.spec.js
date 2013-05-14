@@ -39,6 +39,8 @@ describe('AppRouter', function() {
         AppRouter.instance = new AppRouter(Lungo, $location, $rootScope);
     })
   });
+  
+  xdescribe('need to test labRouterService', function() {});
 
   describe('Moving between articles in a section', function() { 
     beforeEach(function() {
