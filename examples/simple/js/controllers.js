@@ -80,6 +80,16 @@ function TimingsCtrl($scope) {
     _logTime('submitted');
   };
   
+  var pull = Lungo.Element.Pull('#eventtimings', {
+    onPull: 'Pull down to refresh'
+    , onRelease: 'Release to get new data'
+    , onRefresh: 'Refreshing...'
+    , callback: function() {
+      alert('Pull and refresh completed!');
+      pull.hide();
+    }
+  });
+  
 }
 
 angular.module('BridgeExample.controllers', []).
