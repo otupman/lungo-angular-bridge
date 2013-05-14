@@ -13,12 +13,24 @@ describe('AppRouter', function() {
       response.attr = jasmine.createSpy('attr');
       return response;
     });
+    
+    // Here we fake $location.path so that we can manually emit $routeChangeSuccess
+    angular.mock.inject(function($location, $rootScope) {
+      $location.oldPath = $location.path;
+      spyOn($location, 'path').andCallFake(function(path) {
+        if(path) {
+          $location.oldPath(path);
+          $rootScope.$emit('$routeChangeSuccess', {});
+        } else {
+          return $location.oldPath();
+        }
+      });
+    });
   });
 
   function navigateTo(path) {
     angular.mock.inject(function($location, $rootScope) {
       $location.path(path);
-      $rootScope.$emit('$routeChangeSuccess', {}); 
     });
   }
 
@@ -118,12 +130,9 @@ describe('AppRouter', function() {
   			expect($location.path()).toBe('/third');
   		});	
   	});
-
-
-
   });
 
-  ddescribe('forward, forward, back, back', function() {
+  describe('forward, forward, back, back', function() {
     beforeEach(function() {
       spyOn(Lungo.Router, 'section');
       spyOn(Lungo.Router, 'back');
@@ -134,19 +143,11 @@ describe('AppRouter', function() {
     });
 
     it('should go back twice - AppRouter.instance.back()', function() {
-
-      angular.mock.inject(function($rootScope, $location) {
-        $rootScope.$on('$routeChangeSuccess', function() {
-          AppRouter.instance.back();
-          console.log('$routeChangeSuccess');
-          expect($location.path()).toBe('/first');
-        });
-      });
-
-      angular.mock.inject(function($rootScope) {
-        $rootScope.$apply(function() {
-          AppRouter.instance.back();
-        });
+      AppRouter.instance.back();
+      
+      AppRouter.instance.back();
+      angular.mock.inject(function($location) {
+        expect($location.path()).toBe('/first');
       });
 
     });
