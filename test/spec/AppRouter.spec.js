@@ -118,6 +118,46 @@ describe('AppRouter', function() {
   			expect($location.path()).toBe('/third');
   		});	
   	});
+
+
+
+  });
+
+  ddescribe('forward, forward, back, back', function() {
+    beforeEach(function() {
+      spyOn(Lungo.Router, 'section');
+      spyOn(Lungo.Router, 'back');
+
+      navigateTo('/first');
+      navigateTo('/second');
+      navigateTo('/third');
+    });
+
+    it('should go back twice - AppRouter.instance.back()', function() {
+
+      angular.mock.inject(function($rootScope, $location) {
+        $rootScope.$on('$routeChangeSuccess', function() {
+          AppRouter.instance.back();
+          console.log('$routeChangeSuccess');
+          expect($location.path()).toBe('/first');
+        });
+      });
+
+      angular.mock.inject(function($rootScope) {
+        $rootScope.$apply(function() {
+          AppRouter.instance.back();
+        });
+      });
+
+    });
+
+    it('should go back twice - navigateTo', function() {
+      navigateTo('/second');
+      navigateTo('/first');
+      angular.mock.inject(function($location) {
+        expect($location.path()).toBe('/first');
+      });
+    });
   });
 
   describe('Moving forwards', function() {
