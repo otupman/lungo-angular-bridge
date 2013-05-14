@@ -1,6 +1,6 @@
 'use strict';
 
-ddescribe('Testing manual back', function() {
+describe('Testing manual back', function() {
 
   beforeEach(function() {
     browser().navigateTo('../test/cases/fast-back-test.html#/screen1');
