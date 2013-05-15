@@ -13,8 +13,10 @@
           <header>
             <nav class="left"><a lab-aside="leftaside" data-icon="menu"></a></nav>
           </header>
-          <article class="active">
+          <article class="active" id="article1">
             <a id="go-to-screen-2" href="#/screen2">Go to Screen 2</a>
+            <a id="go-to-screen-2-article" href="#/screen2/article2">Go to Screen 2</a>
+            <a id="go-to-screen-2-article-id" href="#/screen2/article2/123">Go to Screen 2 with article and ID</a>
           </active>
         </section>
       </script>
@@ -24,8 +26,11 @@
           <header>
             <nav class="left"><a id="screen2-back" ng-click="goBack()" data-icon="left"></a></nav>
           </header>
-          <article class="active">
-            <a id="go-to-screen-3" href="#/screen3">Go to Screen 3</a>
+          <article class="active" id="article2">
+            <ul>
+              <a id="go-to-screen-3" href="#/screen3">Go to Screen 3</a>
+              <a id="go-to-screen-3-article" href="#/screen3/article3">Go to Screen 3</a>
+              <a id="go-to-screen-3-article-id" href="#/screen3/article3/123">Go to Screen 3 with article and ID</a>
           </active>
         </section>
       </script>
@@ -35,8 +40,10 @@
           <header>
             <nav class="left"><a  ng-click="goBack()" data-icon="left"></a></nav>
           </header>
-          <article class="active">
+          <article class="active" id="article3">
             <a id="go-to-screen-4" href="#/screen4">Go to Screen 4</a>
+            <a id="go-to-screen-4-article" href="#/screen4/article4">Go to Screen 4</a>
+            <a id="go-to-screen-4-article-id" href="#/screen4/article4/123">Go to Screen 4 with article and ID</a>
           </active>
         </section>
       </script>
@@ -46,7 +53,7 @@
           <header>
             <nav class="left"><a  ng-click="goBack()"  data-icon="left"></a></nav>
           </header>
-          <article class="active">
+          <article class="active" id="article4">
             Here we are
           </active>
         </section>
@@ -59,6 +66,8 @@
       <article class="active" id="first_article">
         <strong>Start page</strong>
         <a href="#/screen1">Go to Screen 1</a>
+        <a href="#/screen1/article1">Screen 1 + article</a>
+        <a href="#/screen1/article1/1234">Screen 1 + article + id</a>
       </article>
     </section>
 
@@ -73,6 +82,11 @@
           <li><a href="#/screen2">Screen 2</a></li>
           <li><a href="#/screen3">Screen 3</a></li>
           <li><a href="#/screen4">Screen 4</a></li>
+          <li>With articles</li>
+          <li><a href="#/screen1/article1">Screen 1</a></li>
+          <li><a href="#/screen2/article2">Screen 2</a></li>
+          <li><a href="#/screen3/article3">Screen 3</a></li>
+          <li><a href="#/screen4/article4">Screen 4</a></li>
         </ul>
       </article>
     </aside>
@@ -96,6 +110,16 @@
           $routeProvider.when('/screen2', {templateUrl: 'screen2.html', controller: 'SimpleBackController'});
           $routeProvider.when('/screen3', {templateUrl: 'screen3.html', controller: 'SimpleBackController'});
           $routeProvider.when('/screen4', {templateUrl: 'screen4.html', controller: 'SimpleBackController'});
+          
+          $routeProvider.when('/screen1/article1', {templateUrl: 'screen1.html', controller: 'SimpleBackController'});
+          $routeProvider.when('/screen2/article2', {templateUrl: 'screen2.html', controller: 'SimpleBackController'});
+          $routeProvider.when('/screen3/article3', {templateUrl: 'screen3.html', controller: 'SimpleBackController'});
+          $routeProvider.when('/screen4/article4', {templateUrl: 'screen4.html', controller: 'SimpleBackController'});
+          
+          $routeProvider.when('/screen1/article1/:id', {templateUrl: 'screen1.html', controller: 'SimpleBackController'});
+          $routeProvider.when('/screen2/article2/:id', {templateUrl: 'screen2.html', controller: 'SimpleBackController'});
+          $routeProvider.when('/screen3/article3/:id', {templateUrl: 'screen3.html', controller: 'SimpleBackController'});
+          $routeProvider.when('/screen4/article4/:id', {templateUrl: 'screen4.html', controller: 'SimpleBackController'});
 
           $routeProvider.otherwise({redirectTo: '/'});
           $locationProvider.html5Mode(false);
