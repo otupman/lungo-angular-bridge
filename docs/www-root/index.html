@@ -1,0 +1,60 @@
+<html ng-app="LabWebRoot">
+  <head>
+    <link rel="stylesheet" type="text/css" href="foundation.min.css"/>
+    <link rel="stylesheet" type="text/css" href="app.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+    <script src="js/showdown.js"></script>
+    <script src="js/extensions/prettify.js"></script>
+    <script src="js/app.js"></script>
+  </head>
+  
+  <body>
+    <a href="https://github.com/centralway/lungo-angular-bridge"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    
+    <div class="row">
+      <div class="large-3 columns">
+        <h1><a href="/">LAB</a></h1>
+      </div>
+      <div class="large-9 columns">
+        <ul class="inline-list right">
+          <li><a href="/">LAB Home</a></li>
+          <li><a href="/examples">Examples</a></li>
+          <li><a href="/docs/api">JS API</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="row">    
+      <div class="large-9 push-3 columns">
+        <ng-view></ng-view>
+      </div>
+      
+      <div class="large-3 pull-9 columns">
+        <ul class="side-nav">
+          <li><a href="/">LAB Home</a></li>
+          <li><a href="/examples">Examples</a></li>
+          <li><a href="/docs/api">JS API</a></li>
+        </ul>          
+      </div>
+      
+    </div>
+      
+    <footer class="row">
+      <div class="large-12 columns">
+        <hr />
+        <div class="row">
+          <div class="large-6 columns">
+            <p>&copy; Copyright Centralway AG, 2013.</p>
+          </div>
+          <div class="large-6 columns">
+            <ul class="inline-list right">
+              <li><a href="/">LAB Home</a></li>
+              <li><a href="/examples">Examples</a></li>
+              <li><a href="/docs/api">JS API</a></li>
+            </ul>
+          </div>
+        </div>
+      </div> 
+    </footer>
+  </body>
+</html>

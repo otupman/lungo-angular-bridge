@@ -51,8 +51,11 @@ angular.module('Centralway.lungo-angular-bridge')
       restrict: 'A'
       , link: function(scope, element, attr) {
         var asideId = element.attr('lab-aside');
-        element.bind('click', function() {
+        var targetEvent = Lungo.Core.environment().isMobile ? 'tap' : 'click';
+        //TODO: deprecate this environment selection in favour of tap-only
+        Lungo.dom(element[0]).bind(targetEvent, function(event) {
           Lungo.View.Aside.toggle('#' + asideId);
+          event.preventDefault();
         });
         subscribeEvents(Lungo.dom(element[0]));
       }

@@ -13,7 +13,7 @@ describe('Testing rendering of data-* attributes of directives', function() {
     });
     
     it('should have the data-icon set to "home"', function() {
-        expect(element('dynamic-directive-and-lungo-test a').attr('data-icon')).toBe('menu');
+        expect(element('#dynamic dynamic-directive-and-lungo-test span').attr('class')).toBe('icon menu');
     });
     
     it('should have the data-icon rendered to the DOM', function() {
@@ -36,6 +36,13 @@ describe('Testing rendering of data-* attributes of directives', function() {
     
     it('should have the data-icon rendered to the DOM', function() {
         expect(element('directive-and-lungo-test a span.icon').attr('class')).toBe('icon home');
+    });
+  });
+    
+  describe('on dynamic page with title', function() {
+    it('should enable binding on the title', function() {
+        element('a[href="person/view/3"]').click();
+        expect(element('#person span.title.centered').text()).toEqual('Person 3');
     });
   });
 });

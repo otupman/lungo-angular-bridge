@@ -42,9 +42,9 @@ Lungo is built upon Quo.js, a mobile-focussed DOM manipulation API (also built b
 
 We would try to favour Quo.js to keep things consisent, however we are not consistentin this. We do have an open issue to create a jQuery-like wrapper for Quo.js and make Angular use that - but we're not there yet.
 
-## Getting Started
+# Getting Started
 
-### A few Lungo concepts
+## A few Lungo concepts
 
 Before you begin, it's a good idea to familiarise yourself with 3 key Lungo concepts (which are also tags):
 
@@ -75,9 +75,37 @@ Asides are essentially side-menus that can pop out from the left or the right of
 
 To play around with Lungo concepts, you can use their excellent [prototyping](http://lungo.tapquo.com/howto/prototype/) documentation to build up some templates. You can, more-or-less, take prototyped Lungo code and build Angular functionality in using the bridge.
 
-### Installation
+## Installation Quick Start - [via grunt-init-lungo-angular](https://github.com/centralway/grunt-init-lungo-angular)
 
-The Bridge is a Bower package, so you just need to install Bower -
+To get you started as quickly as possible we've created our snappily-named grunt-init-lungo-angular script. It will delivery to you:
+ 
+- A working lungo-angular-bridge project
+- Git repo ready
+- build.phonegap.com deployment out-of-the-box!
+
+
+      npm install -g grunt-init
+      git clone git@github.com:centralway/grunt-init-lungo-angular.git ~/.grunt-init/lungo-angular
+      mkdir demo && cd demo
+      grunt-init lungo-angular
+    
+    
+At this stage you'll be asked a bunch of questions to configure some aspects of your project. If you don't know the answers, don't worry about it as `blank` is a valid option and you can modify the relevant config files afterwards.
+
+Continuing:
+     
+     npm install
+     bower install
+     python -m SimpleHTTPServer
+    
+    
+Access your app via `http://localhost:8000`
+
+If you've a build.phonegap.com account (fyi, it's free for 1 private account) then you can make use of the supplied grunt config to have your app uploaded to build.phonegap.com and build it! Just enter `grunt` and it'll run. You'll need to have configured it via the `grunt-init` command; if not, you'll need to modify the relevant config files.
+
+## Installation - manually
+
+The Bridge is a Bower package (which is in turn a [Node.js](http://nodejs.org/) package - you'll need that first), so you just need to install Bower -
 
     npm install bower -g
 
@@ -107,7 +135,7 @@ Then, you'll need to add references to the Bridge directives lab-boot (that init
     <body>
         <lab-view></lab-view>
 
-### Usage
+## Usage
 
 Lungo imposes a section/article constraint on URLs. It expects all URLs to be in the following format:
 
@@ -145,11 +173,18 @@ This simple piece of code will display the Angular template of your choice with 
       <article class="active" id="popup-article">
           <strong>Pop up!</strong>
           <button ng-click="closeWindow()" id="closeWindowButton">Close window</button>
-          <p>
-            Test of directives using Lungo data-* attributes: <directive-and-lungo-test id="popupDirectiveTest"></directive-and-lungo-test> (currently failing)
-          </p>
       </article>
-  </script>
+    </script>
+
+## Mobile events
+
+### Use lab-tap, not ng-click
+
+Don't use ng-click. Mobile browsers wait around 300ms before firing a click, leading to your application feeling laggy and "not native-like". The bridge provides `lab-tap` to mitigate this; it's just like ng-click, but it listens to the quojs `tap` event.
+
+### anchor hrefs listen for taps (you can turn this off)
+
+A standard anchor link using an `href` attribute will be handled by a browser-click; the Bridge defines a `href` directive that binds magically to links to trigger the URL change via a tap. If you *don't* want this to happen, add the `no-href` attribute to the anchor - this will tell the Bridge *not* to bind it's handler on the link. You might want to do this if you want to bind your own tap handler to the anchor tag.
 
 ## Examples
 

@@ -1,5 +1,43 @@
 angular.module('Centralway.lungo-angular-bridge')
 	.directive('labView', ['$http', '$templateCache', '$route', '$anchorScroll', '$compile', '$controller', '$location', '$log', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location, $log) {
+  var removeLungoAttributes = function(element) {
+    /*
+     * !NOTE: this is intentionally hardcoded to ensure speed of search
+     * 
+     * Taken from Lungo.Attributes
+    */
+     element
+        .find('[data-count],[data-pull],[data-progress],[data-label],[data-icon],[data-image],[data-title],[data-loading]')
+        .removeAttr('data-count')
+        .removeAttr('data-pull')
+        .removeAttr('data-progress')
+        .removeAttr('data-label')
+        .removeAttr('data-icon')
+        .removeAttr('data-image')
+        .removeAttr('data-title')
+        .removeAttr('data-loading');
+  };
+      
+      
+  var initialiseLoadedContent = function(targetElement) {
+    var isReRun = targetElement === undefined;
+    var loadedContent = !isReRun ? Lungo.dom(targetElement[0]) : Lungo.dom('*[class*="lab-view"]');
+    if(loadedContent.length === 0) {
+      $log.error('labView::initialiseLoadedContent() - could not find class with lab-view to do a Lungo boot on');
+      return;
+    }
+    if(isReRun || !loadedContent.hasClass('lab-inited-view')) {
+      $log.info('labView::viewContentLoaded - booting content');
+      Lungo.Boot.Data.init('#' + loadedContent.attr('id'));
+      removeLungoAttributes(loadedContent);
+      
+      loadedContent.addClass('lab-inited-view');
+    }
+    else {
+      $log.warn('labView::initialiseLoadedContent() - lab-view-inited element already exists');
+    }
+  };
+      
   return {
     restrict: 'ECA',
     terminal: true,
@@ -10,24 +48,11 @@ angular.module('Centralway.lungo-angular-bridge')
       scope.$on('$routeChangeSuccess', update);
       update();
 
+      
 
-      scope.$on('$viewContentLoaded', 
-        function initialiseLoadedContent() {
-          var loadedContent = Lungo.dom('*[class*="lab-view"]');
-          if(loadedContent.length === 0) {
-            $log.error('labView::initialiseLoadedContent() - could not find class with lab-view to do a Lungo boot on');
-            return;
-          }
-          if(!loadedContent.hasClass('lab-inited-view')) {
-            $log.info('labView::viewContentLoaded - booting content');
-            Lungo.Boot.Data.init('#' + loadedContent.attr('id'));
-            loadedContent.addClass('lab-inited-view');
-          }
-          else {
-            $log.warn('labView::initialiseLoadedContent() - lab-view-inited element already exists');
-          }
-        }
-      );
+      scope.$on('$viewContentLoaded', function() {
+        initialiseLoadedContent(); 
+      });
 
       function destroyLastScope() {
         if (lastScope) {
@@ -86,20 +111,22 @@ angular.module('Centralway.lungo-angular-bridge')
 
             newElement.addClass('hide');
           }
-
+          
+          initialiseLoadedContent(newElement);
+          
           destroyLastScope();
 
           var link = $compile(newElement.contents()),
               current = $route.current,
               controller;
-
+          
           lastScope = current.scope = scope.$new();
           if (current.controller) {
             locals.$scope = lastScope;
             controller = $controller(current.controller, locals);
             newElement.contents().data('$ngControllerController', controller);
           }
-
+          //initialiseLoadedContent();
           link(lastScope);
           lastScope.$emit('$viewContentLoaded');
           lastScope.$eval(onloadExp);

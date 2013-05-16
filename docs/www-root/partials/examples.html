@@ -1,0 +1,10 @@
+<h1>Examples</h1>
+<ul>
+  <li ng-repeat="demo in availableDemos">
+    <a ng-click="showDemo(demo.name)">{{demo.label}}</a>
+    [ <a ng-href="https://github.com/centralway/lungo-angular-bridge/tree/master/examples/{{demo.name}}/" target="_blank">src</a> ]
+  </li>
+</ul>
+
+<iframe ng-src="/examples/{{selectedDemo}}/" class="demo container">
+</iframe>

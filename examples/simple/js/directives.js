@@ -15,10 +15,23 @@ angular.module('BridgeExample.directives', []).
 
         }
   })
-  .directive('dynamicDirectiveAndLungoTest', function() {
+ .directive('dynamicDirectiveAndLungoTest', function() {
     return {
             restrict: 'E',
             template: '<a data-icon="menu">Has menu icon?</a>'
 
         }
-  });
+  })
+  .directive('simpleTap', function($parse) {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attr) {
+        var fn = $parse(attr['simpleTap']);
+        Lungo.dom(element[0]).tap(function() {
+          scope.$apply(function() {
+            fn(scope, {$event:event});
+          });
+        });
+      }
+  }})
+;
