@@ -3,7 +3,12 @@
 ## v0.1.0 - ?? ??, 2013
 ### Changes
  - Feature: popup windows!
-
+ - Feature: lab-(event) - directives for touch, tap, swipe, etc: lab-touch, lab-tap, lab-swipe, lab-etc :)
+ - Feature: New website
+ - Feature: grunt demoServer to just get started
+ - Change: Split the single source file into separate ones and added grunt task to bring them all together
+ - Fixed: issue where data-title had stopped working
+ 
 ## v0.0.5 - April 25th, 2013
 ### Changes
  - Fix: Issue #62 Lungo's swipe-to-show-aside functionality now works (as long as you're using the lab-aside directive)
