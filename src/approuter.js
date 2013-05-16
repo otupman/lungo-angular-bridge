@@ -59,7 +59,15 @@ var AppRouter = function(Lungo, $location, $scope) {
   };
 
   var _isBack = function($location) {
-    return routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path() && !_hasArticle($location.path());
+    if(_isSameSection($location.path())) {
+      return routingHistory.length > 0 
+          && routingHistory[routingHistory.length-2] === $location.path() 
+          && !_hasArticle($location.path());
+    }
+    else {
+      return routingHistory.length > 0 
+          && routingHistory[routingHistory.length-2] === $location.path();
+    }
   };
 
   var isBack = function() {

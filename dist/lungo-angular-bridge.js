@@ -59,7 +59,15 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
   };
 
   var _isBack = function($location) {
-    return routingHistory.length > 0 && routingHistory[routingHistory.length-2] == $location.path() && !_hasArticle($location.path());
+    if(_isSameSection($location.path())) {
+      return routingHistory.length > 0 
+          && routingHistory[routingHistory.length-2] === $location.path() 
+          && !_hasArticle($location.path());
+    }
+    else {
+      return routingHistory.length > 0 
+          && routingHistory[routingHistory.length-2] === $location.path();
+    }
   };
 
   var isBack = function() {
@@ -244,8 +252,11 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
   }]);angular.module('Centralway.lungo-angular-bridge')
 	.directive('labView', ['$http', '$templateCache', '$route', '$anchorScroll', '$compile', '$controller', '$location', '$log', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location, $log) {
   var removeLungoAttributes = function(element) {
-    //NOTE: this is intentionally hardcoded to ensure speed of search
-    //Taken from Lungo.Attributes
+    /*
+     * !NOTE: this is intentionally hardcoded to ensure speed of search
+     * 
+     * Taken from Lungo.Attributes
+    */
      element
         .find('[data-count],[data-pull],[data-progress],[data-label],[data-icon],[data-image],[data-title],[data-loading]')
         .removeAttr('data-count')
@@ -269,7 +280,6 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
     if(isReRun || !loadedContent.hasClass('lab-inited-view')) {
       $log.info('labView::viewContentLoaded - booting content');
       Lungo.Boot.Data.init('#' + loadedContent.attr('id'));
-      //loadedContent.find('[data-title]').removeAttr('data-title');
       removeLungoAttributes(loadedContent);
       
       loadedContent.addClass('lab-inited-view');
@@ -278,6 +288,7 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
       $log.warn('labView::initialiseLoadedContent() - lab-view-inited element already exists');
     }
   };
+      
   return {
     restrict: 'ECA',
     terminal: true,
@@ -396,7 +407,18 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
             });
         }
     };
-  }]) ;;angular.module('Centralway.lungo-angular-bridge')
+  }]) ;(function(Lungo, services, AppRouter) {
+  
+  services.service('labRouterService', [function() {
+    return {
+      back: function() { AppRouter.instance.back(); }
+      , isBack: function() { AppRouter.instance.isBack(); }
+      , isSameSection: function(path) { AppRouter.instance.isSameSection(path); }
+    };
+  }]);
+  
+  
+})(Lungo, angular.module('Centralway.lungo-angular-bridge'), AppRouter);;angular.module('Centralway.lungo-angular-bridge')
   .factory('popupService', ['$http', '$compile', '$timeout', function ($http, $compile, $timeout) {
     var popupService = {};
 
