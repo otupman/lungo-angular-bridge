@@ -1,7 +1,7 @@
 {
   "name": "lungo-angular-bridge",
   "description": "Bridge between LungoJS and AngularJS",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./dist/lungo-angular-bridge.js",
   "author": {
     "name": "Centralway Factory"
@@ -21,6 +21,6 @@
       "Gruntfile.js",
       "lib",
       "scripts",
-      "test"
+      "test" 
   ]
 }

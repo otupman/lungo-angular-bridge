@@ -1,5 +1,5 @@
-'use strict';
-
+(function(angular) {
+    'use strict';
 
 // Declare app level module which depends on filters, and services
 angular.module('BridgeExample', 
@@ -27,3 +27,4 @@ angular.module('BridgeExample',
     $routeProvider.otherwise({redirectTo: '/'});
     $locationProvider.html5Mode(true);
   }]);
+})(angular);
