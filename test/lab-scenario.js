@@ -57,8 +57,9 @@
       + ' rotate rotating rotateLeft rotateRight';
     
     angular.forEach(quoEvents.split(' '), function(eventName) {
-      var futureLabel = "element '" + this.label + "' " + eventName;
+      
       chain[eventName] = function() {
+        var futureLabel = "element '" + this.label + "' " + eventName;
         return this.addFutureAction(futureLabel, function($window, $document, done) {
             var elements = $document.elements();
             var href = elements.attr('href');
