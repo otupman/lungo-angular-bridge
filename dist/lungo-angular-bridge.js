@@ -217,7 +217,7 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
       
     });
   
-  lab.directive('href', ['$location', function($location) {
+  lab.directive('href', ['$location', '$window', function($location, $window) {
     return {
       restrict: 'A',
       link: function(scope, element, attr) {
@@ -231,6 +231,7 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
         var url = attr['href'];
         Lungo.dom(element[0]).on('tap', function(event) {
           $location.path(url);
+          $window.location.href = url;
         });
       }
   }}])  
@@ -251,24 +252,6 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
     };
   }]);angular.module('Centralway.lungo-angular-bridge')
 	.directive('labView', ['$http', '$templateCache', '$route', '$anchorScroll', '$compile', '$controller', '$location', '$log', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location, $log) {
-  var removeLungoAttributes = function(element) {
-    /*
-     * !NOTE: this is intentionally hardcoded to ensure speed of search
-     * 
-     * Taken from Lungo.Attributes
-    */
-     element
-        .find('[data-count],[data-pull],[data-progress],[data-label],[data-icon],[data-image],[data-title],[data-loading]')
-        .removeAttr('data-count')
-        .removeAttr('data-pull')
-        .removeAttr('data-progress')
-        .removeAttr('data-label')
-        .removeAttr('data-icon')
-        .removeAttr('data-image')
-        .removeAttr('data-title')
-        .removeAttr('data-loading');
-  };
-      
       
   var initialiseLoadedContent = function(targetElement) {
     var isReRun = targetElement === undefined;
@@ -280,7 +263,6 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
     if(isReRun || !loadedContent.hasClass('lab-inited-view')) {
       $log.info('labView::viewContentLoaded - booting content');
       Lungo.Boot.Data.init('#' + loadedContent.attr('id'));
-      removeLungoAttributes(loadedContent);
       
       loadedContent.addClass('lab-inited-view');
     }
@@ -298,12 +280,6 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
 
       scope.$on('$routeChangeSuccess', update);
       update();
-
-      
-
-      scope.$on('$viewContentLoaded', function() {
-        initialiseLoadedContent(); 
-      });
 
       function destroyLastScope() {
         if (lastScope) {

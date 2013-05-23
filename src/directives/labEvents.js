@@ -25,7 +25,7 @@
       
     });
   
-  lab.directive('href', ['$location', function($location) {
+  lab.directive('href', ['$location', '$window', function($location, $window) {
     return {
       restrict: 'A',
       link: function(scope, element, attr) {
@@ -39,6 +39,7 @@
         var url = attr['href'];
         Lungo.dom(element[0]).on('tap', function(event) {
           $location.path(url);
+          $window.location.href = url;
         });
       }
   }}])  

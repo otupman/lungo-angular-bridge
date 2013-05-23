@@ -9,8 +9,9 @@
       <script type="text/javascript" src="../../lib/lungo.debug.js"></script>
   </head>
 
-  <body lab-boot ng-controller="IncrementalCtrl">
-  	<section id="main" data-transition="slide">
+  <script type="text/ng-template" id="screen1.html">
+    <section id="screen1" data-transition="slide">
+        <header data-title="Lab Scenario Test"></header>
   		<article class="active" id="first_article">
   			<strong>Start page</strong>
   			<button lab-tap="tapped()" id="tapButton">Tap button</button>
@@ -18,9 +19,25 @@
             <button lab-swipe="swiped()" id="swipeButton">Swipe me!</button>
             <br/>
             <span id="lastEvent">{{lastEvent}}</span>
+            <br/>
+            <a href="#/screen2" id="screen2Link">Screen 2</a>
   		</article>
   	</section>
-
+  </script>
+  
+  <script type="text/ng-template" id="screen2.html">
+    <section id="screen2" data-transition="slide">
+        <header data-title="Lab Scenario Test Screen 2"></header>
+  		<article class="active" id="second_article">
+  			<strong>Screen 2</strong>
+  		</article>
+  	</section>
+  </script>
+  
+  <body lab-boot ng-controller="IncrementalCtrl">
+    <section id="main"><article class="active" id="mainArticle"><p>Placeholder</p></article></section>
+    <lab-view></lab-view>
+    
 	<script type="text/javascript" src="../../components/angular/angular.js"></script>
     <script type="text/javascript" src="../../dist/lungo-angular-bridge.js"></script>
 
@@ -30,9 +47,10 @@
           ['Centralway.lungo-angular-bridge']).
         config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
-          $routeProvider.when('/', {templateUrl: 'screen1.html'});
+          $routeProvider.when('/screen1', {templateUrl: 'screen1.html'});
+          $routeProvider.when('/screen2', {templateUrl: 'screen2.html'});
 
-          $routeProvider.otherwise({redirectTo: '/'});
+          $routeProvider.otherwise({redirectTo: '/screen1'});
           $locationProvider.html5Mode(false);
         }]);
 
