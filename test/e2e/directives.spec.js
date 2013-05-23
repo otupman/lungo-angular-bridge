@@ -4,7 +4,7 @@ describe('Testing rendering of data-* attributes of directives', function() {
 	describe('on the dynamic page', function() {
       beforeEach(function() {
       browser().navigateTo('../../examples/simple/index.html');
-      element('a[href="dynamic"]').click();
+      labElem('a[href="dynamic"]').tap();
       sleep(0.5);
     });
     
@@ -41,7 +41,7 @@ describe('Testing rendering of data-* attributes of directives', function() {
     
   describe('on dynamic page with title', function() {
     it('should enable binding on the title', function() {
-        element('a[href="person/view/3"]').click();
+        labElem('a[href="person/view/3"]').tap();
         expect(element('#person span.title.centered').text()).toEqual('Person 3');
     });
   });

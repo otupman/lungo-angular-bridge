@@ -54,11 +54,11 @@ describe('Transitions', function() {
 
 	describe('Backward', function() {
 		beforeEach(function() {
-			element('a[href="#/screen1"]').click();
+			labElem('a[href="#/screen1"]').tap();
 			sleep(WAIT_TIME);
-			element('a[href="#/screen2"]').click();
+			labElem('a[href="#/screen2"]').tap();
 			sleep(WAIT_TIME);
-			element('a[href="#/screen1"]').click();
+			labElem('a[href="#/screen1"]').tap();
 		});
 
 		it('should have the correct route change count displayed in the header nav', function() {
@@ -76,21 +76,21 @@ describe('Transitions', function() {
 
 	describe('Forwards', function() {
 		beforeEach(function() {
-			element('a[href="#/screen1"]').click();
+			labElem('a[href="#/screen1"]').tap();
 			sleep(WAIT_TIME);
 		});
 
 		it('should animate forwards when moving forwards', function() {
-			element('a[href="#/screen2"]').click();
+			labElem('a[href="#/screen2"]').tap();
 			sleep(WAIT_TIME); 	
 			expect(xPosition('#screen2')).toBe(0);
 		});
 
 		describe('from second to third screen', function() {
 			beforeEach(function() {
-				element('a[href="#/screen2"]').click();
+				labElem('a[href="#/screen2"]').tap();
 				sleep(WAIT_TIME);
-				element('a[href="#/screen3"]').click();
+				labElem('a[href="#/screen3"]').tap();
 			});	
 
 			it('should not still have screen 2 in the DOM', function() {
@@ -112,11 +112,11 @@ describe('Transitions', function() {
 
 	describe('Simple transitions: main -> first -> second -> third', function() {
 		beforeEach(function() { 
-			element('a[href="#/screen1"]').click();	
+			labElem('a[href="#/screen1"]').tap();	
 			sleep(WAIT_TIME);
-			element('a[href="#/screen2"]').click();	
+			labElem('a[href="#/screen2"]').tap();	
 			sleep(WAIT_TIME);
-			element('a[href="#/screen3"]').click();	
+			labElem('a[href="#/screen3"]').tap();	
 			sleep(WAIT_TIME);
 		});
 

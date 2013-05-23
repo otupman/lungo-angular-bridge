@@ -8,11 +8,11 @@ describe('Remove old Elements', function() {
 
   describe('Removing old elements: main -> first -> second -> third', function() {
     beforeEach(function() {
-      element('a[href="#/screen1"]').click();
+      labElem('a[href="#/screen1"]').tap();
       sleep(WAIT_TIME);
-      element('a[href="#/screen2"]').click();
+      labElem('a[href="#/screen2"]').tap();
       sleep(WAIT_TIME);
-      element('a[href="#/screen3"]').click();
+      labElem('a[href="#/screen3"]').tap();
       sleep(WAIT_TIME);
     });
 

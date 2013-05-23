@@ -4,14 +4,14 @@ describe('Inter-section links', function() {
 
 	beforeEach(function() {
 		browser().navigateTo('../../examples/simple/index.html'); 
-		element('a[href="navbarissue"]').click();
+		labElem('a[href="navbarissue"]').tap();
 	});
 
 	describe('first, second, first, second - shaking it for issues #42 and #41', function() {
 		beforeEach(function() { 
-			element('#navbarissue_navart2_link').click();
-			element('#navbarissue_navart1_link').click(); 
-			element('#navbarissue_navart2_link').click();
+			labElem('#navbarissue_navart2_link').tap();
+			labElem('#navbarissue_navart1_link').tap(); 
+			labElem('#navbarissue_navart2_link').tap();
 		});
 
 		it('should not break horribly', function() {
@@ -20,7 +20,7 @@ describe('Inter-section links', function() {
 
 		describe("when clicking on the current page's link", function() {
 			beforeEach(function() {
-				element('#navbarissue_navart2_link').click();
+				labElem('#navbarissue_navart2_link').tap();
 			});
 
 			it('should continue to display the current', function() {
@@ -36,8 +36,8 @@ describe('Inter-section links', function() {
 
 	describe('first, second - #41 strikes here too', function() {
 		beforeEach(function() { 
-			element('#navbarissue_navart1_link').click(); 
-			element('#navbarissue_navart2_link').click();
+			labElem('#navbarissue_navart1_link').tap(); 
+			labElem('#navbarissue_navart2_link').tap();
 		});
 
 		it('should only have 1 title in the header', function() {

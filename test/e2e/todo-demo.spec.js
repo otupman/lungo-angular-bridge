@@ -5,10 +5,10 @@ var Todo = {
     browser().navigateTo('../../examples/todo');
   }
   , startAddTodo: function() {
-    element('a[data-icon="plus"]').click();
+    labElem('a[data-icon="plus"]').tap();
   }
   , cancelAddTodo: function() {
-    element('a[data-icon="home"]').click();
+    labElem('a[data-icon="home"]').tap();
   }
   , SELECTORS: {
     LIST: "#main ul li"
@@ -34,7 +34,7 @@ describe('Todo Demo App', function() {
     describe('adding an item', function() {
       beforeEach(function() {
         input('todoText').enter('Test todo');
-        element('input[value="add"]').click();
+        labElem('input[value="add"]').tap();
       });
       
       it('should have 3 items', function() {

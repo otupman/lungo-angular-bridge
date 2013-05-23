@@ -4,13 +4,13 @@ describe('Testing popup windows', function() {
 	
     beforeEach(function() {
       browser().navigateTo('../../examples/simple/index.html');
-      element('a[href="dynamic"]').click();
+      labElem('a[href="dynamic"]').tap();
       sleep(0.5);
     });
 
     describe('clicking on the link', function() {
         beforeEach(function() {
-            element('#popupLink').click();
+            labElem('#popupLink').tap();
             sleep(0.5);
         });
         it('should display the window', function() {
@@ -26,7 +26,7 @@ describe('Testing popup windows', function() {
         });
 
         it('should close the window afterwards', function() {
-            element('#closeWindowButton').click();
+            labElem('#closeWindowButton').tap();
             sleep(0.5);
             expect(element('#poup-article').count()).toBe(0);
         });
