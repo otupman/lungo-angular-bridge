@@ -8,7 +8,7 @@ describe('Testing manual back', function() {
 
   describe('Forward, forward, back, back', function() {
     
-    it('using sections should have gone back twice', function() {
+    iit('using sections should have gone back twice', function() {
       labElem('#go-to-screen-2').tap();
       labElem('#go-to-screen-3').tap();
       labElem('#go-to-screen-4').tap();

@@ -3,8 +3,8 @@
 describe('Inter-section links', function() {
 
 	beforeEach(function() {
-		browser().navigateTo('../../examples/simple/index.html'); 
-		labElem('a[href="navbarissue"]').tap();
+      browser().navigateTo('../../examples/simple/index.html'); 
+      labElem('a[href="navbarissue"]').tap();
 	});
 
 	describe('first, second, first, second - shaking it for issues #42 and #41', function() {
