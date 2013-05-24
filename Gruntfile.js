@@ -47,11 +47,11 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('dist', ['concat', 'uglify']);
+  grunt.registerTask('default', ['concat', 'uglify']);
   
-  grunt.registerTask('default', ['dist', 'test']);
+  grunt.registerTask('test', ['default', 'test']);
 
-  grunt.registerTask('demoServer', ['dist', 'express', 'express-keepalive']);
+  grunt.registerTask('demoServer', ['default', 'express', 'express-keepalive']);
 
 
   // Default task
