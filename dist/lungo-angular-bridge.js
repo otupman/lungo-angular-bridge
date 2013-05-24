@@ -147,10 +147,10 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
             } else {
               section.attr('style', '');
             }
-          }
+          }  
         });
         
-        section.swipe(function(gesture) {
+        section.swipe(function(gesture) { 
           var diff = gesture.currentTouch.x - gesture.iniTouch.x;
           var ydiff =  Math.abs(gesture.currentTouch.y - gesture.iniTouch.y);
           section.attr('style', '');
@@ -169,7 +169,8 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
       restrict: 'A'
       , link: function(scope, element, attr) {
         var asideId = element.attr('lab-aside');
-        var targetEvent = Lungo.Core.environment().isMobile ? 'tap' : 'click';
+        //var targetEvent = Lungo.Core.environment().isMobile ? 'tap' : 'click';
+        var targetEvent = 'tap';
         //TODO: deprecate this environment selection in favour of tap-only
         Lungo.dom(element[0]).bind(targetEvent, function(event) {
           Lungo.View.Aside.toggle('#' + asideId);
@@ -216,24 +217,6 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
       }]); 
       
     });
-  
-  lab.directive('href', ['$location', function($location) {
-    return {
-      restrict: 'A',
-      link: function(scope, element, attr) {
-        if(element[0].tagName.toUpperCase() !== 'A') {
-          return;
-        }
-        if(attr['noHref'] !== undefined) {
-          console.log('directive:href - explicit unbind, not handling taps');
-          return;
-        }
-        var url = attr['href'];
-        Lungo.dom(element[0]).on('tap', function(event) {
-          $location.path(url);
-        });
-      }
-  }}])  
 }(angular.module('Centralway.lungo-angular-bridge'), Lungo));;angular.module('Centralway.lungo-angular-bridge')
   .directive('labPopup', ['popupService', function (popupService) {
     return {
@@ -250,25 +233,7 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
         }
     };
   }]);angular.module('Centralway.lungo-angular-bridge')
-	.directive('labView', ['$http', '$templateCache', '$route', '$anchorScroll', '$compile', '$controller', '$location', '$log', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location, $log) {
-  var removeLungoAttributes = function(element) {
-    /*
-     * !NOTE: this is intentionally hardcoded to ensure speed of search
-     * 
-     * Taken from Lungo.Attributes
-    */
-     element
-        .find('[data-count],[data-pull],[data-progress],[data-label],[data-icon],[data-image],[data-title],[data-loading]')
-        .removeAttr('data-count')
-        .removeAttr('data-pull')
-        .removeAttr('data-progress')
-        .removeAttr('data-label')
-        .removeAttr('data-icon')
-        .removeAttr('data-image')
-        .removeAttr('data-title')
-        .removeAttr('data-loading');
-  };
-      
+	.directive('labView', ['$http', '$templateCache', '$route', '$anchorScroll', '$compile', '$controller', '$location', '$log', function($http, $templateCache, $route, $anchorScroll, $compile, $controller, $location, $log) {      
       
   var initialiseLoadedContent = function(targetElement) {
     var isReRun = targetElement === undefined;
@@ -280,7 +245,6 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
     if(isReRun || !loadedContent.hasClass('lab-inited-view')) {
       $log.info('labView::viewContentLoaded - booting content');
       Lungo.Boot.Data.init('#' + loadedContent.attr('id'));
-      removeLungoAttributes(loadedContent);
       
       loadedContent.addClass('lab-inited-view');
     }
@@ -298,12 +262,6 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
 
       scope.$on('$routeChangeSuccess', update);
       update();
-
-      
-
-      scope.$on('$viewContentLoaded', function() {
-        initialiseLoadedContent(); 
-      });
 
       function destroyLastScope() {
         if (lastScope) {
