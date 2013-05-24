@@ -8,7 +8,7 @@ angular.module('Centralway.lungo-angular-bridge')
       $log.error('labView::initialiseLoadedContent() - could not find class with lab-view to do a Lungo boot on');
       return;
     }
-    if(isReRun || !loadedContent.hasClass('lab-inited-view')) {
+    if(!loadedContent.hasClass('lab-inited-view')) {
       $log.info('labView::viewContentLoaded - booting content');
       Lungo.Boot.Data.init('#' + loadedContent.attr('id'));
       
