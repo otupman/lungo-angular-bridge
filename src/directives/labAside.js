@@ -1,5 +1,5 @@
 angular.module('Centralway.lungo-angular-bridge')
-  .directive('labAside', function() {
+  .directive('labAside', ['labOptions', function(labOptions) {
     var subscribeEvents = function(hrefs) { //STOLEN: from Lungo
       var CLASS = {
         SHOW: Lungo.Constants.CLASS.SHOW
@@ -50,6 +50,9 @@ angular.module('Centralway.lungo-angular-bridge')
     return {
       restrict: 'A'
       , link: function(scope, element, attr) {
+        var options = {};
+        options.swipeEnabled = attr['noSwipe'] ? false : labOptions.doAsideSwipe;
+        
         var asideId = element.attr('lab-aside');
         //var targetEvent = Lungo.Core.environment().isMobile ? 'tap' : 'click';
         var targetEvent = 'tap';
@@ -58,7 +61,9 @@ angular.module('Centralway.lungo-angular-bridge')
           Lungo.View.Aside.toggle('#' + asideId);
           event.preventDefault();
         });
-        subscribeEvents(Lungo.dom(element[0]));
+        if(options.swipeEnabled) {
+          subscribeEvents(Lungo.dom(element[0]));
+        }
       }
     }  
-});
+}]);

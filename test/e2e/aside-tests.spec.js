@@ -8,6 +8,17 @@ describe('Aside tests', function() {
 		sleep(1);
 	});
 
+    describe('aside swipe configuration', function() {
+      beforeEach(function() {
+        browser().navigateTo('../test/cases/aside-options-tests.html');
+      });
+      
+      it('should not have swiping enabled', function() {
+        labElem('body').swipeRight();
+        expect(element('#aside1:visible').count()).toBe(0);
+      });
+      
+    });
 
 	describe('Aside across sections', function() {
 
