@@ -49,9 +49,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['concat', 'uglify']);
   
-  grunt.registerTask('test', ['dist', 'test']);
+  grunt.registerTask('test', ['default', 'test']);
 
-  grunt.registerTask('demoServer', ['dist', 'express', 'express-keepalive']);
+  grunt.registerTask('demoServer', ['default', 'express', 'express-keepalive']);
 
 
   // Default task

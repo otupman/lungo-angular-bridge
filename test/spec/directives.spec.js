@@ -1,25 +1,34 @@
 'use strict';
 
+function spyOnLungoDom(lng) {
+  var domResponse = [''];
+  domResponse.each = $$.fn.each;
+  domResponse.swiping = jasmine.createSpy('swiping');
+  domResponse.swipe = jasmine.createSpy('swipe');
+  domResponse.closest = jasmine.createSpy('closest').andCallFake(function() {
+    return domResponse;
+  });
+  domResponse.on = jasmine.createSpy('on');
+  domResponse.bind = jasmine.createSpy('bind');
+  domResponse.attr = jasmine.createSpy('attr');
+  domResponse.__OLDDOM = lng.dom;
+  domResponse.restoreOldDom = function() {
+    lng.dom = domResponse.__OLDDOM;
+  };
+  spyOn(Lungo, 'dom').andCallFake(function(selector) {
+    return domResponse;
+  });
+  
+  return domResponse;
+}
+
 describe('directives', function() {
   var domResponse = null;
   beforeEach(function() {
     angular.mock.module('Centralway.lungo-angular-bridge');
     spyOn(Lungo, 'init');
     
-     domResponse = [''];
-      domResponse.each = $$.fn.each;
-      domResponse.swiping = jasmine.createSpy('swiping');
-      domResponse.swipe = jasmine.createSpy('swipe');
-      domResponse.closest = jasmine.createSpy('closest').andCallFake(function() {
-        return domResponse;
-      });
-      domResponse.on = jasmine.createSpy('on');
-      domResponse.bind = jasmine.createSpy('bind');
-      domResponse.attr = jasmine.createSpy('attr');
-      
-      spyOn(Lungo, 'dom').andCallFake(function(selector) {
-        return domResponse;
-      });
+
     
   });
   
@@ -35,6 +44,19 @@ describe('directives', function() {
       , 'pinchIn': 'pinch-in', 'pinchOut': 'pinch-out'
       , 'rotateLeft': 'rotate-left', 'rotateRight': 'rotate-right'
     };
+    
+    var oldDom = Lungo.dom,
+        domResponse;
+    
+    beforeEach(function() {
+      
+      
+      domResponse = spyOnLungoDom(Lungo);
+    });
+    
+    afterEach(function() {
+      domResponse.restoreOldDom();
+    });
     
     angular.forEach(quoEvents.split(' '), function(eventName) {
       it('should register the event handler: ' + eventName, function() {        
@@ -68,9 +90,10 @@ describe('directives', function() {
   });
   
   describe('lab-aside', function() {
+    var domResponse;
     
     beforeEach(function() {
-     
+      domResponse = spyOnLungoDom(Lungo);
       
       inject(function($compile, $rootScope) {
         var element = $compile(
@@ -80,6 +103,10 @@ describe('directives', function() {
         +'</header><article class="active"></article></section>'
         )($rootScope);
       });
+    });
+    
+    afterEach(function() {
+      domResponse.restoreOldDom();
     });
     
     it('should have registered the swiping handlers', function() {
