@@ -210,13 +210,34 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
               event.preventDefault();
               scope.$apply(function() {
                 fn(scope, {$event:event});
-              });
+              }); 
             });
           }
         };
       }]); 
       
     });
+
+  
+  lab.directive('href', ['$location', '$window', function($location, $window) {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attr) {
+        if(element[0].tagName.toUpperCase() !== 'A') {
+          return;
+        }
+        if(attr['noHref'] !== undefined) {
+          console.log('directive:href - explicit unbind, not handling taps');
+          return;
+        }
+        var url = attr['href'];
+        Lungo.dom(element[0]).on('tap', function(event) {
+          Lungo.dom(element[0]).trigger('click');
+        });
+      }
+  }}])  
+
+
 }(angular.module('Centralway.lungo-angular-bridge'), Lungo));;angular.module('Centralway.lungo-angular-bridge')
   .directive('labPopup', ['popupService', function (popupService) {
     return {
