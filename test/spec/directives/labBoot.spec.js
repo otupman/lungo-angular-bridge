@@ -64,13 +64,13 @@ describe('lab-boot', function() {
     };
     for(var possibility in asidePossibilities) {
       it('should enable aside swiping', function() {
-          inject(function($compile, $rootScope) {
-            $compile('<div lab-boot ' + possibility + '></div>')($rootScope);
-          });
-          
-          inject(function(labOptions) {
-            expect(labOptions.doAsideSwipe).toBe(asidePossibilities[possibility], 'for aside option ' + possibility);
-          });        
+        inject(function($compile, $rootScope) {
+          $compile('<div lab-boot ' + possibility + '></div>')($rootScope);
+        });
+        
+        inject(function(labOptions) {
+          expect(labOptions.doAsideSwipe).toBe(asidePossibilities[possibility], 'for aside option ' + possibility);
+        });        
       });
     }
   });
