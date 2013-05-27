@@ -20,9 +20,9 @@
                  <span class="remainingLabel">{{remaining()}} of {{todos.length}} remaining</span>
                 [ <a lab-tap="archive()" class="button archiveButton">archive</a> ]
                 <ul>
-                    <li ng-repeat="todo in todos">
+                    <li ng-repeat="todo in todos" lab-swipe-left="markAsDone(todo)" lab-swipe-right="markAsNotDone(todo)">
                         <input type="checkbox" ng-model="todo.done">
-                        <span class="done-{{todo.done}}">{{todo.text}}</span>
+                        <span class="done-{{todo.done}}" >{{todo.text}}</span>
                     </li>
                 </ul>
             </article>
