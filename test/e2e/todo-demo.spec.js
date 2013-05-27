@@ -66,7 +66,6 @@ describe('Todo Demo App', function() {
   describe("swipe events", function() {
     it("should mark an item as not done on swipe right", function() {
       Todo.markAsNotDoneWithSwipe();
-      pause();
 
       expect(element(Todo.SELECTORS.LIST_ITEMS + ':first input:checked').count()).toBe(0);
     });
