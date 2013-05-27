@@ -1,4 +1,5 @@
-angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function(Lungo, $location, $scope) {
+angular.module('Centralway.lungo-angular-bridge', [])
+  .value('labOptions', {}); ;var AppRouter = function(Lungo, $location, $scope) {
   var routingHistory = [];
 
   var oldReplace = $location.replace;
@@ -117,7 +118,7 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
   };
 
 };;angular.module('Centralway.lungo-angular-bridge')
-  .directive('labAside', function() {
+  .directive('labAside', ['labOptions', function(labOptions) {
     var subscribeEvents = function(hrefs) { //STOLEN: from Lungo
       var CLASS = {
         SHOW: Lungo.Constants.CLASS.SHOW
@@ -168,6 +169,9 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
     return {
       restrict: 'A'
       , link: function(scope, element, attr) {
+        var options = {};
+        options.swipeEnabled = attr['noSwipe'] ? false : labOptions.doAsideSwipe;
+        
         var asideId = element.attr('lab-aside');
         var targetEvent = Lungo.Core.environment().isMobile ? 'tap' : 'click';
         //TODO: deprecate this environment selection in favour of tap-only
@@ -175,19 +179,36 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
           Lungo.View.Aside.toggle('#' + asideId);
           event.preventDefault();
         });
-        subscribeEvents(Lungo.dom(element[0]));
+        if(options.swipeEnabled) {
+          subscribeEvents(Lungo.dom(element[0]));
+        }
       }
     }  
-});
+}]);
 ;angular.module('Centralway.lungo-angular-bridge')
   .directive('labBoot', ['$location', function($location) {
       function _parseResourceParam(param) {
         return param.indexOf(',') === -1 ? param : param.split(',');
       }
+    
+      function _getOptionBoolean(attrs, optionName, defaultValue) {
+        if(!attrs[optionName]) {
+          return defaultValue;
+        }
+        if(attrs[optionName].length === 0) {
+          return true;
+        }
+        return attrs[optionName].toLowerCase() === 'true';
+      }
+    
       return function(scope, elm, attrs) {
         Lungo.init({
           'resources': elm.attr('resources') && _parseResourceParam(elm.attr('resources'))
         });
+        var labOptions = {
+          doAsideSwipe: _getOptionBoolean(attrs, 'swipeOnAsides', true)
+        };
+        angular.module('Centralway.lungo-angular-bridge').value('labOptions', labOptions);
         AppRouter.instance = AppRouter(Lungo, $location, scope);
       };
     }]);(function(lab, Lungo) {
