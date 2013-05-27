@@ -74,17 +74,27 @@ describe('directives', function() {
   describe('Anchor href binding', function() {
     var element = null;
     beforeEach(function() {
+      spyOn(Lungo, 'dom').andCallThrough();
+      
       inject(function($compile, $rootScope) {
         element = $compile(
-          '<a ng-click="someClick()">Ignore me</a>'
-          + '<a href="http://www.google.com">Bindable</a>'
+          '<div><a ng-click="someClick()">Ignore me</a>'
+          + '<a href="#/test" class="bindable">Bindable</a>'
           + '<a href="http://www.somewhere.com" no-href>No bind requested</a>'
-          + '<link href="http://www.example.org/style.css">'
+          + '<link href="http://www.example.org/style.css"></div>'
         )($rootScope);
       });
     });
     
-    xit('should bind a tap handler on anchor tags (and none of the others)', function() { 
+    it('should triggerd a click', function() {
+      $$(element[0]).find('a.bindable').trigger('tap');
+      
+      inject(function($window) {
+        expect($window.location.href.indexOf('#/test')).not.toEqual(-1);
+      });
+    });
+
+    it('should bind a tap handler on anchor tags (and none of the others)', function() { 
       expect(Lungo.dom.calls.length).toBe(1);  
     });
   });

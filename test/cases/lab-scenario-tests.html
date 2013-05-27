@@ -9,19 +9,55 @@
       <script type="text/javascript" src="../../lib/lungo.debug.js"></script>
   </head>
 
-  <body lab-boot ng-controller="IncrementalCtrl">
-  	<section id="main" data-transition="slide">
-  		<article class="active" id="first_article">
-  			<strong>Start page</strong>
-  			<button lab-tap="tapped()" id="tapButton">Tap button</button>
-            <br/>
-            <button lab-swipe="swiped()" id="swipeButton">Swipe me!</button>
-            <br/>
-            <span id="lastEvent">{{lastEvent}}</span>
-  		</article>
-  	</section>
+  <script id="screen1.html" type="text/ng-template">
+    <section id="screen1" data-transition="slide">
+      <header data-title="Screen 1">
+        <nav>
+          <a lab-aside="leftAside" data-icon="menu" class="test aside"></a>
+        </nav>
+      </header>
+      <article class="active" id="first_article">
+        <strong>Start page</strong>
+        <button lab-tap="tapped()" id="tapButton">Tap button</button>
+        <br/>
+        <button lab-swipe="swiped()" id="swipeButton">Swipe me!</button>
+        <br/>
+        <span id="lastEvent">{{lastEvent}}</span>
+        <br/>
+        <a href="#/screen2" class="go-to-screen2">Go to screen 2</a>
+        <br/>
 
-	<script type="text/javascript" src="../../components/angular/angular.js"></script>
+      </article>
+    </section>
+  </script>
+
+  <script id="screen2.html" type="text/ng-template">
+    <section id="screen2" data-transition="slide">
+      <article class="active" id="second_article">
+        <strong>Screen 2</strong>
+      </article>
+    </section>
+  </script>
+
+  <body lab-boot ng-controller="IncrementalCtrl">
+    <section id="main">
+      <article class="active" id="main_active">
+        <strong>Start screen</strong>
+      </article>
+    </section>  
+
+    <lab-view></lab-view>	
+
+    <aside id="leftAside" class="aside">
+      <article class="active">
+        <strong>Left aside</strong>
+        <a href="#/screen1" class="aside screen one">Go to screen 1</a>
+        <br/>
+        <a href="#/screen2" class="aside screen two">Go to screen 2</a>
+      </article>
+    </aside>
+
+	  <script type="text/javascript" src="../../components/angular/angular.js"></script>
     <script type="text/javascript" src="../../dist/lungo-angular-bridge.js"></script>
 
     <script>
@@ -30,11 +66,22 @@
           ['Centralway.lungo-angular-bridge']).
         config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
-          $routeProvider.when('/', {templateUrl: 'screen1.html'});
+          $routeProvider.when('/screen1', {templateUrl: 'screen1.html'});
+          $routeProvider.when('/screen2', {templateUrl: 'screen2.html'});
 
-          $routeProvider.otherwise({redirectTo: '/'});
+          $routeProvider.otherwise({redirectTo: '/screen1'});
           $locationProvider.html5Mode(false);
-        }]);
+        }])
+        .run(function($rootScope, $location) {
+          $rootScope.$on('$routeChangeStart', function() {
+            console.log('ROUTE CHANGE START');
+          });
+
+          $rootScope.$on('$locationChangeStart', function() {
+            console.log('LOCATION CHANGE START');
+          });
+        })
+      ;
 
         function IncrementalCtrl($scope) {
           $scope.lastEvent = "none yet";
