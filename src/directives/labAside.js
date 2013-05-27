@@ -1,3 +1,11 @@
+/**
+ * directive: lab-aside
+ * NOTE: lab aside can be configured via lab-boot with swipe-on-asides = true/false to
+ * enable/disable swipe-to-open the aside. 
+ * FURTHER NOTE: this only works if the lab-aside attribute is in a template loaded via lab-view
+ * because otherwise lab-boot is processed *after* the binding of the events :(
+ *
+ */
 angular.module('Centralway.lungo-angular-bridge')
   .directive('labAside', ['labOptions', function(labOptions) {
     var subscribeEvents = function(hrefs) { //STOLEN: from Lungo
@@ -52,7 +60,6 @@ angular.module('Centralway.lungo-angular-bridge')
       , link: function(scope, element, attr) {
         var options = {};
         options.swipeEnabled = attr['noSwipe'] ? false : labOptions.doAsideSwipe;
-        
         var asideId = element.attr('lab-aside');
         //var targetEvent = Lungo.Core.environment().isMobile ? 'tap' : 'click';
         var targetEvent = 'tap';
