@@ -1,6 +1,6 @@
-Lungo Angular Bridge ![](https://travis-ci.org/centralway/lungo-angular-bridge.png)
+Lungo Angular Bridge ![](https://travis-ci.org/centralway/lungo-angular-bridge.png) [![Coverage Status](https://coveralls.io/repos/centralway/lungo-angular-bridge/badge.png?branch=development)](https://coveralls.io/r/centralway/lungo-angular-bridge?branch=development)
 ====
-Linking [Lungo](http://lungo.tapquo.com) to [Angular](http://angularjs.org) to bring you mobile awesomeness
+Linking [Lungo](http://lungo.tapquo.com) to [Angular](http://angularjs.org) to bring you mobile awesomeness (if you're worried about the code coverage, we're working on it)
 
 #### What is Lungo?
 
@@ -42,9 +42,9 @@ Lungo is built upon Quo.js, a mobile-focussed DOM manipulation API (also built b
 
 We would try to favour Quo.js to keep things consisent, however we are not consistentin this. We do have an open issue to create a jQuery-like wrapper for Quo.js and make Angular use that - but we're not there yet.
 
-# Getting Started
+## Getting Started
 
-## A few Lungo concepts
+### A few Lungo concepts
 
 Before you begin, it's a good idea to familiarise yourself with 3 key Lungo concepts (which are also tags):
 
@@ -75,37 +75,9 @@ Asides are essentially side-menus that can pop out from the left or the right of
 
 To play around with Lungo concepts, you can use their excellent [prototyping](http://lungo.tapquo.com/howto/prototype/) documentation to build up some templates. You can, more-or-less, take prototyped Lungo code and build Angular functionality in using the bridge.
 
-## Installation Quick Start - [via grunt-init-lungo-angular](https://github.com/centralway/grunt-init-lungo-angular)
+### Installation
 
-To get you started as quickly as possible we've created our snappily-named grunt-init-lungo-angular script. It will delivery to you:
- 
-- A working lungo-angular-bridge project
-- Git repo ready
-- build.phonegap.com deployment out-of-the-box!
-
-
-      npm install -g grunt-init
-      git clone git@github.com:centralway/grunt-init-lungo-angular.git ~/.grunt-init/lungo-angular
-      mkdir demo && cd demo
-      grunt-init lungo-angular
-    
-    
-At this stage you'll be asked a bunch of questions to configure some aspects of your project. If you don't know the answers, don't worry about it as `blank` is a valid option and you can modify the relevant config files afterwards.
-
-Continuing:
-     
-     npm install
-     bower install
-     python -m SimpleHTTPServer
-    
-    
-Access your app via `http://localhost:8000`
-
-If you've a build.phonegap.com account (fyi, it's free for 1 private account) then you can make use of the supplied grunt config to have your app uploaded to build.phonegap.com and build it! Just enter `grunt` and it'll run. You'll need to have configured it via the `grunt-init` command; if not, you'll need to modify the relevant config files.
-
-## Installation - manually
-
-The Bridge is a Bower package (which is in turn a [Node.js](http://nodejs.org/) package - you'll need that first), so you just need to install Bower -
+The Bridge is a Bower package, so you just need to install Bower -
 
     npm install bower -g
 
@@ -115,7 +87,7 @@ Having done that, your next step is
 
 Next, reference the Bridge source file after Lungo & Angular has been referenced:
 
-    <script type="text/javascript" src="../dist/lungo-angular-bridge.min.js"></script>
+    <script type="text/javascript" src="../src/lungo-angular-bridge.js"></script>
 
 To get any of the bridge functionality we'll need to list the Bridge as a dependency:
 
@@ -135,7 +107,7 @@ Then, you'll need to add references to the Bridge directives lab-boot (that init
     <body>
         <lab-view></lab-view>
 
-## Usage
+### Usage
 
 Lungo imposes a section/article constraint on URLs. It expects all URLs to be in the following format:
 
@@ -154,37 +126,6 @@ These are small sidebars that appear from either the left or the right; Lungo st
     <a lab-aside="idOfAside">Show aside</a>
 
 LAB will do the work of showing or hiding that for you.
-
-# LAB Magic
-
-With the LAB we aim to bring you extra magic that is not available in Lungo itself.
-
-## Notifications
-
-In Lungo, notifications break Angular because they use anchor tags which kick the Angular routing in. We solve this by providing our own awesome notification interface.
-
-### Prototyping? Here's how to access it in HTML:
-
-    <a lab-window="popup-test.html" transition='cover' id='popupLink'>Show the popup!</a>
-    
-This simple piece of code will display the Angular template of your choice with the Lungo transition of your choice. The code for the popup can even be embedded in the "calling" template by wrapping the template in a `script` tag, like so:
-
-    <script type="text/ng-template" id="popup-test.html">
-      <article class="active" id="popup-article">
-          <strong>Pop up!</strong>
-          <button ng-click="closeWindow()" id="closeWindowButton">Close window</button>
-      </article>
-    </script>
-
-## Mobile events
-
-### Use lab-tap, not ng-click
-
-Don't use ng-click. Mobile browsers wait around 300ms before firing a click, leading to your application feeling laggy and "not native-like". The bridge provides `lab-tap` to mitigate this; it's just like ng-click, but it listens to the quojs `tap` event.
-
-### anchor hrefs listen for taps (you can turn this off)
-
-A standard anchor link using an `href` attribute will be handled by a browser-click; the Bridge defines a `href` directive that binds magically to links to trigger the URL change via a tap. If you *don't* want this to happen, add the `no-href` attribute to the anchor - this will tell the Bridge *not* to bind it's handler on the link. You might want to do this if you want to bind your own tap handler to the anchor tag.
 
 ## Examples
 
@@ -207,14 +148,6 @@ This takes the simple todo example from Angular's front page and puts it into a 
 #### Photomap examples - Phonegap awesomeness
 
 This example demonstrates accessing aspects of a mobile device to provide a native experience using mapping, geolocation and accessing the device's camera.
-
-# Development
-
-We're using grunt as our build system; all the tests depend on it's output, so this command:
-
-    grunt watch
-    
-is your friend as it'll watch for file system changes and automatically rebuild the `dist/lungo-angular-bridge.min.js` file. If you hit bugs, there's a non-minified version in the `dist` directory as well.
 
 ## Tests
 
@@ -263,11 +196,11 @@ Your friend is:
     ./scripts/unit-test.sh
 
 
-# Credits
+## Credits
 
 Copyright (c) 2013 by Centralway Factory AG.
 
-# Licensing Options
+## Licensing Options
 The Lungo-Angular-Bridge (LAB) is licensed under free commercial and open source licenses for
 application development, and a paid commercial license for OEM uses.
 
