@@ -24,6 +24,16 @@
         if (!todo.done) $scope.todos.push(todo);
       });
     };
+
+    $scope.markAsDone = function(todo) {
+      console.log('done');
+      todo.done = true;
+    };
+
+    $scope.markAsNotDone = function(todo) {
+      console.log('not done');
+      todo.done = false;
+    };
  }]);
 
   controllers.controller('TodoAddCtrl', ['$scope', function TodoAddCtrl($scope) {
