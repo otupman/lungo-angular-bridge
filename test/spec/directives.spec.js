@@ -102,7 +102,7 @@ describe('directives', function() {
       expect(Lungo.dom.calls.length).toBe(1);  
     });
   });
-  
+ 
   describe('lab-aside', function() {
     var domResponse;
     
