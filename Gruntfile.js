@@ -11,11 +11,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-express');
   grunt.loadNpmTasks('grunt-todos');
 
+  var banner = '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+      '<%= grunt.template.today("yyyy-mm-dd") %> */\n';
+
+  
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
       options: {
         separator: ';'
+        , banner: banner        
       },
       dist: {
         src: ['src/lungo-angular-bridge.module.js', 'src/**/*.js'],
@@ -24,7 +29,7 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+        banner: banner
       },
       dist: {
         files: {
