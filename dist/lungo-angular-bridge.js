@@ -5,9 +5,9 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
 
   var _SECTION_PATH_LENGTH = 2;
   var _SECTION_INDEX = 1;
-  var _ARTICLE_INDEX = 2;
+  var _ARTICLE_INDEX = 2; 
 
-  var _CONTENT_REMOVAL_TIMEOUTMS = 500;
+  var _CONTENT_REMOVAL_TIMEOUTMS = 500; 
 
   $location.replace = function() {
     $location.$$replace = true;
@@ -60,12 +60,12 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
 
   var _isBack = function($location) {
     if(_isSameSection($location.path())) {
-      return routingHistory.length > 0
-          && routingHistory[routingHistory.length-2] === $location.path()
+      return routingHistory.length > 0 
+          && routingHistory[routingHistory.length-2] === $location.path() 
           && !_hasArticle($location.path());
     }
     else {
-      return routingHistory.length > 0
+      return routingHistory.length > 0 
           && routingHistory[routingHistory.length-2] === $location.path();
     }
   };
@@ -73,7 +73,7 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
   var isBack = function() {
     return _isBack($location);
   };
-
+  
   $scope.$on('$routeChangeSuccess', function(next, last) {
     _resetAsideStates();
     if(_isBack($location)) {
@@ -131,14 +131,14 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
         var a = Lungo.dom(this);
         var section = a.closest("section");
         var aside = Lungo.dom('#' + a.attr("lab-aside"));
-
+        
         section.swiping(function(gesture) {
           if(!section.hasClass("aside")) {
             var xdiff =  gesture.currentTouch.x - gesture.iniTouch.x;
             var ydiff =  Math.abs(gesture.currentTouch.y - gesture.iniTouch.y);
-
+            
             STARTED = STARTED ? true : xdiff > 3*ydiff && xdiff < 50;
-
+            
             if(STARTED) {
               xdiff = xdiff > 256 ? 256 : xdiff < 0 ? 0 : xdiff;
               aside.addClass(CLASS.SHOW);
@@ -149,7 +149,7 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
             }
           }
         });
-
+        
         section.swipe(function(gesture) {
           var diff = gesture.currentTouch.x - gesture.iniTouch.x;
           var ydiff =  Math.abs(gesture.currentTouch.y - gesture.iniTouch.y);
@@ -164,7 +164,7 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
         });
       });
     };
-
+    
     return {
       restrict: 'A'
       , link: function(scope, element, attr) {
@@ -177,7 +177,7 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
         });
         subscribeEvents(Lungo.dom(element[0]));
       }
-    }
+    }  
 });
 ;angular.module('Centralway.lungo-angular-bridge')
   .directive('labBoot', ['$location', function($location) {
@@ -234,7 +234,8 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
         });
       }
   }}])
-}(angular.module('Centralway.lungo-angular-bridge'), Lungo));;angular.module('Centralway.lungo-angular-bridge')
+}(angular.module('Centralway.lungo-angular-bridge'), Lungo));
+;angular.module('Centralway.lungo-angular-bridge')
   .directive('labPopup', ['popupService', function (popupService) {
     return {
         restrict: 'A',
@@ -254,7 +255,7 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
   var removeLungoAttributes = function(element) {
     /*
      * !NOTE: this is intentionally hardcoded to ensure speed of search
-     *
+     * 
      * Taken from Lungo.Attributes
     */
      element
@@ -268,8 +269,8 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
         .removeAttr('data-title')
         .removeAttr('data-loading');
   };
-
-
+      
+      
   var initialiseLoadedContent = function(targetElement) {
     var isReRun = targetElement === undefined;
     var loadedContent = !isReRun ? Lungo.dom(targetElement[0]) : Lungo.dom('*[class*="lab-view"]');
@@ -281,14 +282,14 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
       $log.info('labView::viewContentLoaded - booting content');
       Lungo.Boot.Data.init('#' + loadedContent.attr('id'));
       removeLungoAttributes(loadedContent);
-
+      
       loadedContent.addClass('lab-inited-view');
     }
     else {
       $log.warn('labView::initialiseLoadedContent() - lab-view-inited element already exists');
     }
   };
-
+      
   return {
     restrict: 'ECA',
     terminal: true,
@@ -299,10 +300,10 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
       scope.$on('$routeChangeSuccess', update);
       update();
 
-
+      
 
       scope.$on('$viewContentLoaded', function() {
-        initialiseLoadedContent();
+        initialiseLoadedContent(); 
       });
 
       function destroyLastScope() {
@@ -322,7 +323,7 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
          if (oldElement.length > 0) {
           oldElement.remove();
          }
-
+         
          currentLabView.removeClass('lab-view').addClass('lab-old-view');
 
           if(currentLabView.length > 0) {
@@ -362,15 +363,15 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
 
             newElement.addClass('hide');
           }
-
+          
           initialiseLoadedContent(newElement);
-
+          
           destroyLastScope();
 
           var link = $compile(newElement.contents()),
               current = $route.current,
               controller;
-
+          
           lastScope = current.scope = scope.$new();
           if (current.controller) {
             locals.$scope = lastScope;
@@ -408,7 +409,7 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
         }
     };
   }]) ;(function(Lungo, services, AppRouter) {
-
+  
   services.service('labRouterService', [function() {
     return {
       back: function() { AppRouter.instance.back(); }
@@ -416,8 +417,8 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
       , isSameSection: function(path) { AppRouter.instance.isSameSection(path); }
     };
   }]);
-
-
+  
+  
 })(Lungo, angular.module('Centralway.lungo-angular-bridge'), AppRouter);;angular.module('Centralway.lungo-angular-bridge')
   .factory('popupService', ['$http', '$compile', '$timeout', function ($http, $compile, $timeout) {
     var popupService = {};
@@ -433,12 +434,12 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
     }
 
     popupService.compileAndRunPopup = function (popup, scope, options) {
-
+        
         var ngPopup = angular.element(popup[0]);
         $compile(ngPopup)(scope);
         popup.show();
     }
-
+ 
     // Loads the popup
     popupService.load = function (url, scope, options) {
         var htmlPage = '<div ng-include="\'' + url + '\'"></div>';
@@ -448,9 +449,9 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
             var popup = autoPopup;
             popup.find('div').html(htmlPage);
             popupService.compileAndRunPopup(popup, scope, options);
-        });
+        }); 
     }
-
+    
     popupService.getWindow = function(create) {
         if(!popupService.windowElement && create) {
             var randomNumber = Math.floor(Math.random() * (999999 + 1));
@@ -461,11 +462,11 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
         }
         return popupService.windowElement;
     }
-
+    
     // Loads the popup
     popupService.showWindow = function (url, scope, options) {
       var transition = options.transition || '';
-
+      
       var popup = popupService.getWindow(true);
       popup.attr('ng-include', "'" + url + "'");
       popup.attr('data-transition', transition);
@@ -473,15 +474,15 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
         popup.attr('ng-controller', options.controller);
       }
       var ngPopup = angular.element(popup[0]);
-      $compile(ngPopup)(scope);
-
+      $compile(ngPopup)(scope); 
+      
       scope.$on('$includeContentLoaded', function() {
 		Lungo.Boot.Data.init('#' + popup.attr('id'));
       });
       //TODO: Determine why this timeout makes everything magically work - my guess is it's a digest issue and this should be hooking into an event from Angular
       $timeout(function() {
         Lungo.Router.section(popup.attr('id'));
-      }, 1);
+      }, 1);      
     };
 
 
@@ -500,7 +501,7 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
                 delete popupService.windowElement;
             }, 400);
         }
-
+        
     }
 
     return popupService;
