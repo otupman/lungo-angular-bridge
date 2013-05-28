@@ -3,8 +3,8 @@
   services.service('labRouterService', [function() {
     return {
       back: function() { AppRouter.instance.back(); }
-      , isBack: function() { AppRouter.instance.isBack(); }
-      , isSameSection: function(path) { AppRouter.instance.isSameSection(path); }
+      , isBack: function() { return AppRouter.instance.isBack(); }
+      , isSameSection: function(path) { return AppRouter.instance.isSameSection(path); }
     };
   }]);
   

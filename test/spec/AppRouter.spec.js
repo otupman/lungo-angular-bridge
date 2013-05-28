@@ -3,6 +3,7 @@
 describe('AppRouter', function() { 
   
   beforeEach(function() { 
+    angular.mock.module('Centralway.lungo-angular-bridge');
     Lungo.Router.history = [];
     spyOn(Lungo.View.Aside, 'show');
     spyOn(Lungo, 'dom').andCallFake(function(selector) {
@@ -16,6 +17,7 @@ describe('AppRouter', function() {
     
     // Here we fake $location.path so that we can manually emit $routeChangeSuccess
     angular.mock.inject(function($location, $rootScope) {
+      
       $location.oldPath = $location.path;
       spyOn($location, 'path').andCallFake(function(path) {
         if(path) {
@@ -36,12 +38,10 @@ describe('AppRouter', function() {
 
   beforeEach(function() {
   	angular.mock.inject(function($location, $rootScope) {
-        AppRouter.instance = new AppRouter(Lungo, $location, $rootScope);
+      AppRouter.instance = new AppRouter(Lungo, $location, $rootScope);
     })
   });
   
-  xdescribe('need to test labRouterService', function() {});
-
   describe('Moving between articles in a section', function() { 
     beforeEach(function() {
       spyOn(Lungo.Router, 'section');
@@ -59,6 +59,21 @@ describe('AppRouter', function() {
       expect(Lungo.Router.history.length).toEqual(3);
     });
 
+    it('should recognise a same section situation', function() {
+      expect(AppRouter.instance.isSameSection('/section/secondArticle')).toBeTruthy();
+      inject(function(labRouterService) {
+        expect(labRouterService.isSameSection('/section/secondArticle')).toBeTruthy();
+      });
+    });
+    
+    it('should recognise a non-same section', function() {
+      navigateTo('/otherSection/thing');
+      expect(AppRouter.instance.isSameSection('/section/secondArticle')).toBeFalsy();
+      inject(function(labRouterService) {
+        expect(labRouterService.isSameSection('/section/secondArticle')).toBeFalsy();
+      });
+    });
+    
     it('should not call back', function() {
       expect(Lungo.Router.back.calls.length).toEqual(0);
     })
@@ -120,25 +135,25 @@ describe('AppRouter', function() {
   		navigateTo('/third');
   	});
   	it('should have 3 forward calls', function() {
-  		expect(Lungo.Router.section.calls.length).toBe(3);
+      expect(Lungo.Router.section.calls.length).toBe(3);
   	});
 
   	it('should have 1 back call', function() {
-  		expect(Lungo.Router.back).toHaveBeenCalled();
+      expect(Lungo.Router.back).toHaveBeenCalled();
   	});
 
   	it('should have the correct path', function() {
-  		angular.mock.inject(function($location) {
-  			expect($location.path()).toBe('/third');
-  		});	
+      angular.mock.inject(function($location) {
+        expect($location.path()).toBe('/third');
+      });	
   	});
   });
 
   describe('forward, forward, back, back', function() {
     beforeEach(function() {
-        spyOn(Lungo.Router, 'section');
-        spyOn(Lungo.Router, 'back');
-        spyOn(Lungo.Router, 'article');
+      spyOn(Lungo.Router, 'section');
+      spyOn(Lungo.Router, 'back');
+      spyOn(Lungo.Router, 'article');
     });
     
     describe('with just sections', function() {
@@ -151,6 +166,17 @@ describe('AppRouter', function() {
       it('should go back twice - AppRouter.instance.back()', function() {
         AppRouter.instance.back();        
         AppRouter.instance.back();
+        
+        angular.mock.inject(function($location) {
+          expect($location.path()).toBe('/first');
+        });  
+      });
+      
+      it('using the service it should go back twice', function() {
+        inject(function(labRouterService) {
+          labRouterService.back();
+          labRouterService.back();
+        });
         
         angular.mock.inject(function($location) {
           expect($location.path()).toBe('/first');
