@@ -13,7 +13,7 @@
           restrict: 'A',
           link: function(scope, element, attr) {
             var fn = $parse(attr[directiveName]);
-            Lungo.dom(element[0]).on(name.toLowerCase(), function(event) {
+            Lungo.dom(element[0]).on(name, function(event) {
               event.preventDefault();
               scope.$apply(function() {
                 fn(scope, {$event:event});
@@ -21,12 +21,11 @@
             });
           }
         };
-      }]); 
-      
-    });
+      }]);
 
+    });
   
-  lab.directive('href', ['$location', '$window', function($location, $window) {
+  lab.directive('href', ['$location', function($location) {
     return {
       restrict: 'A',
       link: function(scope, element, attr) {
@@ -43,6 +42,4 @@
         });
       }
   }}])  
-
-
 }(angular.module('Centralway.lungo-angular-bridge'), Lungo));

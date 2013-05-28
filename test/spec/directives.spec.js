@@ -28,16 +28,14 @@ describe('directives', function() {
     angular.mock.module('Centralway.lungo-angular-bridge');
     spyOn(Lungo, 'init');
     
-
-    
   });
-  
+
   describe('lab-*quojs touch events*', function() {
     var quoEvents = 'swipe swiping swipeLeft swipeRight swipeDown swipeUp'
     + ' tap hold singleTap doubleTap'
     + ' pinch pinching pinchIn pinchOut'
     + ' rotate rotating rotateLeft rotateRight';
-    
+
     var angularDirectives = {
       'swipeLeft': 'swipe-left', 'swipeRight': 'swipe-right', 'swipeDown': 'swipe-down', 'swipeUp': 'swipe-up'
       , 'singleTap': 'single-tap', 'doubleTap': 'double-tap'
@@ -59,18 +57,18 @@ describe('directives', function() {
     });
     
     angular.forEach(quoEvents.split(' '), function(eventName) {
-      it('should register the event handler: ' + eventName, function() {        
+      it('should register the event handler: ' + eventName, function() {
         inject(function($compile, $rootScope) {
           var directiveName = 'lab-'+ (angularDirectives[eventName] === undefined ? eventName : angularDirectives[eventName]);
           var element = $compile('<a ' + directiveName + '="eventPerformed()">')($rootScope);
           expect(Lungo.dom).toHaveBeenCalled();
           expect(domResponse.on).toHaveBeenCalled();
-          expect(domResponse.on.mostRecentCall.args[0]).toEqual(eventName.toLowerCase());
-        });      
+          expect(domResponse.on.mostRecentCall.args[0]).toEqual(eventName);
+        });
       });
     });
   });
-  
+
   describe('Anchor href binding', function() {
     var element = null;
     var wasClicked = false;
@@ -97,38 +95,11 @@ describe('directives', function() {
       //! so we check simply to make sure that the tap fires a click
       expect(wasClicked).toBeTruthy();
     });
-
     it('should bind a tap handler on anchor tags (and none of the others)', function() { 
       expect(Lungo.dom.calls.length).toBe(1);  
     });
   });
- 
-  describe('lab-aside', function() {
-    var domResponse;
-    
-    beforeEach(function() {
-      domResponse = spyOnLungoDom(Lungo);
-      
-      inject(function($compile, $rootScope) {
-        var element = $compile(
-         '<aside id="testAside"></aside>'
-        +'<section><header>'
-        +'<nav><a lab-aside="testAside">Test aside</a></nav>'
-        +'</header><article class="active"></article></section>'
-        )($rootScope);
-      });
-    });
-    
-    afterEach(function() {
-      domResponse.restoreOldDom();
-    });
-    
-    it('should have registered the swiping handlers', function() {
-      expect(domResponse.swiping).toHaveBeenCalled();
-      expect(domResponse.swipe).toHaveBeenCalled();
-    });
-  });
-  
+
   describe('lab-boot', function() {
     it('should call Lungo init', function() {
       inject(function($compile, $rootScope) {
@@ -163,7 +134,7 @@ describe('directives', function() {
         });
       });
     });
-  
+
   });
 
 });
