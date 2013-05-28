@@ -1,3 +1,4 @@
+/*! lungo-angular-bridge - v0.1.2 - 2013-05-28 */
 angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function(Lungo, $location, $scope) {
   var routingHistory = [];
 
