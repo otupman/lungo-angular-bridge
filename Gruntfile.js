@@ -9,6 +9,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-express');
+  grunt.loadNpmTasks('grunt-todos');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -44,6 +45,12 @@ module.exports = function(grunt) {
           , debug: true
         }
       }
+    }
+    , todos: {
+      options: {
+        
+      },
+      src: ['src/**/*.js', 'test/e2e/**/*.js', 'test/spec/**/*.js', 'test/lab-scenario.js']
     }
   });
 
