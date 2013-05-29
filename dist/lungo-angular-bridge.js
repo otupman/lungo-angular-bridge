@@ -1,5 +1,6 @@
-/*! lungo-angular-bridge - v0.1.2 - 2013-05-29 */
-angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function(Lungo, $location, $scope) {
+/*! lungo-angular-bridge - v0.1.3 - 2013-05-31 */
+angular.module('Centralway.lungo-angular-bridge', [])
+  .value('labOptions', {}); ;var AppRouter = function(Lungo, $location, $scope) {
   var routingHistory = [];
 
   var oldReplace = $location.replace;
@@ -117,8 +118,16 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
     , isSameSection: _isSameSection
   };
 
-};;angular.module('Centralway.lungo-angular-bridge')
-  .directive('labAside', function() {
+};;/**
+ * directive: lab-aside
+ * NOTE: lab aside can be configured via lab-boot with swipe-on-asides = true/false to
+ * enable/disable swipe-to-open the aside. 
+ * FURTHER NOTE: this only works if the lab-aside attribute is in a template loaded via lab-view
+ * because otherwise lab-boot is processed *after* the binding of the events :(
+ *
+ */
+angular.module('Centralway.lungo-angular-bridge')
+  .directive('labAside', ['labOptions', function(labOptions) {
     var subscribeEvents = function(hrefs) { //STOLEN: from Lungo
       var CLASS = {
         SHOW: Lungo.Constants.CLASS.SHOW
@@ -169,6 +178,8 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
     return {
       restrict: 'A'
       , link: function(scope, element, attr) {
+        var options = {};
+        options.swipeEnabled = attr['noSwipe'] ? false : labOptions.doAsideSwipe;
         var asideId = element.attr('lab-aside');
         //var targetEvent = Lungo.Core.environment().isMobile ? 'tap' : 'click';
         var targetEvent = 'tap';
@@ -177,19 +188,36 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
           Lungo.View.Aside.toggle('#' + asideId);
           event.preventDefault();
         });
-        subscribeEvents(Lungo.dom(element[0]));
+        if(options.swipeEnabled) {
+          subscribeEvents(Lungo.dom(element[0]));
+        }
       }
     }  
-});
+}]);
 ;angular.module('Centralway.lungo-angular-bridge')
   .directive('labBoot', ['$location', function($location) {
       function _parseResourceParam(param) {
         return param.indexOf(',') === -1 ? param : param.split(',');
       }
+    
+      function _getOptionBoolean(attrs, optionName, defaultValue) {
+        if(!attrs[optionName]) {
+          return defaultValue;
+        }
+        if(attrs[optionName].length === 0) {
+          return true;
+        }
+        return attrs[optionName].toLowerCase() === 'true';
+      }
+    
       return function(scope, elm, attrs) {
         Lungo.init({
           'resources': elm.attr('resources') && _parseResourceParam(elm.attr('resources'))
         });
+        var labOptions = {
+          doAsideSwipe: _getOptionBoolean(attrs, 'swipeOnAsides', true)
+        };
+        angular.module('Centralway.lungo-angular-bridge').value('labOptions', labOptions);
         AppRouter.instance = AppRouter(Lungo, $location, scope);
       };
     }]);(function(lab, Lungo) {
@@ -390,8 +418,8 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
   services.service('labRouterService', [function() {
     return {
       back: function() { AppRouter.instance.back(); }
-      , isBack: function() { AppRouter.instance.isBack(); }
-      , isSameSection: function(path) { AppRouter.instance.isSameSection(path); }
+      , isBack: function() { return AppRouter.instance.isBack(); }
+      , isSameSection: function(path) { return AppRouter.instance.isSameSection(path); }
     };
   }]);
   
