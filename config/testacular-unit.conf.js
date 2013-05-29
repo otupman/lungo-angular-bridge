@@ -5,6 +5,9 @@
 // base path, that will be used to resolve files and exclude
 basePath = '../';
 
+preprocessors = {
+  '**/src/**/*.js': 'coverage'
+};
 
 // list of files / patterns to load in the browser
 files = [
@@ -29,7 +32,7 @@ exclude = [
 
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'
-reporters = ['progress'];
+reporters = ['progress', 'coverage'];
 
 
 // web server port
@@ -71,3 +74,8 @@ captureTimeout = 5000;
 // Continuous Integration mode
 // if true, it capture browsers, run tests and exit
 singleRun = false;
+
+coverageReporter = {
+  type : 'lcov',
+  dir : 'out/coverage'
+};

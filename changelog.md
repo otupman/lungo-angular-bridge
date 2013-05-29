@@ -8,6 +8,7 @@
  - Feature: grunt demoServer to just get started
  - Change: Split the single source file into separate ones and added grunt task to bring them all together
  - Fixed: issue where data-title had stopped working
+ - Fixed: issue where direction-specific events (such as swipeLeft, swipeUp, etc.) were not working
  
 ## v0.0.5 - April 25th, 2013
 ### Changes

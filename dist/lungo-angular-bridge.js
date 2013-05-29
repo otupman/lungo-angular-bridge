@@ -1,3 +1,4 @@
+/*! lungo-angular-bridge - v0.1.2 - 2013-05-29 */
 angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function(Lungo, $location, $scope) {
   var routingHistory = [];
 
@@ -206,7 +207,7 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
           restrict: 'A',
           link: function(scope, element, attr) {
             var fn = $parse(attr[directiveName]);
-            Lungo.dom(element[0]).on(name.toLowerCase(), function(event) {
+            Lungo.dom(element[0]).on(name, function(event) {
               event.preventDefault();
               scope.$apply(function() {
                 fn(scope, {$event:event});
@@ -214,12 +215,11 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
             });
           }
         };
-      }]); 
-      
-    });
+      }]);
 
+    });
   
-  lab.directive('href', ['$location', '$window', function($location, $window) {
+  lab.directive('href', ['$location', function($location) {
     return {
       restrict: 'A',
       link: function(scope, element, attr) {
@@ -236,9 +236,8 @@ angular.module('Centralway.lungo-angular-bridge', []); ;var AppRouter = function
         });
       }
   }}])  
-
-
-}(angular.module('Centralway.lungo-angular-bridge'), Lungo));;angular.module('Centralway.lungo-angular-bridge')
+}(angular.module('Centralway.lungo-angular-bridge'), Lungo));
+;angular.module('Centralway.lungo-angular-bridge')
   .directive('labPopup', ['popupService', function (popupService) {
     return {
         restrict: 'A',
