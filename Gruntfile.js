@@ -8,12 +8,19 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-shell');
+  
+  
   grunt.loadNpmTasks('grunt-express');
   grunt.loadNpmTasks('grunt-todos');
 
   var banner = '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
       '<%= grunt.template.today("yyyy-mm-dd") %> */\n';
 
+  var packageJsFiles = ['src/lungo-angular-bridge.module.js', 'src/**/*.js'];
+  var packageNonJsFiles = ['README.md', 'component.json', 'test/lab-scenario.js', 'LICENCE.txt', 'changelog.md'];
   
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -22,19 +29,50 @@ module.exports = function(grunt) {
         separator: ';'
         , banner: banner        
       },
+      unstable: {
+        src: packageJsFiles,
+        dest: 'packages/unstable/<%= pkg.name %>.js'
+      },
       dist: {
         src: ['src/lungo-angular-bridge.module.js', 'src/**/*.js'],
         dest: 'dist/<%= pkg.name %>.js'
       }
-    },
-    uglify: {
+    }
+    , clean: {
+      unstable: ['packages/unstable']
+    }
+    , shell: {
+      options: {
+        stdout: true, stderr: true
+      }
+      , unstablePre: {
+        command: 'git clone https://github.com/centralway/lab-unstable packages/unstable'
+      }
+      , unstable: {
+        options: {execOptions: {cwd: 'packages/unstable'}}
+        , command: [
+          'git add .'
+          , 'git commit -m "<%= pkg.name %> - RELEASE v<%= pkg.version %>"'
+          , 'git tag <%= pkg.version %>'
+          , 'git push --tags'
+          , 
+        ].join('&&')
+      }
+    }
+    , copy: {
+      unstable: {
+        files: [{src: packageNonJsFiles, dest: 'packages/unstable/', flatten: true, expand: true}]
+      }
+    }
+    , uglify: {
       options: {
         banner: banner
       },
+      unstable: {
+        files: {'packages/unstable/<%= pkg.name %>.min.js': ['<%= concat.unstable.dest %>']}
+      },
       dist: {
-        files: {
-          'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
-        }
+        files: {'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']}
       }
     },
     watch: {
@@ -56,8 +94,11 @@ module.exports = function(grunt) {
         
       },
       src: ['src/**/*.js', 'test/e2e/**/*.js', 'test/spec/**/*.js', 'test/lab-scenario.js']
+
     }
   });
+
+  grunt.registerTask('unstable-package', ['clean:unstable', 'shell:unstablePre', 'concat:unstable', 'uglify:unstable', 'copy:unstable', 'shell:unstable']);
 
   grunt.registerTask('default', ['concat', 'uglify']);
   
