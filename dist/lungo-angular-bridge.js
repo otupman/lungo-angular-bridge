@@ -215,7 +215,7 @@ angular.module('Centralway.lungo-angular-bridge')
           'resources': elm.attr('resources') && _parseResourceParam(elm.attr('resources'))
         });
         var labOptions = {
-          doAsideSwipe: _getOptionBoolean(attrs, 'swipeOnAsides', true)
+          doAsideSwipe: _getOptionBoolean(attrs, 'asideSwiping', true)
         };
         angular.module('Centralway.lungo-angular-bridge').value('labOptions', labOptions);
         AppRouter.instance = AppRouter(Lungo, $location, scope);

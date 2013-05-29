@@ -52,7 +52,7 @@ describe('lab-aside', function() {
     }));
     
     it('should turn swipe off from the lab options', inject(function($compile, $rootScope) {
-      $compile('<div lab-boot swipe-on-aside="false">' + asideTemplate + '</div>');
+      $compile('<div lab-boot aside-swiping="false">' + asideTemplate + '</div>');
       expect(domResponse.swiping).not.toHaveBeenCalled();
       expect(domResponse.swipe).not.toHaveBeenCalled();
       

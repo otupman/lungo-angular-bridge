@@ -55,11 +55,10 @@ describe('lab-boot', function() {
       });
     });
     
-    
     var asidePossibilities = {
-      'swipe-on-asides': true
-      , 'swipe-on-asides="true"': true
-      , 'swipe-on-asides="false"': false
+      'asideSwiping': true
+      , 'asideSwiping="true"': true
+      , 'asideSwiping="false"': false
       , '': true
     };
     for(var possibility in asidePossibilities) {
