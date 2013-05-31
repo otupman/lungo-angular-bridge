@@ -1,0 +1,53 @@
+<html ng-app="AsideTest">
+  <head>
+      <title>Lungo Angular Bridge Example</title>
+
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.css"/>
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/lungo.icon.css"/>
+      <link rel="stylesheet" type="text/css" href="../../components/lungo/theme.lungo.css">
+      <script type="text/javascript" src="../../components/quojs/quo.debug.js"></script>
+      <script type="text/javascript" src="../../lib/lungo.debug.js"></script>
+  </head>
+
+  <body lab-boot aside-swiping="false">
+  	<section id="main" data-transition="slide">
+  		<article class="active" id="first_article">
+  		  <a lab-aside="aside1" class="aside link">Trigger the aside</a>
+  		</article>
+  	</section>
+    
+    <aside id="aside1">
+        <header>
+            <span class="center title">Test</span>
+        </header>
+        <article class="active list scroll">
+            
+        </article>
+    </aside>
+
+	<script type="text/javascript" src="../../components/angular/angular.js"></script>
+    <script type="text/javascript" src="../../dist/lungo-angular-bridge.js"></script>
+
+    <script>
+      // Declare app level module which depends on filters, and services
+      angular.module('AsideTest', 
+          ['Centralway.lungo-angular-bridge']).
+        config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+
+          $routeProvider.when('/', {templateUrl: 'screen1.html'});
+
+          $routeProvider.otherwise({redirectTo: '/'});
+          $locationProvider.html5Mode(false);
+        }]);
+    </script>
+  </body>
+</html>	
+
+
+
+
+
+
+
+
+
