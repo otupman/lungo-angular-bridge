@@ -6,9 +6,11 @@
  - Feature: lab-(event) - directives for touch, tap, swipe, etc: lab-touch, lab-tap, lab-swipe, lab-etc :)
  - Feature: New website
  - Feature: grunt demoServer to just get started
+ - Feature: lab-scenario.js included to provide labElem([selector]).[method] - tap, touch, etc.
  - Change: Split the single source file into separate ones and added grunt task to bring them all together
  - Fixed: issue where data-title had stopped working
  - Fixed: issue where direction-specific events (such as swipeLeft, swipeUp, etc.) were not working
+ - Fixed: issue where the new labRouterService wasn't properly returning values
  
 ## v0.0.5 - April 25th, 2013
 ### Changes
