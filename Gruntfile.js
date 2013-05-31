@@ -22,6 +22,25 @@ module.exports = function(grunt) {
   var packageJsFiles = ['src/lungo-angular-bridge.module.js', 'src/**/*.js'];
   var packageNonJsFiles = ['README.md', 'component.json', 'test/lab-scenario.js', 'LICENCE.txt', 'changelog.md'];
   
+  //TODO(otupman) - there's a lot of task duplication here; should move into a custom task
+  var packages = {
+    stable: {
+      dir: 'packages/stable'
+      , repo: 'lab-stable-package'
+    }
+    , unstable: {
+      dir: 'packages/unstable'
+      , repo: 'lab-unstable'
+    }
+    , commands: [
+      'git add .'
+      , 'git commit -m "<%= pkg.name %> - RELEASE v<%= pkg.version %>"'
+      , 'git tag <%= pkg.version %>'
+      , 'git push --tags'
+      , 
+    ]
+  };
+  
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
@@ -31,32 +50,41 @@ module.exports = function(grunt) {
       },
       unstable: {
         src: packageJsFiles,
-        dest: 'packages/unstable/<%= pkg.name %>.js'
+        dest: packages.unstable.dir+'/<%= pkg.name %>.js'
       },
-      dist: {
-        src: ['src/lungo-angular-bridge.module.js', 'src/**/*.js'],
+      stable: {
+        src: packageJsFiles,
+        dest: packages.stable.dir+'/<%= pkg.name %>.js'
+      }
+      , dist: {
+        src: packageJsFiles,
         dest: 'dist/<%= pkg.name %>.js'
       }
     }
     , clean: {
-      unstable: ['packages/unstable']
+      unstable: [packages.unstable.dir]
+      , stable: [packages.stable.dir]
     }
     , shell: {
       options: {
         stdout: true, stderr: true
       }
+      // The xxxPre tasks clone out the repo ready to move the updated code in there
       , unstablePre: {
-        command: 'git clone https://github.com/centralway/lab-unstable packages/unstable'
+        command: 'git clone https://github.com/centralway/' 
+                  + packages.unstable.repo + ' ' + packages.unstable.dir
       }
       , unstable: {
-        options: {execOptions: {cwd: 'packages/unstable'}}
-        , command: [
-          'git add .'
-          , 'git commit -m "<%= pkg.name %> - RELEASE v<%= pkg.version %>"'
-          , 'git tag <%= pkg.version %>'
-          , 'git push --tags'
-          , 
-        ].join('&&')
+        options: {execOptions: {cwd: packages.unstable.dir}}
+        , command: packages.commands.join('&&')
+      }
+      , stablePre: {
+        command: 'git clone https://github.com/centralway/' 
+                  + packages.stable.repo + ' ' + packages.stable.dir
+      }
+      , stable: {
+        options: {execOptions: {cwd: packages.stable.dir}}
+        , command: packages.commands.join('&&')
       }
     }
     , copy: {
@@ -99,8 +127,9 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('unstable-package', ['clean:unstable', 'shell:unstablePre', 'concat:unstable', 'uglify:unstable', 'copy:unstable', 'shell:unstable']);
-
-  grunt.registerTask('default', ['concat', 'uglify']);
+  grunt.registerTask('stable-package', ['clean:stable', 'shell:stablePre', 'concat:stable', 'uglify:stable', 'copy:stable', 'shell:stable']);
+  
+  grunt.registerTask('default', ['concat:dist', 'uglify:dist']);
   
   grunt.registerTask('test', ['default', 'test']);
 
