@@ -14,4 +14,14 @@ describe('Lab Scenario Tests', function() {
     expect(element('#lastEvent').text()).toEqual('swiped');
   });
 
+  it('should move to the next screen', function() {
+    labElem('a.go-to-screen2').tap();
+    expect(element('#screen2:visible').count()).toBe(1);
+  });
+
+  it('should show the aside', function() {
+    labElem('a.test.aside').tap();
+    expect(element('#leftAside:visible').count()).toBe(1);
+  });
+
 });

@@ -29,10 +29,10 @@ angular.module('Centralway.lungo-angular-bridge')
             } else {
               section.attr('style', '');
             }
-          }
+          }  
         });
         
-        section.swipe(function(gesture) {
+        section.swipe(function(gesture) { 
           var diff = gesture.currentTouch.x - gesture.iniTouch.x;
           var ydiff =  Math.abs(gesture.currentTouch.y - gesture.iniTouch.y);
           section.attr('style', '');
@@ -51,7 +51,8 @@ angular.module('Centralway.lungo-angular-bridge')
       restrict: 'A'
       , link: function(scope, element, attr) {
         var asideId = element.attr('lab-aside');
-        var targetEvent = Lungo.Core.environment().isMobile ? 'tap' : 'click';
+        //var targetEvent = Lungo.Core.environment().isMobile ? 'tap' : 'click';
+        var targetEvent = 'tap';
         //TODO: deprecate this environment selection in favour of tap-only
         Lungo.dom(element[0]).bind(targetEvent, function(event) {
           Lungo.View.Aside.toggle('#' + asideId);

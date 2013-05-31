@@ -1,26 +1,32 @@
 'use strict';
 
+function spyOnLungoDom(lng) {
+  var domResponse = [''];
+  domResponse.each = $$.fn.each;
+  domResponse.swiping = jasmine.createSpy('swiping');
+  domResponse.swipe = jasmine.createSpy('swipe');
+  domResponse.closest = jasmine.createSpy('closest').andCallFake(function() {
+    return domResponse;
+  });
+  domResponse.on = jasmine.createSpy('on');
+  domResponse.bind = jasmine.createSpy('bind');
+  domResponse.attr = jasmine.createSpy('attr');
+  domResponse.__OLDDOM = lng.dom;
+  domResponse.restoreOldDom = function() {
+    lng.dom = domResponse.__OLDDOM;
+  };
+  spyOn(Lungo, 'dom').andCallFake(function(selector) {
+    return domResponse;
+  });
+  
+  return domResponse;
+}
+
 describe('directives', function() {
   var domResponse = null;
   beforeEach(function() {
     angular.mock.module('Centralway.lungo-angular-bridge');
     spyOn(Lungo, 'init');
-
-     domResponse = [''];
-      domResponse.each = $$.fn.each;
-      domResponse.swiping = jasmine.createSpy('swiping');
-      domResponse.swipe = jasmine.createSpy('swipe');
-      domResponse.closest = jasmine.createSpy('closest').andCallFake(function() {
-        return domResponse;
-      });
-      domResponse.on = jasmine.createSpy('on');
-      domResponse.bind = jasmine.createSpy('bind');
-      domResponse.attr = jasmine.createSpy('attr');
-
-      spyOn(Lungo, 'dom').andCallFake(function(selector) {
-        return domResponse;
-      });
-
   });
 
   describe('lab-*quojs touch events*', function() {
@@ -35,7 +41,20 @@ describe('directives', function() {
       , 'pinchIn': 'pinch-in', 'pinchOut': 'pinch-out'
       , 'rotateLeft': 'rotate-left', 'rotateRight': 'rotate-right'
     };
-
+    
+    var oldDom = Lungo.dom,
+        domResponse;
+    
+    beforeEach(function() {
+      
+      
+      domResponse = spyOnLungoDom(Lungo);
+    });
+    
+    afterEach(function() {
+      domResponse.restoreOldDom();
+    });
+        
     angular.forEach(quoEvents.split(' '), function(eventName) {
       it('should register the event handler: ' + eventName, function() {
         inject(function($compile, $rootScope) {
@@ -51,27 +70,41 @@ describe('directives', function() {
 
   describe('Anchor href binding', function() {
     var element = null;
+    var wasClicked = false;
     beforeEach(function() {
-      inject(function($compile, $rootScope) {
+      spyOn(Lungo, 'dom').andCallThrough();
+      
+      inject(function($compile, $rootScope, $location) {
+        $rootScope.clicked = function() {
+          wasClicked = true;
+        };
         element = $compile(
-          '<a ng-click="someClick()">Ignore me</a>'
-          + '<a href="http://www.google.com">Bindable</a>'
+          '<div><a ng-click="someClick()">Ignore me</a>'
+          + '<a href="#/test" class="bindable" ng-click="clicked()">Bindable</a>'
           + '<a href="http://www.somewhere.com" no-href>No bind requested</a>'
-          + '<link href="http://www.example.org/style.css">'
+          + '<link href="http://www.example.org/style.css"></div>'
         )($rootScope);
       });
     });
-
-    it('should bind a tap handler on anchor tags (and none of the others)', function() {
+    
+    it('should triggerd a click', function() {
+      $$(element[0]).find('a.bindable').trigger('tap');
+      //! Would prefer to check location to ensure that the browser has followed the link
+      //! however FF handles the iframe differently so there's no change to it's location :(
+      //! so we check simply to make sure that the tap fires a click
+      expect(wasClicked).toBeTruthy();
+    });
+    it('should bind a tap handler on anchor tags (and none of the others)', function() { 
       expect(Lungo.dom.calls.length).toBe(1);
     });
   });
 
   describe('lab-aside', function() {
-
+    var domResponse;
+    
     beforeEach(function() {
-
-
+      domResponse = spyOnLungoDom(Lungo);
+      
       inject(function($compile, $rootScope) {
         var element = $compile(
          '<aside id="testAside"></aside>'
@@ -81,7 +114,11 @@ describe('directives', function() {
         )($rootScope);
       });
     });
-
+    
+    afterEach(function() {
+      domResponse.restoreOldDom();
+    });
+    
     it('should have registered the swiping handlers', function() {
       expect(domResponse.swiping).toHaveBeenCalled();
       expect(domResponse.swipe).toHaveBeenCalled();

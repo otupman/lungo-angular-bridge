@@ -17,14 +17,14 @@
               event.preventDefault();
               scope.$apply(function() {
                 fn(scope, {$event:event});
-              });
+              }); 
             });
           }
         };
       }]);
 
     });
-
+  
   lab.directive('href', ['$location', function($location) {
     return {
       restrict: 'A',
@@ -38,8 +38,8 @@
         }
         var url = attr['href'];
         Lungo.dom(element[0]).on('tap', function(event) {
-          $location.path(url);
+          Lungo.dom(element[0]).trigger('click');
         });
       }
-  }}])
+  }}])  
 }(angular.module('Centralway.lungo-angular-bridge'), Lungo));
